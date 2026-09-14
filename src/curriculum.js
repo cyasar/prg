@@ -23,6 +23,7 @@ export const curriculum = [
       "Sözde kodu ve akış şemasını izleyerek sonucu tahmin eder.",
       "Python ortamını hazırlayıp ilk programını çalıştırır; HTML, CSS ve JavaScript rollerini ayırt eder.",
       "YZ yardımını kendi taslağı ve testleriyle denetler.",
+      "Programlama ve Python becerilerini kayıt analizi, dosya bütünlüğü ve otomasyon örnekleriyle bilgi güvenliğine bağlar.",
     ],
   ),
   row(

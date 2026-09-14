@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
+import { MotivationVisual } from "./motivation-visuals.jsx";
 import {
   ArrowDown,
   ArrowRight,
@@ -377,6 +378,9 @@ export function SlideBody({ slide }) {
       {slide.type === "flowchart" && <Flowchart variant={slide.variant} />}
       {slide.type === "sumtrace" && <SumTrace />}
       {slide.type === "boolean" && <BooleanLab />}
+      {slide.type === "motivation" && (
+        <MotivationVisual variant={slide.variant} />
+      )}
       {slide.type === "web" && (
         <LiveDemo demo={slide.demo} CodeComponent={CodeBlock} />
       )}

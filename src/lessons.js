@@ -1,4 +1,5 @@
 import { curriculum as weeks } from "./curriculum.js";
+import { motivationSlides } from "./motivation.js";
 import { pythonExamples as py, webExamples as web } from "./examples.js";
 const s = (title, type, content, notes) => ({ title, type, ...content, notes });
 const cards = (title, items, lead, notes) =>
@@ -148,6 +149,7 @@ export const decks = {
       "Örneklerimiz sentetik verilerle ve kendi çalışma alanımızda ilerleyecek.",
       "API, bir programın başka bir programla belirlenmiş kurallar üzerinden iletişim kurmasıdır. Burada ağ isteği veya saldırı örneği çalıştırmıyoruz. Bu temel ileride Log ve Veri Analizi ile Güvenli Yazılım Geliştirme derslerine katkı sağlar.",
     ),
+    ...motivationSlides,
     s(
       "Bir programın düşünce yolu",
       "process",

@@ -17,7 +17,7 @@ YZ ile birlikte programlayın, direksiyonda siz olun. Öğrenci önce kendi çö
 ## İçerik
 
 - 14 haftalık müfredat; her hafta için kazanım, uygulama ve kontrol ölçütü.
-- **Hafta 1: 43 slayt.** Programlama, algoritma, günlük yaşam ve toplama algoritmaları, sözde kod, akış şeması, araçlar, kurulum, ilk Python programları, HTML/CSS/JS ve YZ yaklaşımı.
+- **Hafta 1: 49 slayt.** Programlama, algoritma, günlük yaşam ve toplama algoritmaları, sözde kod, akış şeması, araçlar, kurulum, ilk Python programları, HTML/CSS/JS ve YZ yaklaşımı. 10–15. slaytlarda bölümle bağlantılı motivasyon: etkileşimli olay kaydı sayımı, gerçek SHA-256 hesaplamasıyla içerik değişimi, yedekleme kontrolü, Python araçları ve dönem sonu projesine gelişim yolu.
 - **Hafta 2: 43 slayt.** Bellek, değişkenler, türler, input/print, dönüşüm, operatörler, Boolean düşünme, if/elif/else, sınır testleri ve Python/JavaScript karşılaştırması.
 - 14 bağımsız Python dosyası, iki bağımsız web örneği.
 - 3–14. haftalar “Yakında” durumundadır; bu aşamada ayrıntılı slaytları hazırlanmadı.
@@ -98,7 +98,10 @@ src/
   learning-widgets.jsx    ThinkBox, AIBox, Flowchart, MemoryBoxes, SumTrace,
                           BooleanLab, LiveDemo
   curriculum.js           14 haftalık tek müfredat kaynağı
-  lessons.js              86 slayt ve ayrıntılı açıklamalar
+  lessons.js              92 slayt ve ayrıntılı açıklamalar
+  motivation.js           Motivasyon slaytları, sentetik veriler ve örnek kurallar
+  motivation-visuals.jsx  Altı görsel anlatım; kayıt, özet ve otomasyon etkileşimleri
+  motivation.css          Beyaz temaya uyumlu, responsive görsel bileşenler
   examples.js             Python ve web örneklerinin ortak tanımları
   course.js               Ders kimliği, kaynaklar ve katkı başlıkları
   styles.css              Yerleşim ve responsive kurallar
@@ -134,7 +137,7 @@ Workflow elle de başlatılabilir. Yayın durumunu repository içindeki Actions 
 
 ## Akademik dayanak
 
-Paylaşılan `76089_ogretim-plani-2026-2027.pdf`: BGT-1009, 1. yarıyıl, 2 teori + 2 uygulama, 3 ulusal kredi, 6 AKTS. Kısa kavram açıklamaları uygulamayla birleşir. 43 slayt kesintisiz anlatım değildir; alıştırma ve düşünme ekranları da bu sayıya dahildir. Uygulama süresini öğrenci hızına göre ayırın.
+Paylaşılan `76089_ogretim-plani-2026-2027.pdf`: BGT-1009, 1. yarıyıl, 2 teori + 2 uygulama, 3 ulusal kredi, 6 AKTS. Kısa kavram açıklamaları uygulamayla birleşir. Slayt sayıları kesintisiz anlatım süresi değildir; alıştırma ve düşünme ekranları da bu sayılara dahildir. Uygulama süresini öğrenci hızına göre ayırın.
 
 [Bölüm hedefleri](https://bilgiguven.cubf.comu.edu.tr/tr/sayfa/hedefler-5) ve [misyon, vizyon ve temel değerler](https://bilgiguven.cubf.comu.edu.tr/tr/sayfa/misyon-vizyon-ve-temel-degerler-4) doğrultusunda analitik düşünme, güvenli yazılım temeli, uygulama, etik ve sürekli öğrenme vurgulanmıştır. A–E etiketleri dersin katkı başlıklarıdır, resmî program çıktısı numarası değildir.
 

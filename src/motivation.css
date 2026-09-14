@@ -1,0 +1,377 @@
+.motivation-visual {
+  --motivation-blue: #245c99;
+  color: #202a35;
+}
+.motivation-triad {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+.motivation-card,
+.motivation-file,
+.motivation-chart {
+  padding: 24px;
+  border: 1px solid #dce3eb;
+  border-radius: 12px;
+  background: #fff;
+  min-width: 0;
+}
+.motivation-card > svg {
+  color: var(--motivation-blue);
+  display: block;
+  margin-bottom: 20px;
+}
+.motivation-visual h2 {
+  font-size: clamp(20px, 2vw, 28px);
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+  margin: 12px 0;
+}
+.motivation-visual p {
+  font-size: 18px;
+  line-height: 1.5;
+  margin: 12px 0 0;
+}
+.motivation-visual .eyebrow {
+  color: #52677f;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+.motivation-takeaway {
+  padding: 20px 0 4px;
+  font-size: clamp(18px, 1.8vw, 24px);
+  line-height: 1.45;
+}
+.motivation-takeaway strong {
+  color: var(--motivation-blue);
+}
+.motivation-source {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--motivation-blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.motivation-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  margin: 16px 0;
+  font-size: 15px;
+}
+.motivation-controls label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+}
+.motivation-controls select {
+  border: 1px solid #9daebe;
+  border-radius: 6px;
+  padding: 10px;
+  background: white;
+  color: #202a35;
+  font: inherit;
+}
+.motivation-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+.motivation-table-wrap {
+  min-width: 0;
+  overflow-x: auto;
+}
+.motivation-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+.motivation-table caption {
+  text-align: left;
+  font-size: 13px;
+  color: #52677f;
+  padding: 0 0 12px;
+}
+.motivation-table th,
+.motivation-table td {
+  text-align: left;
+  padding: 9px 12px;
+  border-bottom: 1px solid #e1e6ec;
+  white-space: nowrap;
+}
+.motivation-table th {
+  background: #f3f5f7;
+}
+.motivation-bar-row {
+  display: grid;
+  grid-template-columns: 100px minmax(30px, 1fr) 20px;
+  gap: 8px 12px;
+  margin-top: 17px;
+  align-items: center;
+  font-size: 15px;
+}
+.motivation-bar-row small {
+  grid-column: 2 / 4;
+  font-size: 12px;
+}
+.motivation-bar-track {
+  height: 12px;
+  background: #edf1f5;
+  border-radius: 3px;
+}
+.motivation-bar-track > div {
+  height: 100%;
+  background: var(--motivation-blue);
+  border-radius: 3px;
+}
+.motivation-visual .motivation-caption {
+  font-size: 15px;
+  color: #52677f;
+  margin-top: 18px;
+}
+.motivation-file > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--motivation-blue);
+}
+.motivation-file-text {
+  display: block;
+  margin: 22px 0;
+  font:
+    22px/1.5 Consolas,
+    monospace;
+  overflow-wrap: anywhere;
+}
+.motivation-hash-label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 10px;
+  color: #52677f;
+}
+.motivation-hash {
+  display: block;
+  word-break: break-all;
+  padding: 12px;
+  border-radius: 6px;
+  background: #f3f5f7;
+  font:
+    15px/1.6 Consolas,
+    monospace;
+}
+.motivation-evidence {
+  padding: 16px 20px;
+  border-left: 3px solid var(--motivation-blue);
+  background: #f2f6fb;
+  line-height: 1.5;
+  font-size: 17px;
+}
+.motivation-rule {
+  border-bottom: 1px solid #dce3eb;
+  padding-bottom: 20px;
+}
+.motivation-rule p {
+  font-size: 17px;
+}
+.motivation-devices {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+  margin: 24px 0;
+}
+.motivation-device {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  padding: 12px 2px;
+}
+.motivation-monitor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 66px;
+  height: 46px;
+  border: 2px solid #60748a;
+  border-radius: 5px;
+  position: relative;
+  margin-bottom: 10px;
+  font:
+    24px Consolas,
+    monospace;
+}
+.motivation-monitor::after {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 5px;
+  border-bottom: 2px solid #60748a;
+  border-left: 2px solid #60748a;
+  border-right: 2px solid #60748a;
+  top: 100%;
+}
+.motivation-device > strong {
+  font-size: 17px;
+}
+.motivation-device > span,
+.motivation-device > b {
+  font-size: 13px;
+}
+.motivation-device.is-current .motivation-monitor {
+  color: var(--motivation-blue);
+  background: #edf4fc;
+}
+.motivation-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.motivation-choices button[aria-pressed="true"] {
+  background: #edf4fc;
+  border-color: var(--motivation-blue);
+  color: #174979;
+}
+.motivation-pipeline {
+  display: grid;
+  grid-template-columns: 1fr 24px 1.4fr 24px 1fr;
+  gap: 10px;
+  align-items: center;
+}
+.motivation-pipeline > section {
+  min-width: 0;
+  background: #f5f7f9;
+  padding: 24px 18px;
+  border-radius: 10px;
+  min-height: 205px;
+}
+.motivation-pipeline > section > svg {
+  display: block;
+  margin-bottom: 20px;
+  color: var(--motivation-blue);
+}
+.motivation-pipeline .motivation-python {
+  border: 1px solid #aac2dc;
+  background: #f1f6fc;
+}
+.motivation-pipeline h2 {
+  font-size: 22px;
+  overflow-wrap: anywhere;
+}
+.motivation-arrow {
+  color: #52677f;
+}
+.motivation-roadmap {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+}
+.motivation-roadmap li {
+  position: relative;
+  padding: 0 18px 12px 0;
+  min-width: 0;
+}
+.motivation-roadmap li:not(:last-child)::before {
+  position: absolute;
+  content: "";
+  height: 2px;
+  background: #c5d5e7;
+  left: 60px;
+  right: 0;
+  top: 27px;
+}
+.motivation-milestone {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 56px;
+  border-radius: 10px;
+  background: #edf4fc;
+  color: #245c99;
+  border: 1px solid #c5d5e7;
+  font-weight: 700;
+  font-size: 17px;
+  margin-bottom: 20px;
+}
+.motivation-roadmap small {
+  font-size: 11px;
+  color: #52677f;
+}
+.motivation-roadmap p {
+  font-size: 17px;
+}
+@media (max-width: 1000px) {
+  .motivation-card,
+  .motivation-file,
+  .motivation-chart {
+    padding: 18px;
+  }
+  .motivation-devices {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .motivation-roadmap {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .motivation-roadmap li:nth-child(2)::before {
+    display: none;
+  }
+}
+@media (max-width: 650px) {
+  .motivation-triad,
+  .motivation-split {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .motivation-visual p {
+    font-size: 16px;
+  }
+  .motivation-pipeline {
+    grid-template-columns: 1fr;
+    justify-items: stretch;
+  }
+  .motivation-pipeline > section {
+    min-height: 0;
+    padding: 18px;
+  }
+  .motivation-arrow {
+    transform: rotate(90deg);
+    justify-self: center;
+  }
+  .motivation-table {
+    font-size: 13px;
+  }
+  .motivation-table th,
+  .motivation-table td {
+    padding: 8px;
+  }
+  .motivation-controls {
+    align-items: stretch;
+  }
+  .motivation-controls label {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .motivation-choices {
+    flex-direction: column;
+  }
+  .motivation-file-text {
+    font-size: 18px;
+  }
+  .motivation-hash {
+    font-size: 13px;
+  }
+  .motivation-evidence {
+    font-size: 15px;
+  }
+}
