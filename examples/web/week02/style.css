@@ -1,0 +1,4 @@
+body { font-family: sans-serif; padding: 24px; color: #202938; background: white; }
+input, button { padding: 10px; margin: 10px 4px 10px 0; }
+input { width: 90px; }
+button { color: white; background: #235c9b; border: 0; border-radius: 5px; }
