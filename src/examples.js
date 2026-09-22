@@ -160,6 +160,106 @@ export const pythonExamples = {
       "or en az bir doğru koşul arar. Bu bir gerçek yetkilendirme sistemi değildir.",
     ],
   ),
+  empty: example(
+    "examples/week03/empty_check.py",
+    '# Kullanıcı adı boşluk temizleme ve varlık kontrolü\nveri = input("Kullanıcı adı: ")\ntemiz = veri.strip()\n\nif temiz == "":\n    print("Hata: Kullanıcı adı boş bırakılamaz")\nelse:\n    print("Kullanıcı adı geçerli:", temiz)',
+    "  ahmet  ",
+    "Kullanıcı adı: Kullanıcı adı geçerli: ahmet\n",
+    [
+      "strip() başta ve sonda yer alan boşluk karakterlerini temizler.",
+      "Boş metin ('') kontrolü zorunlu alan doğrulamalarının temelidir.",
+    ],
+  ),
+  digit: example(
+    "examples/week03/digit_check.py",
+    '# Sayısal karakter denetimi ile güvenli int dönüşümü\ngiris = input("Port numarası girin: ").strip()\n\nif not giris.isdigit():\n    print("Hata: Yalnızca rakamlardan oluşan bir değer girilmelidir")\nelse:\n    port = int(giris)\n    print("Sayısal değer alındı:", port)',
+    "8080",
+    "Port numarası girin: Sayısal değer alındı: 8080\n",
+    [
+      "isdigit() tüm karakterlerin rakam olup olmadığını kontrol eder.",
+      "int() dönüşümünden önce bu kontrol yapılarak ValueError hatası engellenir.",
+    ],
+  ),
+  range: example(
+    "examples/week03/range_validation.py",
+    '# Ağ portu geçerlilik aralığı kontrolü (1–65535)\nport = int(input("Hedef port: "))\n\nif port < 1 or port > 65535:\n    print("Hata: Port 1 ile 65535 arasında olmalıdır")\nelse:\n    print("Port geçerli:", port)',
+    "443",
+    "Hedef port: Port geçerli: 443\n",
+    [
+      "or operatörü ile değerin kabul edilen sınırların dışında kalması denetlenir.",
+      "Ağ programlamasında geçerli port aralığı 1 ile 65535 arasındadır.",
+    ],
+  ),
+  guard: example(
+    "examples/week03/nested_vs_guard.py",
+    '# Guard Clause (Erken Çıkış) yaklaşımı\nyas = int(input("Yaş: "))\nbilet_var_mi = input("Bilet var mı? (e/h): ").strip().lower()\n\n# Erken kontrollerle geçersiz durumları önceden ayıklama\nif yas < 18:\n    print("Erişim reddedildi: 18 yaşından küçükler giremez")\nelif bilet_var_mi != "e":\n    print("Erişim reddedildi: Geçerli biletiniz yok")\nelse:\n    print("Erişim onaylandı: Hoş geldiniz")',
+    "20\ne",
+    "Yaş: Bilet var mı? (e/h): Erişim onaylandı: Hoş geldiniz\n",
+    [
+      "Guard clause, geçersiz veya yetkisiz durumları en başta ele alır.",
+      "Derin iç içe bloklar oluşturmak yerine kodun okunabilirliğini artırır.",
+    ],
+  ),
+  policy: example(
+    "examples/week03/file_policy.py",
+    '# Sentetik dosya boyutu ve uzantı güvenlik politikası\nuzanti = input("Dosya uzantısı (.txt / .pdf / .png / .exe): ").strip().lower()\nboyut = int(input("Dosya boyutu (KiB): "))\n\nif uzanti not in [".txt", ".pdf", ".png"]:\n    print("Red: Güvensiz veya desteklenmeyen dosya türü")\nelif boyut <= 0:\n    print("Red: Dosya boyutu sıfır veya negatif olamaz")\nelif boyut > 1024:\n    print("Red: Dosya boyutu 1024 KiB sınırını aşıyor")\nelse:\n    print("Kabul: Dosya güvenlik kriterlerine uygun")',
+    ".pdf\n500",
+    "Dosya uzantısı (.txt / .pdf / .png / .exe): Dosya boyutu (KiB): Kabul: Dosya güvenlik kriterlerine uygun\n",
+    [
+      "not in operatörü güvenli beyaz liste (whitelist) kontrolü sağlar.",
+      "Hem dosya uzantısı hem de boyut sınırı kademeli olarak doğrulanır.",
+    ],
+  ),
+  auth: example(
+    "examples/week03/decision_table_auth.py",
+    '# Rol ve işlem izni karar tablosu modeli\nrol = input("Rol (admin / ogretmen / ogrenci): ").strip().lower()\nislem = input("İşlem (oku / yaz / sil): ").strip().lower()\n\nif rol == "admin":\n    print("İzin verildi: Tam yetki")\nelif rol == "ogretmen":\n    if islem in ["oku", "yaz"]:\n        print("İzin verildi: Öğretmen okuma/yazma yetkisi")\n    else:\n        print("Red: Öğretmen silme işlemi yapamaz")\nelif rol == "ogrenci":\n    if islem == "oku":\n        print("İzin verildi: Öğrenci okuma yetkisi")\n    else:\n        print("Red: Öğrenci yalnızca okuma yapabilir")\nelse:\n    print("Hata: Tanımsız kullanıcı rolü")',
+    "admin\nsil",
+    "Rol (admin / ogretmen / ogrenci): İşlem (oku / yaz / sil): İzin verildi: Tam yetki\n",
+    [
+      "Karar tablosu mantığıyla rol ve işlem çiftleri eşleştirilir.",
+      "Admin tam yetkili, öğretmen okuma/yazma, öğrenci salt okunur izne sahiptir.",
+    ],
+  ),
+  firewall: example(
+    "examples/week03/firewall_rule.py",
+    '# Kurgusal paket filtreleme kuralı\nip = input("Kaynak IP: ").strip()\nport = int(input("Hedef port: "))\n\n# Basit yerel ağ kontrolü ve standart web portları\nyerel_mi = ip.startswith("192.168.") or ip.startswith("10.")\nguvenli_port_mu = port in [80, 443]\n\nif yerel_mi and guvenli_port_mu:\n    print("GÜVENLİK DUVARI: İZİN VERİLDİ (Yerel Web Trafiği)")\nelif yerel_mi and not guvenli_port_mu:\n    print("GÜVENLİK DUVARI: ENGEL (Yetkisiz Yerel Port)")\nelse:\n    print("GÜVENLİK DUVARI: ENGEL (Bilinmeyen Dış Kaynak)")',
+    "192.168.1.50\n443",
+    "Kaynak IP: Hedef port: GÜVENLİK DUVARI: İZİN VERİLDİ (Yerel Web Trafiği)\n",
+    [
+      "IP adresinin yerel olup olmadığı startswith() ile sınanır.",
+      "Port numarası ve IP adresi birlikte değerlendirilerek kural işletilir.",
+    ],
+  ),
+  lockout: example(
+    "examples/week03/account_lockout.py",
+    '# Hatalı deneme sayacı ve güvenlik kilidi kurgusu\ndeneme_sayisi = int(input("Hatalı deneme sayısı: "))\nparola = input("Parola: ")\n\nif deneme_sayisi >= 3:\n    print("HESAP KİLİTLİ: Çok fazla hatalı deneme yapıldı")\nelif parola == "Guvenli123":\n    print("Giriş başarılı: Hoş geldiniz")\nelse:\n    kalan = 3 - (deneme_sayisi + 1)\n    print("Hatalı parola! Kalan deneme hakkı:", kalan)',
+    "0\nGuvenli123",
+    "Hatalı deneme sayısı: Parola: Giriş başarılı: Hoş geldiniz\n",
+    [
+      "Brute-force saldırılarına karşı deneme eşiği (3 kez) denetlenir.",
+      "Kalan hak matematiksel olarak hesaplanır ve kullanıcı bilgilendirilir.",
+    ],
+  ),
+  twofactor: example(
+    "examples/week03/two_factor_mock.py",
+    '# İki adımlı doğrulama (2FA) kontrolü\nparola = input("Parola: ")\ndogrulama_kodu = input("6 haneli onay kodu: ").strip()\n\nparola_dogru = (parola == "Bgt2026")\nkod_gecerli = (dogrulama_kodu == "456789")\n\nif parola_dogru and kod_gecerli:\n    print("Giriş onaylandı: Güvenli oturum açıldı")\nelif not parola_dogru:\n    print("Giriş reddedildi: Parola yanlış")\nelse:\n    print("Giriş reddedildi: Doğrulama kodu hatalı")',
+    "Bgt2026\n456789",
+    "Parola: 6 haneli onay kodu: Giriş onaylandı: Güvenli oturum açıldı\n",
+    [
+      "Her iki güvenlik faktörünün (bilgi + sahiplik) doğrulanması istenir.",
+      "and operatörüyle iki faktörün de True olması zorunlu tutulur.",
+    ],
+  ),
+  quota: example(
+    "examples/week03/quota_calculator.py",
+    '# Kullanıcı türü ve dosya boyutuna göre kota tüketimi\nkullanici_tipi = input("Kullanıcı türü (standart / premium): ").strip().lower()\nboyut_mb = int(input("İndirilecek veri (MB): "))\n\nif kullanici_tipi == "premium":\n    kota = 5000\nelse:\n    kota = 500\n\nif boyut_mb <= 0:\n    print("Hata: Geçersiz veri boyutu")\nelif boyut_mb > kota:\n    print("İşlem engellendi: Kota aşıldı! (Mevcut kota:", kota, "MB)")\nelse:\n    kalan = kota - boyut_mb\n    print("İndirme başladı. Kalan kota:", kalan, "MB")',
+    "standart\n200",
+    "Kullanıcı türü (standart / premium): İndirilecek veri (MB): İndirme başladı. Kalan kota: 300 MB\n",
+    [
+      "Kullanıcı kategorisine göre sınır/kota değişkeni belirlenir.",
+      "Sıfır, negatif ve kota aşımı durumları savunmacı biçimde kontrol edilir.",
+    ],
+  ),
 };
 
 export const webExamples = {

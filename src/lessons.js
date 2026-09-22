@@ -20,13 +20,17 @@ const outcomes = (id) =>
   s(
     id === 1
       ? "Programlamaya Giriş"
-      : "Veri, Değişkenler ve Karar Veren Programlar",
+      : id === 2
+        ? "Veri, Değişkenler ve Karar Veren Programlar"
+        : "Karar Yapıları ve Veri Doğrulama",
     "outcomes",
     {
       lead:
         id === 1
           ? "Bilgisayara problemleri çözdürmeyi öğreneceğiz."
-          : "Programlar bilgiyi nerede tutar ve bu bilgiyle nasıl karar verir?",
+          : id === 2
+            ? "Programlar bilgiyi nerede tutar ve bu bilgiyle nasıl karar verir?"
+            : "Karmaşık karar mekanizmalarını sadeleştirip veriyi hatalara ve kötüye kullanıma karşı nasıl doğrularız?",
       items: weeks[id - 1].outcomes,
     },
     "Bu haftanın kazanımlarını birlikte okuyun. Her kazanım için hafta sonunda bir uygulama kanıtı isteyin. Bilgi güvenliğiyle ilişki: açık kurallar, güvenilmeyen veri ve test sorumluluğu.",
@@ -967,6 +971,577 @@ export const decks = {
         ],
       },
       "Dört kazanımı ayrı kanıtlarla değerlendirin. Bu biçimlendirici değerlendirme resmî not yüzdesi tanımlamaz. Sonraki hafta karar tabloları, iç içe koşullar ve girdi doğrulama derinleşecek.",
+    ),
+  ],
+  3: [
+    outcomes(3),
+    think(
+      "Kullanıcı her zaman beklediğimiz gibi mi davranır?",
+      "Bir programa adını yazması istendiğinde yalnızca boşluk tuşuna basarsa veya yaş yerine 'on sekiz' yazarsa ne olur?",
+      "Program çöker (ValueError) veya anlamsız veriyi işlemeye devam eder. Güvenli yazılımın 1 numaralı kuralı: 'Tüm harici girdiler aksi kanıtlanana kadar hatalı ve tehlikelidir.'",
+      "Öğrencilere günlük hayatta karşılaştıkları web formu hatalarını hatırlatın. Güvenlik açıkları çoğunlukla eksik veya yanlış doğrulanan girdilerden kaynaklanır.",
+    ),
+    cards(
+      "Girdi Doğrulama Hiyerarşisi (4 Adım)",
+      [
+        [
+          "1. Varlık Kontrolü",
+          "Girdi sağlandı mı yoksa tamamen boş veya boşluklardan mı ibaret? (strip)",
+        ],
+        [
+          "2. Tür ve Biçim",
+          "Beklenen sayısal veya metin yapısına uyuyor mu? (isdigit)",
+        ],
+        [
+          "3. Değer ve Aralık",
+          "Kabul edilebilir sınırlar içinde mi? (0 <= x <= 100 veya 1 <= port <= 65535)",
+        ],
+        [
+          "4. İş Kuralı ve İzin",
+          "Bu kullanıcının bu işlemi yapma yetkisi veya yeterli kotası var mı?",
+        ],
+      ],
+      "Doğrulama sırası önemlidir: Olmayan verinin aralığına bakılamaz.",
+      "Bu hiyerarşiyi tahtaya çizin. Adımların yerinin değiştirilmesinin (örneğin boş veriyi int'e dönüştürmeye çalışmanın) neden hata ürettiğini tartışın.",
+    ),
+    table(
+      "Girdi doğrulama yöntemleri",
+      ["Aşama", "Olası Tehlike", "Python Çözüm Aracı"],
+      [
+        ["Boşluklar", "Kullanıcı adı sadece boşluk", "veri.strip() == ''"],
+        ["Harf/Sayı Karışımı", "Yaş yerine 'abc' girilmesi", "not metin.isdigit()"],
+        ["Sınır Aşımı", "Notun -5 veya 150 girilmesi", "notu < 0 or notu > 100"],
+        ["Geçersiz Tür", "Zararlı dosya uzantısı (.exe)", "uzanti not in izinli_liste"],
+      ],
+      "Neden her girdiyi önce metin olarak karşılayıp sonra doğrularız?",
+      "input() her zaman metin üretir. Doğrulamadan int() fonksiyonuna göndermek programın kırılmasına yol açar.",
+    ),
+    code(
+      "Sözde Kod 1: Boş girdi ve boşluk ayıklama",
+      "Pseudocode",
+      'BAŞLA\n  kullanici_adi değerini OKU\n  temiz_ad = BOŞLUKLARI_TEMİZLE(kullanici_adi)\n  EĞER temiz_ad == "" İSE\n    "Hata: Kullanıcı adı boş bırakılamaz!" YAZ\n  DEĞİLSE\n    "Kullanıcı adı kabul edildi: " + temiz_ad YAZ\nBİTİR',
+      '"   " ve "ahmet" girdileri için hangi satırların çalıştığını izle.',
+      "Metin uçlarındaki görünmez boşlukların temizlenmesi (strip) veritabanı ve oturum güvenliğinin ilk basamağıdır.",
+    ),
+    run(
+      "Örnek 1: strip() ile boşluk temizleme ve varlık kontrolü",
+      "empty",
+      "Sadece boşluk tuşuna basıldığında programın bunu yakaladığını gör.",
+      "Üç boşluk yazıp çalıştır, ardından geçerli bir ad girip tekrar dene.",
+      "Öğrenciye veri tabanında 'ahmet' ile 'ahmet ' adlarının iki farklı hesap yaratabileceğini ve bunun bir kimlik karmaşası doğuracağını anlatın.",
+    ),
+    exercise(
+      "Boşluk karakteri neden tehlikelidir?",
+      "Bir kullanıcı parola alanına yalnızca 5 tane boşluk yazarsa ne olur? strip() parolalarda doğrudan kullanılmalı mıdır?",
+      "Parolalarda strip() dikkatli kullanılmalıdır; çünkü kullanıcı bilerek boşluk içerebilir ancak yalnızca boşluklardan oluşan parolalar kabul edilmemelidir.\n\nparola = input('Parola: ')\nif parola.strip() == '':\n    print('Parola boşluktan ibaret olamaz')",
+      "Veri türüne göre iş kuralı değişir. Kullanıcı adında boşluk temizlenirken, parola metninde boşluk karakterinin kasıtlı parola parçası olabileceğini tartışın.",
+    ),
+    code(
+      "Tür dönüşümünden önce güvenli kontrol",
+      "Python",
+      'giris = input("Port girin: ").strip()\nif not giris.isdigit():\n    print("Hata: Yalnızca rakam girin!")\nelse:\n    port = int(giris)\n    print("Dönüşüm başarılı:", port)',
+      "abc, 80 ve -5 değerleri için programın nasıl tepki verdiğini incele.",
+      "isdigit() fonksiyonu string bir metottur ve sadece 0-9 arası rakamlar varsa True döner. Eksi işareti (-) rakam olmadığı için negatif sayıları da False yapar.",
+    ),
+    code(
+      "Sözde Kod 2: Sayısal karakter denetimi",
+      "Pseudocode",
+      'BAŞLA\n  giris_metni değerini OKU\n  EĞER RAKAM_MI(giris_metni) DEĞİLSE İSE\n    "Geçersiz biçim: Sayısal değer bekleniyor" YAZ\n  DEĞİLSE\n    sayi = TAMSAYIYA_DÖNÜŞTÜR(giris_metni)\n    "İşlem yapılan sayı: " + sayi YAZ\nBİTİR',
+      "Hatalı girdide programın çökmeden kullanıcıyı uyardığına dikkat et.",
+      "Savunmacı programlama: Program asla beklenmedik bir kütüphane hatasıyla sonlanmamalı, anlaşılır bir uyarı vermelidir.",
+    ),
+    run(
+      "Örnek 2: isdigit() ile güvenli tamsayı dönüşümü",
+      "digit",
+      "Kullanıcı metin veya sembol girdiğinde ValueError hatasını önler.",
+      "8080 yerine 'web' veya '80a' yazarak hatanın nasıl yakalandığını gözlemle.",
+      "Tip denetimi yapılmadan int() çalıştırılırsa terminalde Traceback hatası oluşur. isdigit() bu hatanın önüne bir güvenlik kalkanı koyar.",
+    ),
+    think(
+      "isdigit() eksi sayıları tanır mı?",
+      "'-10' girdisi için isdigit() True mu döner False mu? Neden?",
+      "False döner. Çünkü '-' karakteri bir rakam değildir. Negatif sayıları kabul edeceksek eksi işaretini ayrı ele almalı veya aralık kuralı koymalıyız.",
+      "Öğrencilere hazır fonksiyonların sınırlarını bilmenin önemini anlatın. isdigit() negatif int değerlerini desteklemez.",
+    ),
+    table(
+      "str.isdigit() fonksiyonunun sınır davranışları",
+      ["Girdi", "isdigit() Sonucu", "Açıklama / Neden"],
+      [
+        ['"123"', "True", "Tüm karakterler rakamdır."],
+        ['"12.5"', "False", "Nokta (.) karakteri rakam değildir."],
+        ['"-10"', "False", "Eksi (-) karakteri rakam değildir."],
+        ['"  "', "False", "Boşluk karakteri rakam değildir."],
+        ['""', "False", "Boş string rakam içermez."],
+      ],
+      "Ondalık (float) sayılar için isdigit() neden doğrudan kullanılamaz?",
+      "Nokta sembolü rakam sayılmaz. Ondalık sayı denetimi daha sonra fonksiyonlar veya gelişmiş yöntemlerle ele alınacaktır.",
+    ),
+    cards(
+      "Değer ve Aralık Doğrulama Örnekleri",
+      [
+        [
+          "Ağ Portları (TCP/UDP)",
+          "1 ile 65535 arasında olmalıdır. 0 rezerve, 65536 geçersizdir.",
+        ],
+        [
+          "Sınav Puanı",
+          "0 ile 100 arasında olmalıdır. Negatif veya 100 üzeri reddedilir.",
+        ],
+        [
+          "Dosya Yükleme Boyutu",
+          "1 KiB ile 1024 KiB arasında olmalıdır. 0 KiB boş dosya reddedilir.",
+        ],
+        [
+          "Kullanıcı Yaşı",
+          "0 ile 120 arasında mantıklı bir insan ömrü olmalıdır.",
+        ],
+      ],
+      "Doğrulama sadece biçim değil, mantıksal değer sınırıdır.",
+      "Her sistemin kendi sınırları vardır. Bir portun geçerli olması açık veya güvenli olduğu anlamına gelmez, sadece teknik olarak geçerlidir.",
+    ),
+    code(
+      "Sözde Kod 3: Ağ portu geçerlilik aralığı",
+      "Pseudocode",
+      'BAŞLA\n  port_no değerini OKU\n  EĞER port_no < 1 VEYA port_no > 65535 İSE\n    "Hata: Port 1 ile 65535 arasında olmalıdır!" YAZ\n  DEĞİLSE\n    "Port geçerli ve dinlemeye uygun: " + port_no YAZ\nBİTİR',
+      "0, 80, 443 ve 70000 değerleri için akışı elle yürüt.",
+      "Sınır testleri: 0 (hemen altı), 1 (alt sınır), 65535 (üst sınır), 65536 (hemen üstü).",
+    ),
+    run(
+      "Örnek 3: Port aralık denetimi (1–65535)",
+      "range",
+      "or mantıksal operatörüyle kabul sınırlarının dışına çıkma durumu sınanır.",
+      "0, 443 ve 70000 değerleriyle programın sınır davranışlarını test et.",
+      "Aralık kontrolünde < ve > operatörlerinin doğru seçildiğinden emin olun. 1 ve 65535 geçerli portlardır.",
+    ),
+    table(
+      "Aralık doğrulama sınır testleri matrisi",
+      ["Girdi Değeri", "Test Durumu", "Beklenen Çıktı", "Gerekçe"],
+      [
+        ["0", "Alt Sınırın 1 Altı", "Hata", "Port 1'den küçük olamaz."],
+        ["1", "Alt Sınır Noktası", "Geçerli", "En küçük geçerli port."],
+        ["65535", "Üst Sınır Noktası", "Geçerli", "En büyük 16-bit port."],
+        ["65536", "Üst Sınırın 1 Üstü", "Hata", "16-bit sınırını aşar."],
+      ],
+      "Sınır testleri neden daima eşiğin kendisini ve 1 eksiği/fazlasını hedefler?",
+      "Programcıların en sık yaptığı mantık hatası eşitsizliklerde < yerine <= veya tam tersini kullanmasıdır (off-by-one error).",
+    ),
+    ai(
+      "🤖 YZ ile Çalış: Sınır değer açığı avı",
+      "Aşağıdaki kodda sınır değer hatası var mı?\n\nport = int(input())\nif port > 1 and port < 65535:\n    print('Geçerli')",
+      "1 ve 65535 portlarının bu koda göre geçerli sayılıp sayılmadığını YZ'ye sor ve doğru operatörleri açıkla.",
+      "> ve < operatörleri 1 ve 65535 uç noktalarını dışarıda bırakır. >= ve <= gereklidir. Öğrenciden YZ'nin analizini açıklamasını isteyin.",
+    ),
+    cards(
+      "İç İçe Koşullar (Nested If) ve 'Piramit Laneti'",
+      [
+        [
+          "Okunabilirlik Düşüşü",
+          "Her yeni if bloğu 4 boşluk daha içeri girer, kod sağa doğru kayar.",
+        ],
+        [
+          "Bilişsel Yük",
+          "Geliştirici aynı anda 4-5 farklı koşulun doğru olduğunu aklında tutmak zorunda kalır.",
+        ],
+        [
+          "Hata ve Atlanmış Durumlar",
+          "En içteki else dalının hangi if bloğuna ait olduğunu anlamak güçleşir.",
+        ],
+        [
+          "Sadeleştirme İhtiyacı",
+          "Kodun derinleşmesi refactoring (yeniden düzenleme) ihtiyacını gösterir.",
+        ],
+      ],
+      "Çok derinleşen kod kokar (code smell). Sadeleştirmek bir güvenlik erdemidir.",
+      "Okunabilir kod daha güvenli koddur. Karmaşık iç içe yapılar mantık hatalarının en bereketli yuvasıdır.",
+    ),
+    code(
+      "Piramit Kod Örneği (Kaçınılması Gereken Tasarım)",
+      "Python",
+      'if yas >= 18:\n    if bilet_var:\n        if kimlik_onayli:\n            if covid_yok:\n                print("Giriş serbest")\n            else:\n                print("Sağlık engeli")\n        else:\n            print("Kimliksiz girilemez")',
+      "Bu kod 4 basamak içeri girdi. Hangi koşulun başarısız olduğunu takip etmek ne kadar zor?",
+      "Arrow Anti-Pattern (Ok biçimli kod). Bu tür yapıları Guard Clause veya mantıksal operatörlerle düzleştireceğiz.",
+    ),
+    cards(
+      "Guard Clause (Erken Çıkış) Yaklaşımı",
+      [
+        [
+          "1. Hatalı Durumu Öne Al",
+          "Geçersiz, hatalı veya yetkisiz şartı en başta yakala.",
+        ],
+        [
+          "2. Hemen Reddet / Çık",
+          "Olumsuz durumda derhal hata verip devam etme.",
+        ],
+        [
+          "3. Düz Akış Sağla",
+          "Başarılı senaryo içeri gömülmek yerine en altta düz bir çizgide aksın.",
+        ],
+      ],
+      "Olumsuzlukları kapıda ayıkla; içeriye sadece temiz veriyi al.",
+      "Güvenlik kapısında kontrol: Bileti olmayan kapıda elenir, içeri alınıp diğer kontrollerle yorulmaz.",
+    ),
+    code(
+      "Sözde Kod 4: Guard Clause ile erken çıkış",
+      "Pseudocode",
+      'BAŞLA\n  yas değerini OKU\n  bilet değerini OKU\n  \n  EĞER yas < 18 İSE\n    "Red: Yaş sınırı" YAZ\n  DEĞİLSE EĞER bilet != "e" İSE\n    "Red: Bilet eksik" YAZ\n  DEĞİLSE\n    "Onay: Etkinliğe hoş geldiniz" YAZ\nBİTİR',
+      "İç içe gömülme yerine düz bir elif zinciriyle koşulların elendiğine dikkat et.",
+      "Her adım bir güvenlik filtresidir. İlk elenen durumdan sonra sonraki satırlar çalıştırılmaz.",
+    ),
+    run(
+      "Örnek 4: Derin if yerine Guard Clause",
+      "guard",
+      "Hatalı koşullar sırayla elenir, en sona temiz durum kalır.",
+      "Önce yaş 16 yaz, sonra yaş 20 ve bilet h yaz. Farklı erken çıkışları gözlemle.",
+      "Kodun derinleşmesini önleyen bu pratik, yazılım sektöründe en çok tercih edilen temiz kod prensiplerindendir.",
+    ),
+    exercise(
+      "İç içe yapıyı Guard Clause'a dönüştür",
+      "Şu kodu erken çıkış mantığıyla yeniden yaz:\n\nif rol == 'admin':\n    if sifre_dogru:\n        print('Sistem açık')\n    else:\n        print('Hatalı şifre')\nelse:\n    print('Yetkisiz rol')",
+      "if rol != 'admin':\n    print('Yetkisiz rol')\nelif not sifre_dogru:\n    print('Hatalı şifre')\nelse:\n    print('Sistem açık')",
+      "Öğrencilerin olumsuz koşulları tersine çevirme (de Morgan / mantıksal tersi) becerisini sınayın.",
+    ),
+    table(
+      "İç içe koşulları sadeleştirme karşılaştırması",
+      ["Tasarım Türü", "Okunabilirlik", "Yeni Kural Ekleme", "Hata Riski"],
+      [
+        ["Derin İç İçe (Nested)", "Düşük (Piramit)", "Zor (Dalları bozar)", "Yüksek"],
+        ["Guard Clause", "Yüksek (Düz akış)", "Kolay (Yeni elif)", "Düşük"],
+        ["Mantıksal and Birleşimi", "Tek satır (Orta)", "Kısmen kolay", "Orta"],
+      ],
+      "Neden tek satırda 5 tane 'and' yazmak yerine Guard Clause tercih edilir?",
+      "Tek satırda çok fazla and kullanıldığında hangi koşulun başarısız olduğunu kullanıcıya açıklamak imkânsızlaşır.",
+    ),
+    think(
+      "and ile birleştirmek her zaman doğru mudur?",
+      "if yas >= 18 and bilet_var == 'e' and kimlik == 'e': satırı başarısız olursa kullanıcıya tam olarak hangi sebepten reddedildiğini söyleyebilir miyiz?",
+      "Hayır. Sadece 'Giremezsiniz' diyebiliriz. Kullanıcı yaş yüzünden mi, bilet yüzünden mi yoksa kimlik yüzünden mi reddedildiğini bilemez. Guard Clause her hataya özel mesaj verir.",
+      "Kullanıcı deneyimi ve hata ayıklama (debug) açısından detaylı hata mesajının önemini vurgulayın.",
+    ),
+    cards(
+      "Beyaz Liste (Whitelist) vs Kara Liste (Blacklist)",
+      [
+        [
+          "Kara Liste (Blacklist)",
+          "Yasaklı olanları sıralar (.exe, .bat yasak). Tehlike: Yeni veya bilinmeyen uzantılar (.sh, .vbs) aradan sızabilir.",
+        ],
+        [
+          "Beyaz Liste (Whitelist)",
+          "Yalnızca açıkça izin verilenleri sıralar (.txt, .pdf izinli). İlke: 'İzin verilmemiş her şey yasaktır.'",
+        ],
+        [
+          "Güvenlik Karşılaştırması",
+          "Siber güvenlikte daima Beyaz Liste yaklaşımı tercih edilir.",
+        ],
+        [
+          "Python Uygulaması",
+          "if uzanti in izinliler: veya if uzanti not in izinliler:",
+        ],
+      ],
+      "Varsayılan olarak red (Default Deny) temel güvenlik prensibidir.",
+      "Güvenlik dersi bağlantısı: Bir güvenlik duvarı da kuralı olmayan tüm paketleri varsayılan olarak düşürür (DROP).",
+    ),
+    code(
+      "Sözde Kod 5: Dosya politikası doğrulama",
+      "Pseudocode",
+      'BAŞLA\n  uzanti değerini OKU\n  boyut değerini OKU\n  \n  EĞER uzanti BEYAZ_LİSTEDE_YOK İSE\n    "Red: Güvenli olmayan dosya türü" YAZ\n  DEĞİLSE EĞER boyut <= 0 İSE\n    "Red: Geçersiz dosya boyutu" YAZ\n  DEĞİLSE EĞER boyut > 1024 İSE\n    "Red: Kota aşımı (Maksimum 1024 KiB)" YAZ\n  DEĞİLSE\n    "Kabul: Dosya yükleme başarılı" YAZ\nBİTİR',
+      ".exe ve 500 KiB için hangi dal çalışır? .pdf ve 2000 KiB için hangi dal çalışır?",
+      "Çok kriterli dosya yükleme doğrulaması. Önce uzantı güvenliği, sonra boyut aralığı denetlenir.",
+    ),
+    run(
+      "Örnek 5: Sentetik dosya boyutu ve uzantı politikası",
+      "policy",
+      "not in operatörüyle beyaz liste dışındaki tüm uzantılar tek seferde elenir.",
+      "'.pdf' ve 500 gir, ardından '.exe' ve 500 gir. Reddedilme gerekçesini incele.",
+      "Güvenlik kuralı: Dosya uzantısını küçük harfe (.lower()) dönüştürerek doğrulamak büyük-küçük harf hilelerini engeller.",
+    ),
+    table(
+      "Dosya politikası test senaryoları",
+      ["Uzantı", "Boyut (KiB)", "Beklenen Sonuç", "Gerekçe"],
+      [
+        [".txt", "500", "Kabul", "İzinli uzantı ve kota içinde."],
+        [".exe", "100", "Red: Desteklenmeyen tür", "Kara listedeki tehlikeli uzantı."],
+        [".pdf", "0", "Red: Sıfır veya negatif", "Boş dosya kabul edilmez."],
+        [".pdf", "1024", "Kabul", "Tam sınır değeri (1024 KiB)."],
+        [".pdf", "1025", "Red: Kota aşımı", "Sınırın 1 KiB üstü."],
+      ],
+      "1024 KiB sınırında kabul verilirken 1025'te neden red verilir?",
+      "İş kuralı 'en fazla 1024 KiB' dediğinde <= 1024 kabul, > 1024 red olmalıdır.",
+    ),
+    exercise(
+      "Büyük harfli dosya uzantısı (.PDF)",
+      "Kullanıcı '.PDF' yüklediğinde 'if uzanti not in [\".pdf\"]:' kontrolü ne sonuç verir? Çözüm nedir?",
+      "Büyük-küçük harf duyarlılığı yüzünden '.PDF' listede bulunamaz ve reddedilir. Çözüm: uzanti = input().strip().lower() kullanmaktır.",
+      "Saldırganların filtreleri aşmak için .pDf, .Exe gibi harf varyasyonları denediğini belirtin.",
+    ),
+    cards(
+      "Karar Tabloları (Decision Tables) Nedir?",
+      [
+        [
+          "Kural Matrisi",
+          "Birden fazla koşulun ve bunlara karşılık gelen eylemlerin tablo halinde dökümüdür.",
+        ],
+        [
+          "2 üzeri n Kuralı",
+          "n adet bağımsız Evet/Hayır koşulu varsa toplam 2^n farklı durum kombinasyonu ortaya çıkar.",
+        ],
+        [
+          "Eksik Durum Analizi",
+          "Kod yazarken gözden kaçabilecek unutulmuş durumları erkenden yakalar.",
+        ],
+        [
+          "Çelişki Denetimi",
+          "Aynı girdi kombinasyonuna iki farklı kuralın uygulanmasını önler.",
+        ],
+      ],
+      "Kod yazmadan önce tüm olasılıkları bir matriste görmek mantık hatalarını sıfırlar.",
+      "Yazılım mühendisliğinde karar tabloları karmaşık iş kurallarını netleştirmek için standart bir araçtır.",
+    ),
+    table(
+      "Karar Tablosu 1: Kullanıcı Rolü ve İşlem İzni",
+      ["Kural No", "Kullanıcı Rolü", "İşlem Türü", "Sistem Kararı"],
+      [
+        ["K1", "Admin", "Herhangi biri (oku/yaz/sil)", "İzin Verildi (Tam Yetki)"],
+        ["K2", "Öğretmen", "oku veya yaz", "İzin Verildi"],
+        ["K3", "Öğretmen", "sil", "Red: Silme yetkisi yok"],
+        ["K4", "Öğrenci", "oku", "İzin Verildi (Salt Okunur)"],
+        ["K5", "Öğrenci", "yaz veya sil", "Red: Yazma/Silme yetkisi yok"],
+        ["K6", "Diğer", "Herhangi biri", "Hata: Geçersiz rol"],
+      ],
+      "Bu tabloda hangi rol yalnızca okuma yapabilir?",
+      "Öğrenci rolü sadece okuma yetkisine sahiptir. Tablo, rol ve eylem eşleşmesini eksiksiz tanımlar.",
+    ),
+    code(
+      "Sözde Kod 6: Karar tablosundan koda geçiş",
+      "Pseudocode",
+      'BAŞLA\n  rol değerini OKU\n  islem değerini OKU\n  \n  EĞER rol == "admin" İSE\n    "Tam yetki verildi" YAZ\n  DEĞİLSE EĞER rol == "ogretmen" İSE\n    EĞER islem == "oku" VEYA islem == "yaz" İSE\n      "İşleme izin verildi" YAZ\n    DEĞİLSE\n      "Red: Öğretmen bu işlemi yapamaz" YAZ\n  DEĞİLSE EĞER rol == "ogrenci" İSE\n    EĞER islem == "oku" İSE\n      "Okuma izni verildi" YAZ\n    DEĞİLSE\n      "Red: Öğrenci yalnızca okuyabilir" YAZ\n  DEĞİLSE\n    "Hata: Tanımsız rol" YAZ\nBİTİR',
+      "Tablodaki her satırın koddaki bir dala nasıl karşılık geldiğini incele.",
+      "Tablodan algoritmaya ve koda geçiş mekanik ve hatasız bir şekilde yürütülür.",
+    ),
+    run(
+      "Örnek 6: Rol ve işlem karar tablosu",
+      "auth",
+      "Admin, öğretmen ve öğrenci rolleriyle işlem izinlerini test et.",
+      "'ogrenci' ve 'sil' girip çıktıyı gözlemle; ardından 'admin' ve 'sil' dene.",
+      "Yetkilendirme kontrollerinde varsayılan olarak yetki vermemek, sadece tanımlı rollere izin vermek esastır.",
+    ),
+    table(
+      "Karar Tablosu 2: Güvenlik Duvarı Paket Filtresi",
+      ["Kural", "Kaynak IP Türü", "Hedef Port", "Güvenlik Kararı", "Açıklama"],
+      [
+        ["K1", "Yerel (192.168.x / 10.x)", "80 veya 443", "İZİN VERİLDİ", "Yerel web trafiği güvenli."],
+        ["K2", "Yerel (192.168.x / 10.x)", "Diğer portlar", "ENGEL", "Yerel yetkisiz port erişimi."],
+        ["K3", "Harici (Dış Dünya)", "Herhangi biri", "ENGEL", "Bilinmeyen dış IP trafiği."],
+      ],
+      "Bu filtreye göre dış dünyadan gelen bir 443 port isteği geçer mi?",
+      "Hayır. İlk koşul olan 'Yerel IP' sağlanmadığı için K3 kuralına düşer ve engellenir.",
+    ),
+    code(
+      "Sözde Kod 7: Güvenlik duvarı paket filtresi",
+      "Pseudocode",
+      'BAŞLA\n  ip değerini OKU\n  port değerini OKU\n  \n  yerel_mi = IP_YEREL_MI(ip)\n  web_portu_mu = (port == 80 VEYA port == 443)\n  \n  EĞER yerel_mi VE web_portu_mu İSE\n    "İZİN: Güvenli yerel web trafiği" YAZ\n  DEĞİLSE EĞER yerel_mi VE DEĞİL web_portu_mu İSE\n    "ENGEL: Yetkisiz yerel port" YAZ\n  DEĞİLSE\n    "ENGEL: Bilinmeyen harici kaynak" YAZ\nBİTİR',
+      "Değişkenleri Boolean bayrak (flag) olarak tanımlamanın okunabilirliğe etkisine dikkat et.",
+      "yerel_mi ve web_portu_mu değişkenleri karmaşık koşulları sade Boolean etiketlere dönüştürür.",
+    ),
+    run(
+      "Örnek 7: Kurgusal güvenlik duvarı kuralı",
+      "firewall",
+      "IP öneki ve port numarası kombinasyonuyla ağ trafiği denetlenir.",
+      "'192.168.1.50' ve '443' ile izin al; '8.8.8.8' ve '80' ile engeli test et.",
+      "Ağ güvenlik duvarlarının temel çalışma mantığı bu tür kural tablolarını yukarıdan aşağıya taramaktır.",
+    ),
+    think(
+      "Ağ trafiğinde ilk eşleşen kural ilkesi",
+      "Güvenlik duvarı kural listesinde en üstte 'Tüm trafiği engelle' kuralı olsaydı altındaki kurallar çalışır mıydı?",
+      "Hayır. İlk eşleşen kural çalıştığı için alttaki kurallara asla sıra gelmezdi. Karar yapılarında kural sıralaması hayatidir.",
+      "if/elif bloklarında da ilk True olan dal çalışır, altındakiler atlanır. Bu paralelliği öğrencilere kavratın.",
+    ),
+    cards(
+      "Brute-Force Saldırıları ve Hesap Kilitleme",
+      [
+        [
+          "Saldırı Yöntemi",
+          "Otomatik programlarla binlerce parola ardı ardına denenir.",
+        ],
+        [
+          "Sayaç Mantığı",
+          "Her hatalı girişte başarısız deneme sayacı 1 artırılır.",
+        ],
+        [
+          "Eşik Kontrolü",
+          "Belirli bir limite (örn. 3 veya 5 hatalı deneme) ulaşıldığında hesap kilitlenir.",
+        ],
+        [
+          "Güvenlik İlkesi",
+          "Kullanıcıya 'kalan hakkı' gösterilerek meşru kullanıcının uyarılması sağlanır.",
+        ],
+      ],
+      "Sınırsız deneme hakkı tanımak en zayıf parolayı bile kırılabilir kılar.",
+      "Web ve sistem güvenliğinde 'Rate Limiting' ve 'Account Lockout' politikalarının temelidir.",
+    ),
+    code(
+      "Sözde Kod 8: Hatalı deneme sayacı ve kilitleme",
+      "Pseudocode",
+      'BAŞLA\n  hatali_sayac değerini OKU\n  girilen_parola değerini OKU\n  \n  EĞER hatali_sayac >= 3 İSE\n    "HESAP KİLİTLENDİ: Sistem yöneticisine başvurun" YAZ\n  DEĞİLSE EĞER girilen_parola == "Guvenli123" İSE\n    "Giriş başarılı: Oturum açıldı" YAZ\n  DEĞİLSE\n    kalan_hak = 3 - (hatali_sayac + 1)\n    "Hatalı parola! Kalan hakkınız: " + kalan_hak YAZ\nBİTİR',
+      "Sayaç 3 olduğunda doğru parola girilse bile neden içeri alınmadığını incele.",
+      "Güvenlik politikası: Hesap kilitlendikten sonra doğru parola gelse bile yetkili müdahalesi veya süre dolumu gerekir.",
+    ),
+    run(
+      "Örnek 8: Hesap kilitleme kurgusu",
+      "lockout",
+      "Hatalı deneme eşiği aşıldığında oturum kilitlenir.",
+      "Sayaç 0 ve doğru parola yaz; ardından sayaç 3 yapıp doğru parolayla dene.",
+      "Erken kilitleme kontrolü (guard clause) parolanın doğrulanmasından önce işletilir.",
+    ),
+    cards(
+      "Çok Faktörlü Doğrulama (2FA / MFA)",
+      [
+        [
+          "1. Faktör: Bildiğin Bir Şey",
+          "Kullanıcı parolası veya PIN kodu.",
+        ],
+        [
+          "2. Faktör: Sahip Olduğun Bir Şey",
+          "SMS onay kodu, Authenticator uygulaması veya donanım anahtarı.",
+        ],
+        [
+          "Mantıksal 'and' Koşulu",
+          "Sisteme girmek için HER İKİ faktörün de aynı anda doğrulanması şarttır.",
+        ],
+      ],
+      "Parolanın çalınması durumunda 2. faktör hesabı korur.",
+      "Bilgi güvenliğinin temel kimlik doğrulama modellerinden biri.",
+    ),
+    code(
+      "Sözde Kod 9: İki adımlı doğrulama akışı",
+      "Pseudocode",
+      'BAŞLA\n  parola değerini OKU\n  kod değerini OKU\n  \n  parola_dogru_mu = (parola == "Bgt2026")\n  kod_dogru_mu = (kod == "456789")\n  \n  EĞER parola_dogru_mu VE kod_dogru_mu İSE\n    "Giriş onaylandı: Güvenli oturum açıldı" YAZ\n  DEĞİLSE EĞER DEĞİL parola_dogru_mu İSE\n    "Red: Parola yanlış" YAZ\n  DEĞİLSE\n    "Red: Doğrulama kodu hatalı" YAZ\nBİTİR',
+      "İki durumun da aynı anda True olması zorunluluğunu izle.",
+      "Hangi bilginin hatalı olduğunu kullanıcıya bildirme stratejisi.",
+    ),
+    run(
+      "Örnek 9: İki adımlı doğrulama (2FA) kontrolü",
+      "twofactor",
+      "Parola ve 6 haneli kod birlikte doğrulanır.",
+      "Parolayı doğru, kodu yanlış girip reddi test et; sonra ikisini de doğru gir.",
+      "İki koşullu doğrulama akışında and operatörünün birleştirici gücü.",
+    ),
+    code(
+      "Sözde Kod 10: Kullanıcı kotası ve indirme kontrolü",
+      "Pseudocode",
+      'BAŞLA\n  kullanici_tipi değerini OKU\n  istenen_mb değerini OKU\n  \n  EĞER kullanici_tipi == "premium" İSE\n    kota = 5000\n  DEĞİLSE\n    kota = 500\n    \n  EĞER istenen_mb <= 0 İSE\n    "Hata: Geçersiz veri miktarı" YAZ\n  DEĞİLSE EĞER istenen_mb > kota İSE\n    "Kota aşıldı! İndirme reddedildi" YAZ\n  DEĞİLSE\n    kalan = kota - istenen_mb\n    "İndirme başladı. Kalan kota: " + kalan YAZ\nBİTİR',
+      "Kullanıcı türüne göre sınırın belirlenip ardından işlem büyüklüğünün denetlenmesi.",
+      "Ağ ve bulut sistemlerinde kota yönetimi.",
+    ),
+    run(
+      "Örnek 10: Kota hesaplama ve yetki kontrolü",
+      "quota",
+      "Standart kullanıcı (500 MB) ve Premium kullanıcı (5000 MB) limitleri sınanır.",
+      "'standart' ve 600 gir (reddedilmeli); ardından 'premium' ve 600 gir (onaylanmalı).",
+      "Sınır ve kota mantığının değişkenlerle nasıl dinamikleştirildiğini gösterin.",
+    ),
+    ai(
+      "🤖 YZ ile Çalış: Derin iç içe yapıyı sadeleştir",
+      "YZ aracına şu istemi ver:\n\n'Aşağıdaki 4 seviyeli iç içe if-else kodunu Guard Clause (erken çıkış) prensibiyle yeniden yaz ve kodun neden daha okunabilir olduğunu açıkla.'",
+      "Kendi kodunu YZ'ye sadeleştirt, önerilen erken çıkış mantığını defterine çiz.",
+      "YZ destekli kod iyileştirme (refactoring) pratiği. Direksiyonda öğrenci var, YZ tasarım önerisi sunuyor.",
+    ),
+    s(
+      "Mini quiz 1: Doğrulama sırası",
+      "quiz",
+      {
+        question:
+          "Kullanıcıdan alınan bir port numarası için en güvenli doğrulama sırası hangisidir?",
+        options: [
+          "1. int() dönüşümü → 2. strip() → 3. isdigit()",
+          "1. strip() boşluk temizleme → 2. isdigit() sayısal kontrol → 3. int() ve aralık kontrolü",
+          "1. 1 <= port <= 65535 kontrolü → 2. isdigit()",
+          "Doğrulama sırasının program çalışmasına hiçbir etkisi yoktur",
+        ],
+        answer: 1,
+        explanation:
+          "Önce metin boşluklardan temizlenmeli, ardından harf içermediği isdigit() ile sınanmalı, en son güvenle int'e dönüştürülüp sayısal aralık denetlenmelidir.",
+      },
+      "Kolay seviye doğrulama hiyerarşisi sorusu.",
+    ),
+    s(
+      "Mini quiz 2: Karar tablosunda durum kombinasyonu",
+      "quiz",
+      {
+        question:
+          "Bir güvenlik kuralında 3 adet bağımsız Evet/Hayır (True/False) koşulu varsa karar tablosunda kaç farklı durum satırı oluşur?",
+        options: ["3", "6", "8", "9"],
+        answer: 2,
+        explanation:
+          "n adet ikili koşul için durum sayısı 2^n formülüyle hesaplanır. 2^3 = 8 farklı durum kombinasyonu vardır.",
+      },
+      "Kolay-orta seviye karar tablosu matematik sorusu.",
+    ),
+    s(
+      "Mini quiz 3: Guard clause mantığı",
+      "quiz",
+      {
+        question:
+          "Guard Clause (Erken Çıkış) yaklaşımının temel amacı nedir?",
+        options: [
+          "Daha fazla iç içe girinti oluşturarak kodu karmaşıklaştırmak",
+          "Hatalı veya geçersiz durumları en başta ayıklayıp ana akışı düz ve okunabilir kılmak",
+          "Programda hiçbir zaman if kullanmamak",
+          "Değişkenlerin türünü otomatik değiştirmek",
+        ],
+        answer: 1,
+        explanation:
+          "Guard Clause hatalı durumları kapıda eler. Böylece kod sağa doğru piramit şeklinde derinleşmez, düz ve okunabilir kalır.",
+      },
+      "Orta seviye temiz kod prensibi sorusu.",
+    ),
+    s(
+      "Mini quiz 4: Port aralığı mantıksal ifadesi",
+      "quiz",
+      {
+        question:
+          "Bir port değişkeninin 1 ile 65535 sınırlarının DIŞINDA (geçersiz) olduğunu yakalayan doğru koşul hangisidir?",
+        options: [
+          "port < 1 or port > 65535",
+          "port < 1 and port > 65535",
+          "port >= 1 or port <= 65535",
+          "port == 1 and port == 65535",
+        ],
+        answer: 0,
+        explanation:
+          "Bir sayı aynı anda hem 1'den küçük hem de 65535'ten büyük olamaz (and kullanılamaz). Dışarıda kalma durumu or ile yakalanır.",
+      },
+      "Orta-zor seviye mantıksal operatör sorusu.",
+    ),
+    s(
+      "Mini quiz 5: Çok kriterli güvenlik duvarı kuralı",
+      "quiz",
+      {
+        question:
+          "K1: Yerel IP ve Web Portu → İZİN; K2: Yerel IP ve Diğer Port → ENGEL; K3: Harici IP → ENGEL. IP='8.8.8.8' ve Port=80 için hangi kural çalışır ve sonuç ne olur?",
+        options: [
+          "K1 kuralı çalışır ve İzin verilir",
+          "K2 kuralı çalışır ve Engellenir",
+          "K3 kuralı çalışır ve Engellenir (Bilinmeyen harici kaynak)",
+          "Kuralların hiçbiri çalışmaz, sistem çöker",
+        ],
+        answer: 2,
+        explanation:
+          "8.8.8.8 yerel bir IP değildir (192.168 veya 10 ile başlamaz). Bu nedenle ilk iki kuralı geçemez ve K3 kuralında engellenir.",
+      },
+      "Zor seviye güvenlik kuralı analiz sorusu.",
+    ),
+    s(
+      "Hafta 3: Kazanım kontrolü",
+      "outcomes",
+      {
+        lead: "4 saatlik dersin ardından şu 3 kanıtı kendi kodunla göster:",
+        items: [
+          "Birden fazla koşulu karar tablosuyla ifade et ve eksik durumu yakala.",
+          "Derin iç içe bir koşulu Guard Clause ile sadeleştir.",
+          "Güvenilmeyen bir girdiyi boşluk, tür ve aralık kontrolleriyle doğrula.",
+        ],
+      },
+      "Kazanım kontrolü: Öğrencilerin yazdığı küçük ama güvenli doğrulama kodlarını değerlendirin.",
     ),
   ],
 };

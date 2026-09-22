@@ -104,10 +104,10 @@ function Sidebar({ route, mobile, close }) {
         </nav>
         <div className="sidebar-divider" />
         <div className="sidebar-label">
-          HAFTALIK SUNUMLAR <span>02 / 14</span>
+          HAFTALIK SUNUMLAR <span>03 / 14</span>
         </div>
         <div className="week-nav">
-          {weeks.slice(0, 2).map((w) => (
+          {weeks.slice(0, 3).map((w) => (
             <a
               key={w.id}
               href={weekUrl(w.id)}

@@ -19,8 +19,9 @@ YZ ile birlikte programlayın, direksiyonda siz olun. Öğrenci önce kendi çö
 - 14 haftalık müfredat; her hafta için kazanım, uygulama ve kontrol ölçütü.
 - **Hafta 1: 49 slayt.** Programlama, algoritma, günlük yaşam ve toplama algoritmaları, sözde kod, akış şeması, araçlar, kurulum, ilk Python programları, HTML/CSS/JS ve YZ yaklaşımı. 10–15. slaytlarda bölümle bağlantılı motivasyon: etkileşimli olay kaydı sayımı, gerçek SHA-256 hesaplamasıyla içerik değişimi, yedekleme kontrolü, Python araçları ve dönem sonu projesine gelişim yolu.
 - **Hafta 2: 51 slayt.** Bellek, değişkenler, türler, input/print, dönüşüm, operatörler, Boolean düşünme, if/elif/else, basitten karmaşığa 4 sözde kod örneği (tek/çift, karşılaştırma, aralık denetimi, kurgusal parola seviyesi), sınır testleri, Python/JavaScript karşılaştırması ve 5 soruluk aşamalı pekiştirme quizi (kolay, orta, zor).
-- 14 bağımsız Python dosyası, iki bağımsız web örneği.
-- 3–14. haftalar “Yakında” durumundadır; bu aşamada ayrıntılı slaytları hazırlanmadı.
+- **Hafta 3: 53 slayt.** 4 saatlik (2 teori + 2 lab) zenginleştirilmiş ders içeriği: Girdi doğrulama hiyerarşisi (varlık, tür, aralık, izin), `strip()` ve `isdigit()` ile güvenli dönüşüm, derin iç içe koşullar (`nested if`) yerine Guard Clause (erken çıkış) prensibi, karar tabloları matrisi, beyaz liste vs kara liste yaklaşımı, BGT senaryoları (firewall kuralı, hesap kilitleme, 2FA, kota hesabı), 10 bağımsız Python örneği, 6 aşamalı sözde kod ve 5 soruluk pekiştirme quizi.
+- 24 bağımsız Python dosyası, iki bağımsız web örneği.
+- 4–14. haftalar “Yakında” durumundadır; bu aşamada ayrıntılı slaytları hazırlanmadı.
 
 ### Hafta 2 Algoritmik Sözde Kod ve Pekiştirme Quizi
 
@@ -36,6 +37,15 @@ YZ ile birlikte programlayın, direksiyonda siz olun. Öğrenci önce kendi çö
    - **Mini Quiz 3 (Orta):** Sözde kod adımlarını kuru çalıştırma ve mod (`%`) hesabı (`10 % 4 == 2`).
    - **Mini Quiz 4 (Orta-Zor):** Not aralığını güvenli doğrulayan çift taraflı `VE` (`and`) mantığı.
    - **Mini Quiz 5 (Zor / BGT):** Parola karakter uzunluğuna göre çok dallı akış ve ilk doğru dalın yürütülmesi.
+
+### Hafta 3: Karar Yapıları ve Veri Doğrulama (4 Saatlik Genişletilmiş İçerik)
+
+Haftalık 4 saatlik (2 teori + 2 laboratuvar) ders yapısına tam uyumlu olarak 53 slayt ve 10 çalıştırılabilir Python örneğiyle zenginleştirilmiştir:
+1. **1. Saat (Girdi Doğrulama & Güvenilmeyen Veri):** Varlık (`strip`), tip (`isdigit`), aralık (0–100 / 1–65535) ve izin hiyerarşisi.
+2. **2. Saat (Tasarım & Refactoring):** Derin iç içe if yapıları (Piramit anti-pattern) yerine Guard Clause (Erken Çıkış) yaklaşımı ve kod sadeleştirme.
+3. **3. Saat (Karar Tabloları Matrisi):** $2^n$ kural analizi, eksik durum tespiti, rol ve işlem matrisi (Admin/Öğretmen/Öğrenci).
+4. **4. Saat (BGT Uygulamaları & Sınav):** Güvenlik duvarı paket filtresi, hatalı deneme sayacı (Account Lockout), 2FA kontrolü, kota yönetimi ve 5 soruluk aşamalı sınav.
+
 
 
 ## İki çalışma modu

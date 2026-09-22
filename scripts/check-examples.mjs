@@ -52,6 +52,20 @@ const edgeCases = [
   ["username", "ogrenci1", "Kullanıcı adı alındı"],
   ["password", "1234567", "En az 8 karakter gerekli"],
   ["password", "123456789", "Uzunluk koşulu sağlandı"],
+  ["empty", "   ", "Hata: Kullanıcı adı boş bırakılamaz"],
+  ["digit", "abc", "Hata: Yalnızca rakamlardan oluşan bir değer girilmelidir"],
+  ["range", "0", "Hata: Port 1 ile 65535 arasında olmalıdır"],
+  ["range", "70000", "Hata: Port 1 ile 65535 arasında olmalıdır"],
+  ["guard", "16\ne", "Erişim reddedildi: 18 yaşından küçükler giremez"],
+  ["guard", "20\nh", "Erişim reddedildi: Geçerli biletiniz yok"],
+  ["policy", ".exe\n500", "Red: Güvensiz veya desteklenmeyen dosya türü"],
+  ["policy", ".txt\n2000", "Red: Dosya boyutu 1024 KiB sınırını aşıyor"],
+  ["auth", "ogrenci\nsil", "Red: Öğrenci yalnızca okuma yapabilir"],
+  ["firewall", "8.8.8.8\n80", "GÜVENLİK DUVARI: ENGEL (Bilinmeyen Dış Kaynak)"],
+  ["lockout", "3\nGuvenli123", "HESAP KİLİTLİ: Çok fazla hatalı deneme yapıldı"],
+  ["lockout", "1\nYanlisSifre", "Hatalı parola! Kalan deneme hakkı: 1"],
+  ["twofactor", "Bgt2026\n000000", "Giriş reddedildi: Doğrulama kodu hatalı"],
+  ["quota", "standart\n600", "İşlem engellendi: Kota aşıldı!"],
 ];
 for (const [key, input, expected] of edgeCases) {
   const r = run(pythonExamples[key], input);
