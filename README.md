@@ -18,9 +18,18 @@ YZ ile birlikte programlayın, direksiyonda siz olun. Öğrenci önce kendi çö
 
 - 14 haftalık müfredat; her hafta için kazanım, uygulama ve kontrol ölçütü.
 - **Hafta 1: 49 slayt.** Programlama, algoritma, günlük yaşam ve toplama algoritmaları, sözde kod, akış şeması, araçlar, kurulum, ilk Python programları, HTML/CSS/JS ve YZ yaklaşımı. 10–15. slaytlarda bölümle bağlantılı motivasyon: etkileşimli olay kaydı sayımı, gerçek SHA-256 hesaplamasıyla içerik değişimi, yedekleme kontrolü, Python araçları ve dönem sonu projesine gelişim yolu.
-- **Hafta 2: 43 slayt.** Bellek, değişkenler, türler, input/print, dönüşüm, operatörler, Boolean düşünme, if/elif/else, sınır testleri ve Python/JavaScript karşılaştırması.
+- **Hafta 2: 47 slayt.** Bellek, değişkenler, türler, input/print, dönüşüm, operatörler, Boolean düşünme, if/elif/else, basitten karmaşığa 4 sözde kod örneği (tek/çift, karşılaştırma, aralık denetimi, kurgusal parola seviyesi), sınır testleri ve Python/JavaScript karşılaştırması.
 - 14 bağımsız Python dosyası, iki bağımsız web örneği.
 - 3–14. haftalar “Yakında” durumundadır; bu aşamada ayrıntılı slaytları hazırlanmadı.
+
+### Hafta 2 Algoritmik Sözde Kod Örnekleri
+
+Öğrencilerin algoritmik düşünme ve problem çözme becerilerini pekiştirmek amacıyla 2. haftaya basitten karmaşığa 4 aşamalı sözde kod (pseudocode) modeli eklenmiştir:
+1. **Tek / Çift Sayı Denetimi:** Temel iki dallı karar yapısı, kalan (`%`) operatörü ve sıfır/negatif sınır durumları.
+2. **İki Sayının Karşılaştırması:** Üç dallı karar yapısı (`EĞER / DEĞİLSE EĞER / DEĞİLSE`) ve eşitlik (`==`) durumunun modellenmesi.
+3. **Sınav Notu Geçerliliği ve Başarı:** Mantıksal `VE` / `VEYA` operatörleri ile savunmacı programlama (önce geçersiz aralığı ayıklama, ardından başarı değerlendirmesi).
+4. **Kurgusal Parola Güvenlik Seviyesi:** Bilgi Güvenliği Teknolojisi programı odağında metin uzunluğu (`UZUNLUK`) ve kademeli sınıflandırma mantığı.
+
 
 ## İki çalışma modu
 
