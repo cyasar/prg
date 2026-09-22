@@ -880,17 +880,79 @@ export const decks = {
       "Zincir karşılaştırma Python’da mümkündür fakat bugün and ile iki koşulu açık görünür tutun. Gereksinimde en az/en fazla sözcüklerinin etkisini öğrenci açıklasın.",
     ),
     s(
-      "Mini quiz: Doğru dal",
+      "Mini quiz 1: Değişkenler ve tür davranışı",
       "quiz",
       {
         question:
-          "notu = 50 iken if notu > 50: Geçti, else: Kaldı algoritması hangi sonucu verir?",
-        options: ["Geçti", "Kaldı", "İki mesajı da verir"],
+          'adet = "3" ve sayi = 2 iken sonuc = adet * sayi ifadesinin değeri ve türü ne olur?',
+        options: [
+          "6 (int)",
+          '"33" (str)',
+          '"6" (str)',
+          "TypeError hatası verir",
+        ],
         answer: 1,
         explanation:
-          "> koşulu eşitliği kapsamaz. Program Kaldı der. Gereksinim “50 ve üzeri” ise >= kullanılmalıdır.",
+          'Tırnak içindeki "3" bir metindir (str). Metin bir tamsayı ile çarpıldığında aritmetik çarpma yapılmaz, metin o sayıda yinelenir ("33").',
       },
-      "Çıkan sonuç ile doğru olması gereken sonucu ayırın. Soru mevcut kodun ne yaptığını soruyor. Sonra öğrenci gereksinime uygun düzeltmeyi versin.",
+      "Kolay seviye pekiştirme sorusu. Metin ve tamsayı tür ayrımını ve Python'da çarpma (*) operatörünün türe göre davranışını hatırlatın.",
+    ),
+    s(
+      "Mini quiz 2: Sınır değeri ve operatörler",
+      "quiz",
+      {
+        question:
+          "notu = 50 iken EĞER notu > 50 İSE 'Geçti' DEĞİLSE 'Kaldı' algoritması hangi sonucu verir?",
+        options: ["Geçti", "Kaldı", "İki mesajı da verir", "Hata verir"],
+        answer: 1,
+        explanation:
+          "> büyüktür operatörü eşitlik durumunu kapsamaz. 50 > 50 yanlış (False) olduğundan DEĞİLSE dalı (Kaldı) çalışır. Eşitliği dahil etmek için >= gerekir.",
+      },
+      "Kolay seviye sınır testi sorusu. 50 değerinin kritik eşik olduğunu ve karşılaştırma operatörünün sınır davranışını vurgulayın.",
+    ),
+    s(
+      "Mini quiz 3: Sözde kod izleme ve kalan operatörü",
+      "quiz",
+      {
+        question:
+          "BAŞLA; x = 10; y = 4; EĞER x % y == 2 İSE sonuc = x + y, DEĞİLSE sonuc = x - y; sonuc YAZ; BİTİR algoritmasında ekrana ne yazılır?",
+        options: ["6", "14", "2", "10"],
+        answer: 1,
+        explanation:
+          "10 % 4 (10'un 4'e bölümünden kalan) 2'dir. 2 == 2 koşulu doğru olduğundan EĞER dalı çalışır ve sonuc = 10 + 4 = 14 hesaplanır.",
+      },
+      "Orta seviye kuru çalıştırma sorusu. Adım adım değişken izleme ve mod (%) operatörünün doğru hesaplanmasını kontrol edin.",
+    ),
+    s(
+      "Mini quiz 4: Mantıksal operatörler ve aralık denetimi",
+      "quiz",
+      {
+        question:
+          "Bir puanın 0 ile 100 arasında (sınırlar dahil) geçerli olduğunu doğrulamak için hangi koşul kurulmalıdır?",
+        options: [
+          "puan >= 0 VE puan <= 100",
+          "puan >= 0 VEYA puan <= 100",
+          "puan > 0 VE puan < 100",
+          "puan == 0 VEYA puan == 100",
+        ],
+        answer: 0,
+        explanation:
+          "Bir değerin iki sınırın da içinde olması için her iki koşulun da aynı anda sağlanması gerekir; bu nedenle VE (and) kullanılır.",
+      },
+      "Orta-zor seviye mantık sorusu. VE ile VEYA arasındaki farkı ve savunmacı programlamada geçerli aralık yakalamayı tartışın.",
+    ),
+    s(
+      "Mini quiz 5: Çok dallı akış ve kurgusal parola",
+      "quiz",
+      {
+        question:
+          'parola = "comu12" iken (uzunluk = 6); EĞER uzunluk < 6: "Yetersiz", DEĞİLSE EĞER uzunluk <= 8: "Orta", DEĞİLSE: "Güçlü" akışında çıktı ne olur?',
+        options: ["Yetersiz", "Orta", "Güçlü", "Program hata verir"],
+        answer: 1,
+        explanation:
+          '"comu12" 6 karakterdir. İlk koşul 6 < 6 yanlıştır. İkinci koşul 6 <= 8 doğru olduğu için "Orta" yazılır ve yapıdan çıkılır.',
+      },
+      "Zor seviye çoklu koşul sorusu. Çok dallı karar yapılarında ilk doğru dalın çalışıp sonrakilerin atlandığını ve eşitlik sınırını pekiştirin.",
     ),
     s(
       "Hafta 2: Kazanım kontrolü",

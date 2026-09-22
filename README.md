@@ -18,17 +18,24 @@ YZ ile birlikte programlayın, direksiyonda siz olun. Öğrenci önce kendi çö
 
 - 14 haftalık müfredat; her hafta için kazanım, uygulama ve kontrol ölçütü.
 - **Hafta 1: 49 slayt.** Programlama, algoritma, günlük yaşam ve toplama algoritmaları, sözde kod, akış şeması, araçlar, kurulum, ilk Python programları, HTML/CSS/JS ve YZ yaklaşımı. 10–15. slaytlarda bölümle bağlantılı motivasyon: etkileşimli olay kaydı sayımı, gerçek SHA-256 hesaplamasıyla içerik değişimi, yedekleme kontrolü, Python araçları ve dönem sonu projesine gelişim yolu.
-- **Hafta 2: 47 slayt.** Bellek, değişkenler, türler, input/print, dönüşüm, operatörler, Boolean düşünme, if/elif/else, basitten karmaşığa 4 sözde kod örneği (tek/çift, karşılaştırma, aralık denetimi, kurgusal parola seviyesi), sınır testleri ve Python/JavaScript karşılaştırması.
+- **Hafta 2: 51 slayt.** Bellek, değişkenler, türler, input/print, dönüşüm, operatörler, Boolean düşünme, if/elif/else, basitten karmaşığa 4 sözde kod örneği (tek/çift, karşılaştırma, aralık denetimi, kurgusal parola seviyesi), sınır testleri, Python/JavaScript karşılaştırması ve 5 soruluk aşamalı pekiştirme quizi (kolay, orta, zor).
 - 14 bağımsız Python dosyası, iki bağımsız web örneği.
 - 3–14. haftalar “Yakında” durumundadır; bu aşamada ayrıntılı slaytları hazırlanmadı.
 
-### Hafta 2 Algoritmik Sözde Kod Örnekleri
+### Hafta 2 Algoritmik Sözde Kod ve Pekiştirme Quizi
 
-Öğrencilerin algoritmik düşünme ve problem çözme becerilerini pekiştirmek amacıyla 2. haftaya basitten karmaşığa 4 aşamalı sözde kod (pseudocode) modeli eklenmiştir:
-1. **Tek / Çift Sayı Denetimi:** Temel iki dallı karar yapısı, kalan (`%`) operatörü ve sıfır/negatif sınır durumları.
-2. **İki Sayının Karşılaştırması:** Üç dallı karar yapısı (`EĞER / DEĞİLSE EĞER / DEĞİLSE`) ve eşitlik (`==`) durumunun modellenmesi.
-3. **Sınav Notu Geçerliliği ve Başarı:** Mantıksal `VE` / `VEYA` operatörleri ile savunmacı programlama (önce geçersiz aralığı ayıklama, ardından başarı değerlendirmesi).
-4. **Kurgusal Parola Güvenlik Seviyesi:** Bilgi Güvenliği Teknolojisi programı odağında metin uzunluğu (`UZUNLUK`) ve kademeli sınıflandırma mantığı.
+Öğrencilerin algoritmik düşünme ve problem çözme becerilerini pekiştirmek amacıyla 2. haftaya basitten karmaşığa 4 aşamalı sözde kod (pseudocode) modeli ve 5 soruluk aşamalı pekiştirme quizi eklenmiştir:
+1. **Sözde Kod Örnekleri (Basitten Karmaşığa):**
+   - **Tek / Çift Sayı Denetimi:** Temel iki dallı karar yapısı, kalan (`%`) operatörü ve sıfır/negatif sınır durumları.
+   - **İki Sayının Karşılaştırması:** Üç dallı karar yapısı (`EĞER / DEĞİLSE EĞER / DEĞİLSE`) ve eşitlik (`==`) durumunun modellenmesi.
+   - **Sınav Notu Geçerliliği ve Başarı:** Mantıksal `VE` / `VEYA` operatörleri ile savunmacı programlama (önce geçersiz aralığı ayıklama, ardından başarı değerlendirmesi).
+   - **Kurgusal Parola Güvenlik Seviyesi:** Bilgi Güvenliği Teknolojisi programı odağında metin uzunluğu (`UZUNLUK`) ve kademeli sınıflandırma mantığı.
+2. **Hafta Sonu 5 Soruluk Pekiştirme Sınavı (Quiz):**
+   - **Mini Quiz 1 (Kolay):** Değişken ataması ve metin çarpımı (`"3" * 2` tekrar davranışı).
+   - **Mini Quiz 2 (Kolay):** Karar yapısında sınır eşiği ve eşitlik kontrolü (`notu > 50` tuzağı).
+   - **Mini Quiz 3 (Orta):** Sözde kod adımlarını kuru çalıştırma ve mod (`%`) hesabı (`10 % 4 == 2`).
+   - **Mini Quiz 4 (Orta-Zor):** Not aralığını güvenli doğrulayan çift taraflı `VE` (`and`) mantığı.
+   - **Mini Quiz 5 (Zor / BGT):** Parola karakter uzunluğuna göre çok dallı akış ve ilk doğru dalın yürütülmesi.
 
 
 ## İki çalışma modu
