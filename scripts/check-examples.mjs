@@ -66,6 +66,12 @@ const edgeCases = [
   ["lockout", "1\nYanlisSifre", "Hatalı parola! Kalan deneme hakkı: 1"],
   ["twofactor", "Bgt2026\n000000", "Giriş reddedildi: Doğrulama kodu hatalı"],
   ["quota", "standart\n600", "İşlem engellendi: Kota aşıldı!"],
+  ["countdown", "1", "Kalan süre: 1 sn"],
+  ["pin_bruteforce", "1111\n2222\n3333", "3 kez hatalı deneme! Kart bloke edildi"],
+  ["port_scan", "80\n80", "Port 80: [AÇIK] Servis tespit edildi"],
+  ["traffic_sum", "1\n2000", "1000 bayt üzeri şüpheli paket sayısı: 1"],
+  ["blacklist_check", "8.8.8.8", "ERİŞİM İZİN: IP güvenli görünüyor"],
+  ["list_operations", "445", "[25, 445]"],
 ];
 for (const [key, input, expected] of edgeCases) {
   const r = run(pythonExamples[key], input);

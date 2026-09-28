@@ -22,7 +22,11 @@ const outcomes = (id) =>
       ? "Programlamaya Giriş"
       : id === 2
         ? "Veri, Değişkenler ve Karar Veren Programlar"
-        : "Karar Yapıları ve Veri Doğrulama",
+        : id === 3
+          ? "Karar Yapıları ve Veri Doğrulama"
+          : id === 4
+            ? "Döngüler ve Tekrarlayan Problemler"
+            : "Diziler (Listeler) ve Veri İşleme",
     "outcomes",
     {
       lead:
@@ -30,7 +34,11 @@ const outcomes = (id) =>
           ? "Bilgisayara problemleri çözdürmeyi öğreneceğiz."
           : id === 2
             ? "Programlar bilgiyi nerede tutar ve bu bilgiyle nasıl karar verir?"
-            : "Karmaşık karar mekanizmalarını sadeleştirip veriyi hatalara ve kötüye kullanıma karşı nasıl doğrularız?",
+            : id === 3
+              ? "Karmaşık karar mekanizmalarını sadeleştirip veriyi hatalara ve kötüye kullanıma karşı nasıl doğrularız?"
+              : id === 4
+                ? "Tekrarlanan işlemleri, sayaçları ve toplayıcıları döngülerle nasıl otomatikleştiririz?"
+                : "Birden çok veriyi dizilerde (listelerde) nasıl saklar, filtreler ve analiz ederiz?",
       items: weeks[id - 1].outcomes,
     },
     "Bu haftanın kazanımlarını birlikte okuyun. Her kazanım için hafta sonunda bir uygulama kanıtı isteyin. Bilgi güvenliğiyle ilişki: açık kurallar, güvenilmeyen veri ve test sorumluluğu.",
@@ -1542,6 +1550,781 @@ export const decks = {
         ],
       },
       "Kazanım kontrolü: Öğrencilerin yazdığı küçük ama güvenli doğrulama kodlarını değerlendirin.",
+    ),
+  ],
+  4: [
+    outcomes(4),
+    think(
+      "Neden döngü kullanırız?",
+      "Bir sunucuya bağlanan 100 kullanıcının her biri için ayrı ayrı 'kullanici1_kontrol()', 'kullanici2_kontrol()' yazmak sürdürülebilir midir? 10.000 istek geldiğinde kod neye benzer?",
+      "Hayır. Elle kod tekrarı hem hata riskini katlar hem de kodun bakımını imkansız hale getirir. Döngüler, aynı veya benzer mantığı tek bir blokta binlerce kez çalıştırmamızı sağlar.",
+      "Döngülerin temel motivasyonunu sınıfça tartışın. Programlamada 'DRY' (Don't Repeat Yourself - Kendini Tekrar Etme) prensibine vurgu yapın.",
+    ),
+    cards(
+      "Döngülerin Temel Rolü ve Gücü",
+      [
+        [
+          "Otomasyon ve Hız",
+          "Aynı işlemi elle defalarca yazmak yerine bilgisayarın saniyede milyonlarca işlem yapma hızından yararlanırız.",
+        ],
+        [
+          "Veri Akışını İşleme",
+          "Ağdan gelen paketleri, log dosyası satırlarını veya veritabanı kayıtlarını sırayla okuyup işleriz.",
+        ],
+        [
+          "Koşula Bağlı Canlılık",
+          "Belirli bir durum sağlanana kadar (örneğin doğru parola girilene ya da bağlantı kurulana dek) sistemi canlı tutarız.",
+        ],
+        [
+          "Dinamik Karar Alma",
+          "Her döngü turunda (iterasyonda) farklı girdi değerlerini if/elif/else bloklarıyla değerlendiririz.",
+        ],
+      ],
+      "Tek bir algoritma, sınırsız tekrar kabiliyeti.",
+      "Öğrencilere günlük hayattan periyodik görevleri sorarak döngü analojisi kurun (saatin tik-takları, sayaçlar vb.).",
+    ),
+    cards(
+      "Python'da İki Temel Döngü Türü",
+      [
+        [
+          "while Döngüsü",
+          "Bir mantıksal koşul True olduğu sürece çalışmaya devam eder. Adım sayısının önceden bilinmediği durumlar için idealdir.",
+        ],
+        [
+          "for Döngüsü",
+          "Belirli bir aralık (range) veya veri koleksiyonu (liste, metin) üzerinde sırayla ilerler. Adım sayısı genellikle bellidir.",
+        ],
+      ],
+      "Problemin yapısına göre doğru döngü aracını seçmek başarının ilk adımıdır.",
+      "Girdi beklerken veya olay odaklı durumlarda while, sıralı eleman gezerken for tercih edildiğini vurgulayın.",
+    ),
+    cards(
+      "while Döngüsünün Üç Altın Kuralı",
+      [
+        [
+          "1. Başlangıç Durumu",
+          "Döngüye girmeden önce koşulda test edilecek değişken tanımlanmalı ve ilk değeri verilmelidir (örn: sayac = 0).",
+        ],
+        [
+          "2. Geçerlilik Koşulu",
+          "while ifadesinin yanındaki mantıksal test True olduğu müddetçe döngü gövdesi çalışır.",
+        ],
+        [
+          "3. Değişken Güncellemesi",
+          "Döngü bloğu içinde koşul değişkeni mutlaka güncellenmelidir (örn: sayac += 1). Aksi halde sonsuz döngü oluşur.",
+        ],
+      ],
+      "Döngü koşulu zaman içinde mutlaka False değerine ulaşabilmelidir.",
+      "Sonsuz döngünün CPU tüketimini ve sistem kilitlenmesini nasıl tetiklediğini anlatın.",
+    ),
+    code(
+      "while döngüsünün anatomisi",
+      "Python",
+      "sayac = 1  # 1. Başlangıç\nwhile sayac <= 3:  # 2. Koşul denetimi\n    print(\"Oturum kontrol adımı:\", sayac)\n    sayac += 1  # 3. İlerleme/Güncelleme\nprint(\"Kontrol tamamlandı, oturum güvenli.\")",
+      "# Bu kod çalıştığında ekrana sırasıyla hangi çıktılar verilir?",
+      "sayac değişkeninin 1, 2, 3 değerlerini alacağını, 4 olduğunda koşulun bozulup döngüden çıkılacağını adım adım gösterin.",
+    ),
+    exercise(
+      "Soru & Çözüm 1: while ile Geri Sayım",
+      "Soru: Bir sistem oturumunun kilitlenmesi için kullanıcıya 3'ten geriye sayan, 0'a ulaştığında 'Süre doldu! Oturum kilitlendi.' yazan algoritmayı ve Python kodunu yazınız.",
+      "sayac = 3\nwhile sayac > 0:\n    print(\"Kalan süre:\", sayac, \"sn\")\n    sayac -= 1\nprint(\"Süre doldu! Oturum güvenlik nedeniyle kilitlendi.\")",
+      "Geriye doğru saymada sayac -= 1 adımının kritik olduğunu ve sayac > 0 sınırını vurgulayın.",
+    ),
+    run(
+      "Uygulama 1: Güvenlik Oturumu Geri Sayımı",
+      "countdown",
+      "Python'da while döngüsü ile sayaç tabanlı oturum kilitleme demosu.",
+      "# Farklı bir saniye değeri girip geri sayımı terminalde incele.",
+      "Pyodide üzerinde kodu çalıştırıp sayacın değişimini adım adım izletin.",
+    ),
+    think(
+      "Sonsuz Döngü (Infinite Loop) Tuzağı",
+      "sayac = 1\nwhile sayac <= 5:\n    print(sayac)\nsayac += 1 satırını yazmayı unutursak veya girintiyi while dışına koyarsak ne meydana gelir?",
+      "sayac değişkeni döngü içinde hiç artmadığı için hep 1 kalır. 1 <= 5 koşulu sürekli True olacağından program sonsuza kadar 1 yazdırır, terminal donar ve işlemci aşırı yüklenir.",
+      "Python'da girintinin (indentation) mantıksal kapsamı belirlediğini hatırlatın. Sonsuz döngüden çıkmak için terminalde Ctrl+C kullanıldığını belirtin.",
+    ),
+    cards(
+      "Döngülerde İki Kritik Kalıp: Sayaç ve Toplayıcı",
+      [
+        [
+          "Sayaç (Counter)",
+          "Belirli bir olayın kaç kez gerçekleştiğini sayar. Genellikle her seferinde 1 artırılır: hatali_deneme += 1.",
+        ],
+        [
+          "Toplayıcı (Accumulator)",
+          "Sayısal büyüklükleri kümülatif olarak biriktirir. Örneğin gelen veri boyutlarını toplar: toplam_bayt += paket_boyutu.",
+        ],
+        [
+          "Başlangıç Sıfırlaması",
+          "Her iki değişken de döngü başlamadan önce mutlaka 0 (veya uygun etkisiz eleman) değerine eşitlenmelidir.",
+        ],
+        [
+          "Döngü Sonrası Raporlama",
+          "Nihai sayaç ve toplayıcı değerleri döngü tamamlandıktan sonra ekrana yazdırılır veya güvenlik kararında kullanılır.",
+        ],
+      ],
+      "Döngülerde durum ve istatistik tutmanın iki temel omurgası.",
+      "BGT bağlamında: hatalı parola sayımı (sayaç), indirilen bayt miktarı (toplayıcı).",
+    ),
+    table(
+      "Sayaç ve Toplayıcı Karşılaştırması",
+      ["Özellik", "Sayaç (Counter)", "Toplayıcı (Accumulator)"],
+      [
+        ["Amaç", "Olay adedini saymak", "Kümülatif miktarı toplamak"],
+        ["Artış Miktarı", "Sabit (+1)", "Değişken (+gelen_deger)"],
+        ["Başlangıç Değeri", "0", "0"],
+        ["BGT Senaryosu", "Brute-force deneme adedi", "Günlük aktarılan veri kotası"],
+      ],
+      "Senaryoya göre doğru değişken rolünü belirle.",
+      "Sayaç ve toplayıcı kavramlarının algoritma kurmadaki yerini pekiştirin.",
+    ),
+    cards(
+      "Döngü Kırıcılar: break ve continue",
+      [
+        [
+          "break İfadesi",
+          "İçinde bulunduğu döngüyü DERHAL sonlandırır. Döngüden sonraki ilk satıra atlar.",
+        ],
+        [
+          "continue İfadesi",
+          "Döngünün MEVCUT TURUNU yarıda keser; bir sonraki tura (iterasyona) geçer.",
+        ],
+        [
+          "Ne Zaman break?",
+          "Aranan hedef bulunduğunda, doğru parola girildiğinde veya kritik hata oluştuğunda döngüyü sürdürmeye gerek kalmaz.",
+        ],
+        [
+          "Ne Zaman continue?",
+          "Geçersiz, güvenli veya zararsız veriyle karşılaşıldığında gereksiz ağır işlemleri atlamak için kullanılır.",
+        ],
+      ],
+      "Döngü akışını koşullara göre dinamik yöneten iki anahtar kelime.",
+      "Gereksiz döngü turlarını önleyerek CPU tasarrufu sağlandığını belirtin.",
+    ),
+    code(
+      "break vs continue akış farkı",
+      "Python",
+      "# break: Koşul sağlandığı anda döngüyü tamamen bitirir\nfor i in range(1, 6):\n    if i == 3:\n        break\n    print(\"break çıktısı:\", i)  # Yalnızca 1 ve 2 yazar\n\n# continue: O anki adımı atlar, sonraki adıma geçer\nfor i in range(1, 6):\n    if i == 3:\n        continue\n    print(\"continue çıktısı:\", i)  # 1, 2, 4, 5 yazar",
+      "# 3 değerinin iki döngüdeki farklı akışını incele.",
+      "Öğrencilere break'in döngüden tamamen kaçış, continue'nun ise o adımı pas geçme olduğunu gösterin.",
+    ),
+    exercise(
+      "Soru & Çözüm 2: while ve break ile PIN Girişi",
+      "Soru: Kullanıcıya en fazla 3 deneme hakkı veren, doğru PIN ('1923') girilirse 'PIN doğrulandı' deyip döngüyü break ile bitiren, 3 hak biterse 'Kart bloke edildi' uyarısı veren algoritmayı yazınız.",
+      "kalan_hak = 3\ndogru_pin = \"1923\"\ngiris_basarili = False\nwhile kalan_hak > 0:\n    tahmin = input(\"PIN: \").strip()\n    if tahmin == dogru_pin:\n        giris_basarili = True\n        print(\"PIN doğrulandı!\")\n        break\n    else:\n        kalan_hak -= 1\nif not giris_basarili:\n    print(\"3 kez hatalı deneme! Kart bloke edildi.\")",
+      "break ifadesinin rolünü ve kalan_hak sayacının eksiltilmesini gösterin.",
+    ),
+    run(
+      "Uygulama 2: PIN Deneme ve Brute-Force Kilidi",
+      "pin_bruteforce",
+      "while ve break ile hatalı deneme sayacı ve güvenlik bloğu.",
+      "# Yanlış PIN'ler ve doğru PIN girerek döngü akışını sına.",
+      "Sınıfta brute-force saldırılarına karşı bu mekanizmanın neden elzem olduğunu tartışın.",
+    ),
+    cards(
+      "for Döngüsü ve range() Fonksiyonu",
+      [
+        [
+          "for Döngüsü",
+          "Sıralı bir veri kümesindeki her eleman için gövdesindeki kodları sırayla yürütür.",
+        ],
+        [
+          "range(dur)",
+          "0'dan başlar, 'dur' değerine kadar (dur hariç) 1'er artarak sayılar üretir. range(5) → 0, 1, 2, 3, 4.",
+        ],
+        [
+          "range(basla, dur)",
+          "Belirtilen 'basla' değerinden 'dur' değerine kadar sayar. range(1, 4) → 1, 2, 3.",
+        ],
+        [
+          "range(basla, dur, adim)",
+          "Belirtilen 'adim' miktarına göre sayar. range(2, 10, 2) → 2, 4, 6, 8.",
+        ],
+      ],
+      "range() fonksiyonu bellek dostudur, sayıları ihtiyaç duyuldukça üretir.",
+      "Bitiş değerinin dahil edilmediğini (exclusive) özellikle vurgulayın.",
+    ),
+    table(
+      "range() Kullanım Tablosu",
+      ["Kullanım", "Üretilen Sayılar", "Açıklama"],
+      [
+        ["range(4)", "0, 1, 2, 3", "0'dan başlar, toplam 4 sayı üretir."],
+        ["range(1, 5)", "1, 2, 3, 4", "1'den başlar, 5 hariçtir."],
+        ["range(10, 50, 10)", "10, 20, 30, 40", "10'ar artışla seriler üretir."],
+        ["range(5, 0, -1)", "5, 4, 3, 2, 1", "Negatif adımla geriye doğru sayar."],
+      ],
+      "range(1, 101) kaç adet sayı üretir?",
+      "Üst sınırın neden dahil olmadığını Python'un 0 tabanlı indeksleme felsefesiyle açıklayın.",
+    ),
+    think(
+      "for mu yoksa while mı seçilmeli?",
+      "Bir ağ yöneticisi 1. porttan 100. porta kadar tüm portları sırayla kontrol etmek istiyor. Hangi döngü daha uygundur ve neden?",
+      "for port in range(1, 101): daha uygundur; çünkü başlangıç ve bitiş sınırları bellidir. Sayaç artırma işi range tarafından otomatik yapılır, sonsuz döngü riski ortadan kalkar.",
+      "Sınırları belirli adımlarda for, dış olaya bağlı durumlarda while tercih edilir.",
+    ),
+    exercise(
+      "Soru & Çözüm 3: for ve range ile Port Tarama Simülatörü",
+      "Soru: 79 ile 81 arasındaki portları tarayan, 80 numaralı portu görünce '[AÇIK] Servis tespit edildi', diğerlerine '[KAPALI]' yazan programı tasarlayınız.",
+      "baslangic = 79\nbitis = 81\naciklar = [80]\nfor p in range(baslangic, bitis + 1):\n    if p in aciklar:\n        print(f\"Port {p}: [AÇIK] Servis tespit edildi\")\n    else:\n        print(f\"Port {p}: [KAPALI]\")",
+      "range(baslangic, bitis + 1) yazılmazsa son portun taranmayacağını belirtin.",
+    ),
+    run(
+      "Uygulama 3: Port Tarama Simülasyonu",
+      "port_scan",
+      "for ve range ile hedef portları tarama ve açık servisleri tespit etme.",
+      "# Başlangıç 79, bitiş 81 verip açık portu incele.",
+      "Port tarama (Nmap vb.) araçlarının çalışma mantığını basitleştirilmiş olarak anlatın.",
+    ),
+    exercise(
+      "Soru & Çözüm 4: continue ile Güvenli Portları Ayıklama",
+      "Soru: 78 ile 82 arasındaki portları incelerken bilinen standart web portları (80, 443) geldiğinde incelemeyi atlayan (continue), diğerlerini 'İnceleniyor (standart dışı port)' olarak yazdıran program.",
+      "guvenli = [80, 443]\nfor port in range(78, 83):\n    if port in guvenli:\n        continue\n    print(\"İnceleniyor (standart dışı port):\", port)",
+      "continue satırından sonraki kodların o tur için çalıştırılmadığını vurgulayın.",
+    ),
+    run(
+      "Uygulama 4: continue ile Port Filtreleme",
+      "continue_filter",
+      "Standart portları atlayıp yalnızca analiz edilmesi gereken portları süzme.",
+      "# Çıktıda 80 portunun neden yer almadığını açıkla.",
+      "Güvenlik analistlerinin gürültüyü (noise) filtrelemek için bu mantığı kullandığını söyleyin.",
+    ),
+    exercise(
+      "Soru & Çözüm 5: Ağ Trafiği Sayacı ve Toplayıcısı",
+      "Soru: Kullanıcıdan 3 adet ağ paket boyutu alan, toplam boyutu toplayan ve 1000 bayttan büyük şüpheli paket sayısını sayan algoritma ve Python kodunu yazınız.",
+      "toplam = 0\nsupheli = 0\nfor i in range(1, 4):\n    b = int(input(f\"Paket {i} boyutu: \"))\n    toplam += b\n    if b > 1000:\n        supheli += 1\nprint(\"Toplam aktarılan veri:\", toplam, \"bayt\")\nprint(\"1000 bayt üzeri şüpheli paket sayısı:\", supheli)",
+      "Döngü içindeki toplayıcı (toplam += b) ile sayaç (supheli += 1) farkını pekiştirin.",
+    ),
+    run(
+      "Uygulama 5: Trafik Analizi ve Anomali Sayacı",
+      "traffic_sum",
+      "Gerçek zamanlı paket boyutu toplama ve eşik üstü anomali tespiti.",
+      "# Farklı paket boyutları girerek sayacın davranışını test et.",
+      "Ağ analizinde DDoS veya veri sızıntısı tespiti için boyut analizinin önemini belirtin.",
+    ),
+    ai(
+      "🤖 YZ ile Çalış: Döngü Sınırlarını Test Et",
+      "Yazdığım while döngüsünün sonsuz döngüye girip girmeyeceğini ve döngü değişkeninin sınır durumlarını (0, negatif, maksimum) analiz etmem için bana 3 soru sor.",
+      "Kendi yazdığın bir döngü kodunu hazırla. YZ'ye kodu doğrudan çözdürmek yerine sınır tuzaklarını sormasını iste.",
+      "Öğrencinin YZ'yi bir denetçi ve soru soran rehber olarak konumlandırmasını teşvik edin.",
+    ),
+    cards(
+      "Hafta Özeti: Döngülerde 4 Temel Güvenlik Kuralı",
+      [
+        [
+          "Sonsuz Döngü Önlemi",
+          "while döngüsünde koşul değişkeninin her adımda güncellendiğini doğrula.",
+        ],
+        [
+          "range() Bitiş Sınırı",
+          "range(a, b) ifadesinde b'nin dahil olmadığını unutma; gerekiyorsa b + 1 kullan.",
+        ],
+        [
+          "Değişken Sıfırlama",
+          "Sayaç ve toplayıcı değişkenlerini döngüden hemen önce sıfırla.",
+        ],
+        [
+          "Erken Çıkış (break)",
+          "Hedef veri bulunduğunda veya güvenlik ihlali algılandığında sistemi bekletmeden break ile çık.",
+        ],
+      ],
+      "Temiz, güvenli ve performanslı döngüler yazmanın omurgası.",
+      "Pekiştirme sınavına girmeden önce bu 4 kuralı hatırlatın.",
+    ),
+    s(
+      "Mini quiz 1: range() serisini okuma",
+      "quiz",
+      {
+        question:
+          "range(2, 9, 2) ifadesi Python'da hangi sayı serisini üretir?",
+        options: [
+          "2, 4, 6, 8",
+          "2, 4, 6, 8, 9",
+          "2, 3, 4, 5, 6, 7, 8",
+          "0, 2, 4, 6, 8",
+        ],
+        answer: 0,
+        explanation:
+          "range(2, 9, 2) 2'den başlar, 9'a kadar (9 hariç) 2'şer artar: 2, 4, 6, 8 üretilir.",
+      },
+      "Kolay seviye range() fonksiyonu kavrama sorusu.",
+    ),
+    s(
+      "Mini quiz 2: while döngüsü ve sonsuz döngü",
+      "quiz",
+      {
+        question:
+          "sayi = 5\nwhile sayi > 0:\n    print(sayi)\nYukarıdaki kod çalıştırıldığında ne meydana gelir?",
+        options: [
+          "5'ten 1'e kadar geriye sayıp durur",
+          "Sonsuz döngüye girer, sürekli 5 yazar",
+          "Hiçbir şey yazdırmaz",
+          "SyntaxError hatası verir",
+        ],
+        answer: 1,
+        explanation:
+          "sayi değişkeni döngü içinde hiç azaltılmadığı için sayi > 0 koşulu daima True kalır ve sonsuz döngü oluşur.",
+      },
+      "Kolay-orta seviye sonsuz döngü farkındalık sorusu.",
+    ),
+    s(
+      "Mini quiz 3: Döngü izleme ve toplayıcı hesabı",
+      "quiz",
+      {
+        question:
+          "toplam = 0\nfor x in range(1, 5):\n    toplam += x\nprint(toplam)\nProgramın ekran çıktısı nedir?",
+        options: ["10", "15", "5", "4"],
+        answer: 0,
+        explanation:
+          "x değerleri sırasıyla 1, 2, 3, 4 olur (5 hariç). toplam = 0 + 1 + 2 + 3 + 4 = 10 olur.",
+      },
+      "Orta seviye kuru çalıştırma ve toplayıcı sorusu.",
+    ),
+    s(
+      "Mini quiz 4: break ve continue farkı",
+      "quiz",
+      {
+        question:
+          "Bir döngü içinde belirli bir koşul sağlandığında döngünün diğer turlarının tamamen iptal edilip döngü dışına çıkılması için hangi komut kullanılır?",
+        options: ["break", "continue", "pass", "exit"],
+        answer: 0,
+        explanation:
+          "break döngüyü tamamen sonlandırır. continue ise sadece o anki turu atlayıp bir sonraki tura geçer.",
+      },
+      "Orta seviye döngü kontrol mekanizması sorusu.",
+    ),
+    s(
+      "Mini quiz 5: BGT Brute-force deneme eşiği analizi",
+      "quiz",
+      {
+        question:
+          "hak = 3\nwhile hak > 0:\n    p = input()\n    if p == 'admin':\n        break\n    hak -= 1\nKullanıcı sırasıyla '123', 'root', 'admin' girerse döngü kaç kez çalışır ve hak değişkeninin son değeri ne olur?",
+        options: [
+          "3 kez çalışır ve hak = 1 olur",
+          "3 kez çalışır ve hak = 0 olur",
+          "2 kez çalışır ve hak = 2 olur",
+          "1 kez çalışır ve hak = 3 olur",
+        ],
+        answer: 0,
+        explanation:
+          "1. tur ('123'): hak 2 olur. 2. tur ('root'): hak 1 olur. 3. tur ('admin'): if doğru olur ve break ile çıkılır. hak azaltılmaz, 1 olarak kalır. Toplam 3 tur çalışmıştır.",
+      },
+      "Zor seviye döngü akışı ve güvenlik sayacı analizi sorusu.",
+    ),
+    s(
+      "Hafta 4: Kazanım kontrolü",
+      "outcomes",
+      {
+        lead: "Döngüler konusunun ardından şu 3 kanıtı kendi kodunla göster:",
+        items: [
+          "Tekrarlanan bir işi while veya for döngüsüyle modelle.",
+          "Sayaç ve toplayıcı değişkenleri döngü içinde doğru güncelle.",
+          "break ve continue ile döngü akışını koşullara göre yönet.",
+        ],
+      },
+      "Kazanım kontrolü: Öğrencilerin döngü ve karar yapılarını birlikte kullandığı küçük projeleri değerlendirin.",
+    ),
+  ],
+  5: [
+    outcomes(5),
+    think(
+      "Neden tek bir değişken yetmez?",
+      "Bir güvenlik duvarında engellenecek 500 adet zararlı IP adresi varsa, her biri için 'ip1 = ...', 'ip2 = ...' şeklinde 500 değişken mi oluştururuz? Yeni bir IP geldiğinde kod nasıl yazılır?",
+      "Hayır. Yüzlerce değişken tanımlamak kodun bakımını imkansız kılar. Bunun yerine verileri tek bir 'liste' (dizi) konteynerinde tutar, döngüler ve arama fonksiyonlarıyla hepsini tek satırda denetleriz.",
+      "Gerçek hayattaki kara liste, log satırları ve port listeleri üzerinden dizilerin gerekliliğini tartışın.",
+    ),
+    cards(
+      "Dizi (Liste) Kavramı Nedir?",
+      [
+        [
+          "Sıralı Veri Koleksiyonu",
+          "Birden çok veriyi tek bir ad altında, sıralı bir biçimde saklayan dinamik veri yapısıdır.",
+        ],
+        [
+          "Köşeli Parantez []",
+          "Python'da listeler köşeli parantez içinde virgülle ayrılarak oluşturulur: portlar = [21, 22, 80].",
+        ],
+        [
+          "Farklı Veri Tipleri",
+          "Bir liste içinde int, str, float ve bool aynı anda bulunabilir; ancak genellikle homojen kullanılır.",
+        ],
+        [
+          "Değiştirilebilirlik (Mutable)",
+          "Listeler oluşturulduktan sonra elemanları güncellenebilir, yeni eleman eklenebilir veya silinebilir.",
+        ],
+      ],
+      "Tek değişken, zengin veri saklama kabiliyeti.",
+      "Listelerin dinamik boyutlu olduğunu (C dizilerinden farklı olarak boyutu esnek) vurgulayın.",
+    ),
+    cards(
+      "İndeksleme (Indexing) Kuralları",
+      [
+        [
+          "0'dan Başlayan İndeks",
+          "Listenin İLK elemanının indeksi DAİMA 0'dır: liste[0].",
+        ],
+        [
+          "Pozitif İndeksler (Soldan Sağa)",
+          "0, 1, 2, ..., n-1 şeklinde soldan sağa doğru ilerler.",
+        ],
+        [
+          "Negatif İndeksler (Sağdan Sola)",
+          "-1 daima SON elemanı, -2 sondan bir öncekini verir.",
+        ],
+        [
+          "IndexError Sınır Hatası",
+          "Var olmayan bir indekse (örn: 3 elemanlı listede liste[3]) erişmeye çalışmak IndexError fırlatır.",
+        ],
+      ],
+      "Elemanlara doğrudan erişimin anahtarı.",
+      "0 tabanlı indeks mantığının bellek ofseti prensibine dayandığını açıklayın.",
+    ),
+    table(
+      "Pozitif ve Negatif İndeks Haritası",
+      ["Eleman", '"Router"', '"Switch"', '"Firewall"', '"Server"'],
+      [
+        ["Pozitif İndeks", "0", "1", "2", "3"],
+        ["Negatif İndeks", "-4", "-3", "-2", "-1"],
+      ],
+      "Listenin ilk ve son elemanına nasıl erişirsin?",
+      "Pozitif ve negatif indekslerin simetrisini tablo üzerinden gösterin.",
+    ),
+    think(
+      "Sınır Tuzağı: IndexError",
+      "cihazlar = ['PC-01', 'PC-02', 'PC-03']\nprint(cihazlar[3]) yazarsak Python nasıl tepki verir?",
+      "IndexError: list index out of range hatası fırlatılır. 3 elemanlı bir listenin geçerli pozitif indeksleri 0, 1 ve 2'dir. İndeks 3 sınır dışıdır.",
+      "Python'daki yaygın 'off-by-one' (1 eksik/fazla) sınır hatalarını vurgulayın.",
+    ),
+    cards(
+      "Dilimleme (Slicing): Parça Alma",
+      [
+        [
+          "Şablon: liste[basla:dur]",
+          "Belirtilen 'basla' indeksinden 'dur' indeksine kadar (dur hariç) yeni bir alt liste üretir.",
+        ],
+        [
+          "Baştan Başlama: liste[:k]",
+          "0 indeksinden k indeksine kadar olan ilk k elemanı alır.",
+        ],
+        [
+          "Sona Kadar: liste[k:]",
+          "k indeksinden listenin sonuna kadar tüm elemanları alır.",
+        ],
+        [
+          "Ters Çevirme: liste[::-1]",
+          "Adım değerini -1 vererek listeyi baştan sona tersine çevirir.",
+        ],
+      ],
+      "Veri kümesinden ihtiyaç duyulan bölümü kopyalama tekniği.",
+      "Dilimlemenin orijinal listeyi bozmayıp yeni bir kopya döndürdüğünü açıklayın.",
+    ),
+    exercise(
+      "Soru & Çözüm 1: Liste Tanımlama ve İndeksleme",
+      "Soru: 4 adet sunucu adını bir listeye alan, ilk sunucuyu, son sunucuyu ve ilk 2 kritik sunucuyu ekrana yazdıran programı yazınız.",
+      "sunucular = ['DB-01', 'Web-01', 'Auth-01', 'Mail-01']\nprint('İlk sunucu:', sunucular[0])\nprint('Son sunucu:', sunucular[-1])\nprint('İlk 2 kritik sunucu:', sunucular[:2])",
+      "sunucular[:2] diliminin 0 ve 1. indeksleri aldığını gösterin.",
+    ),
+    run(
+      "Uygulama 1: Ağ Cihazları Envanteri",
+      "device_inventory",
+      "Liste tanımlama, eleman sayısı (len), indeksleme ve dilimleme demosu.",
+      "# Yeni bir cihaz ekleyip dilimleme sınırlarını sına.",
+      "Pyodide üzerinde çalıştırarak listenin yapısını inceletin.",
+    ),
+    cards(
+      "Dinamik Liste Metotları",
+      [
+        [
+          "len(liste)",
+          "Listenin içindeki toplam eleman sayısını tam sayı olarak döndürür.",
+        ],
+        [
+          "liste.append(deger)",
+          "Listenin en sonuna yeni bir eleman ekler. Boyutu 1 artırır.",
+        ],
+        [
+          "liste.remove(deger)",
+          "Belirtilen değeri listeden ilk bulduğu yerde siler. Değer yoksa ValueError verir.",
+        ],
+        [
+          "in / not in Operatörü",
+          "Bir elemanın liste içinde bulunup bulunmadığını kontrol eder (True / False).",
+        ],
+      ],
+      "Listeleri çalışma anında büyütüp küçültme araçları.",
+      "Güvenlik duvarı kurallarının dinamik olarak eklenip çıkarılmasıyla bağ kurun.",
+    ),
+    think(
+      "in Operatörü Neden Güvenlikte Çok Kullanılır?",
+      "gelen_ip = '10.0.0.1'\nkara_liste = ['192.168.1.1', '10.0.0.1', '172.16.0.5']\nif gelen_ip in kara_liste: kontrolü nasıl çalışır?",
+      "in operatörü, liste içindeki her elemanı tek tek gezerek aranan değerle karşılaştırır. Eşleşme bulursa True, bulamazsa False döndürür. IP engelleme ve beyaz liste denetiminde tek satırda kontrol sağlar.",
+      "in operatörünün arkasında gizli bir arama döngüsü olduğunu açıklayın.",
+    ),
+    exercise(
+      "Soru & Çözüm 2: IP Kara Liste Kontrolü",
+      "Soru: 3 adet engelli IP içeren bir kara liste tanımlayınız. Kullanıcıdan bir IP alıp eğer kara listedeyse 'ERİŞİM ENGEL: Bu IP adresi kara listede!', değilse 'ERİŞİM İZİN: IP güvenli görünüyor.' yazan programı kodlayınız.",
+      "kara_liste = ['192.168.1.105', '10.0.0.99', '172.16.5.20']\ngelen_ip = input('Sorgulanacak IP: ').strip()\nif gelen_ip in kara_liste:\n    print('ERİŞİM ENGEL: Bu IP adresi kara listede!')\nelse:\n    print('ERİŞİM İZİN: IP güvenli görünüyor.')",
+      "strip() ile boşluk temizliğinin önemini ve in operatörünün kullanımını belirtin.",
+    ),
+    run(
+      "Uygulama 2: IP Kara Liste Denetimi",
+      "blacklist_check",
+      "in operatörü ile kurgusal IP filtreleme ve güvenlik duvarı engeli demosu.",
+      "# Kara listedeki bir IP ve rastgele bir IP ile test et.",
+      "Beyaz liste ve kara liste modellerini sınıfta tartışın.",
+    ),
+    exercise(
+      "Soru & Çözüm 3: Dinamik Liste Yönetimi (append ve remove)",
+      "Soru: Engellenen portlar listesine kullanıcıdan alınan yeni bir portu ekleyen (append), ardından eski bir güvensiz protokol portunu (23 - Telnet) listeden çıkaran (remove) program.",
+      "engellenen_portlar = [23, 25]\nyeni_port = int(input('Engellenecek yeni port: '))\nengellenen_portlar.append(yeni_port)\nif 23 in engellenen_portlar:\n    engellenen_portlar.remove(23)\nprint('Güncel liste:', engellenen_portlar)",
+      "remove() kullanmadan önce değerin listede var olup olmadığını (in) kontrol etmenin ValueError'ı önlediğini açıklayın.",
+    ),
+    run(
+      "Uygulama 3: Dinamik Port Listesi Yönetimi",
+      "list_operations",
+      "append ve remove metotlarıyla çalışma anında liste güncelleme.",
+      "# Farklı portlar ekleyerek listenin değişimini izle.",
+      "Port engelleme listesinin nasıl dinamik yönetildiğini gösterin.",
+    ),
+    cards(
+      "Diziler Üzerinde for Döngüsü ile Gezinme",
+      [
+        [
+          "Doğrudan Gezinme",
+          "for eleman in liste: yapısı, indekslerle uğraşmadan sırayla her elemanın değerini alır.",
+        ],
+        [
+          "İndeksle Gezinme",
+          "for i in range(len(liste)): hem elemanın indeksine (i) hem değerine (liste[i]) erişim sağlar.",
+        ],
+        [
+          "Kümülatif İstatistik",
+          "Liste elemanlarını döngüyle toplayabilir, sayabilir ve ortalamasını alabiliriz.",
+        ],
+        [
+          "Koşullu Filtreleme",
+          "Döngü içine konulan if şartıyla kriterleri sağlayan elemanları ayıklayabiliriz.",
+        ],
+      ],
+      "Diziler ve döngülerin kusursuz entegrasyonu.",
+      "Python'daki for eleman in liste sözdiziminin okunabilirliğini öne çıkarın.",
+    ),
+    table(
+      "Döngü ile Liste Gezinme Yöntemleri",
+      ["Yöntem", "Sözdizimi", "Ne Zaman Kullanılır?"],
+      [
+        ["Doğrudan Değer", "for x in liste:", "Yalnızca elemanın değeri lazımsa (en temiz yol)."],
+        ["İndeks ile", "for i in range(len(liste)):", "Elemanın sıra numarası veya güncellenmesi gerekiyorsa."],
+        ["Numaralandırma", "for i, x in enumerate(liste):", "Hem sıra numarası hem değer aynı anda lazımsa."],
+      ],
+      "Probleme en uygun gezinme yöntemini seç.",
+      "Pythonik kod yazma alışkanlığını pekiştirin.",
+    ),
+    exercise(
+      "Soru & Çözüm 4: Hatalı Giriş İstatistikleri (Toplam ve Ortalama)",
+      "Soru: 7 günlük hatalı oturum açma sayılarını tutan bir liste üzerinde for döngüsüyle toplam hatalı giriş sayısını, haftalık ortalamayı ve 5 ve üzeri olan şüpheli gün adedini hesaplayınız.",
+      "hatali_girisler = [3, 1, 0, 7, 2, 14, 4]\ntoplam = 0\nsupheli_gunler = 0\nfor sayi in hatali_girisler:\n    toplam += sayi\n    if sayi >= 5:\n        supheli_gunler += 1\nortalama = toplam / len(hatali_girisler)\nprint('Toplam hatalı giriş:', toplam)\nprint(f'Haftalık ortalama: {ortalama:.2f}')\nprint('Eşik (5) üstü şüpheli gün sayısı:', supheli_gunler)",
+      "toplam / len(hatali_girisler) formülünde listenin boş olmaması gerektiğini hatırlatın.",
+    ),
+    run(
+      "Uygulama 4: Hatalı Oturum İstatistikleri",
+      "failed_login_stats",
+      "Sayısal dizi üzerinde döngü, toplayıcı, sayaç ve ortalama hesabı.",
+      "# Kendi hata sayılarını tanımlayarak ortalamayı gözlemle.",
+      "SIEM sistemlerindeki anomali alarmlarının temel mantığıyla ilişkilendirin.",
+    ),
+    cards(
+      "Dizilerde Filtreleme Kalıbı (Filtering Pattern)",
+      [
+        [
+          "1. Hedef Liste Aç",
+          "Filtrelenen verileri toplamak için boş bir liste tanımlanır: guvensizler = [].",
+        ],
+        [
+          "2. Kaynak Listeyi Gez",
+          "for eleman in kaynak_liste: ile her veri tek tek ziyaret edilir.",
+        ],
+        [
+          "3. Kriteri Denetle",
+          "if len(p) < 8: gibi istenen güvenlik veya geçerlilik şartı sınanır.",
+        ],
+        [
+          "4. Uygun Olanı Ekle",
+          "Kriteri sağlayan eleman hedefe eklenir: guvensizler.append(p).",
+        ],
+      ],
+      "Veri temizleme ve anomali filtrelemenin ana algoritması.",
+      "Bilgi güvenliği analistlerinin devasa loglardan zararlı satırları bu kalıpla ayıkladığını belirtin.",
+    ),
+    exercise(
+      "Soru & Çözüm 5: Zayıf Parolaları Ayıklama",
+      "Soru: Bir kullanıcı parolaları listesindeki her parolayı denetleyip uzunluğu 8 karakterden kısa olan zayıf parolaları ayrı bir 'guvensizler' listesine ekleyen programı yazınız.",
+      "parolalar = ['admin1', 'supersecret2026', '123', 'bgt_lab_pass!']\nguvensizler = []\nfor p in parolalar:\n    if len(p) < 8:\n        guvensizler.append(p)\nprint('Taranan toplam parola:', len(parolalar))\nprint('8 karakterden kısa güvensiz parolalar:', guvensizler)",
+      "len(p) fonksiyonunun metin uzunluğunu, len(liste)'nin ise eleman sayısını verdiğini açıklayın.",
+    ),
+    run(
+      "Uygulama 5: Parola Uzunluk Denetimi ve Filtreleme",
+      "password_length_filter",
+      "Dizi filtreleme kalıbı ile zayıf parolaları ayıklama.",
+      "# Yeni parolalar ekleyerek filtrenin başarısını test et.",
+      "Kurumsal parola politikalarının otomatik denetim mekanizmasını örnekleyin.",
+    ),
+    cards(
+      "Dizide En Büyük Değeri Bulma (Anomali Tespiti)",
+      [
+        [
+          "Başlangıç Kabulü",
+          "Listenin İLK elemanı (liste[0]) geçici olarak 'en_buyuk' kabul edilir.",
+        ],
+        [
+          "Döngü ile Karşılaştırma",
+          "Döngüdeki her eleman mevcut 'en_buyuk' ile kıyaslanır.",
+        ],
+        [
+          "Güncelleme Kuralı",
+          "Eğer o anki eleman > en_buyuk ise: en_buyuk = eleman yapılır.",
+        ],
+        [
+          "Neden 0 Değil?",
+          "Tüm liste negatif sayılardan oluşuyorsa, 0'dan başlamak hatalı sonuç verir! Daima liste[0] kullanılmalıdır.",
+        ],
+      ],
+      "Algoritmik arama ve tepe değer tespiti.",
+      "Veri sızıntısı veya anomali tespitinde tepe paket boyutunun önemini tartışın.",
+    ),
+    exercise(
+      "Soru & Çözüm 6: Tepe Paket Boyutunu Bulma",
+      "Soru: Bir listedeki ağ paket boyutları arasından döngü kullanarak en büyük değeri bulan ve ekrana anomali tepe noktası olarak yazdıran kodu yazınız.",
+      "paket_boyutlari = [120, 450, 1500, 8900, 320, 1400]\nen_buyuk = paket_boyutlari[0]\nfor boyut in paket_boyutlari:\n    if boyut > en_buyuk:\n        en_buyuk = boyut\nprint('İncelenen paketler:', paket_boyutlari)\nprint('Tepe paket boyutu (olası anomali):', en_buyuk, 'bayt')",
+      "max() gömülü fonksiyonunun arkasında bu algoritmanın çalıştığını açıklayın.",
+    ),
+    run(
+      "Uygulama 6: Trafik Anomali Tepe Noktası Tespiti",
+      "traffic_max_detector",
+      "Döngü ile listede en büyük değeri (anomali) tespit etme demosu.",
+      "# Paket boyutlarını değiştirip en yüksek değeri teyit et.",
+      "Ağ trafiğindeki sıradışı sıçramaların siber güvenlikteki önemini belirtin.",
+    ),
+    ai(
+      "🤖 YZ ile Çalış: Liste Algoritmalarını Denetle",
+      "Yazdığım liste filtreleme ve arama kodunda liste boş olduğunda, tek elemanlı olduğunda veya tüm elemanlar aynı olduğunda ne gibi hatalar oluşabileceğini öğrenmek için bana 3 soru sor.",
+      "Kendi yazdığın liste kodunu YZ'ye sunmadan önce uç senaryoları düşün. YZ'den sınır açıklarını sorgulamasını iste.",
+      "Öğrencilerin 'boş liste' ve 'tek elemanlı liste' gibi uç durumları düşünmesini sağlayın.",
+    ),
+    cards(
+      "Hafta Özeti: Dizilerde 4 Altın Kural",
+      [
+        [
+          "0 Tabanlı İndeks",
+          "İlk eleman 0, son eleman -1'dir. Sınırları aşma (IndexError).",
+        ],
+        [
+          "in ile Hızlı Kontrol",
+          "Arama yaparken döngü yazmadan önce in operatörünü hatırla.",
+        ],
+        [
+          "Dinamik Metotlar",
+          "append ile sona ekle, remove ile değere göre sil.",
+        ],
+        [
+          "Filtreleme Deseni",
+          "Boş hedef liste aç -> Döngüyle tara -> Koşul tutarsa append et.",
+        ],
+      ],
+      "Listelerle çalışırken en çok kullanılan prensipler.",
+      "Pekiştirme sınavına girmeden önce bu 4 kuralı özetleyin.",
+    ),
+    s(
+      "Mini quiz 1: Listenin ilk ve son indeksleri",
+      "quiz",
+      {
+        question:
+          "5 elemanlı bir 'cihazlar' listesinde ilk elemana ve son elemana erişmek için hangi indeksler kullanılır?",
+        options: [
+          "cihazlar[0] ve cihazlar[-1]",
+          "cihazlar[1] ve cihazlar[5]",
+          "cihazlar[0] ve cihazlar[5]",
+          "cihazlar[1] ve cihazlar[-1]",
+        ],
+        answer: 0,
+        explanation:
+          "Python'da indeksler 0'dan başlar (ilk eleman [0]). Negatif indekslemede -1 daima son elemanı temsil eder.",
+      },
+      "Kolay seviye liste indeksleme sorusu.",
+    ),
+    s(
+      "Mini quiz 2: append() metodunun etkisi",
+      "quiz",
+      {
+        question:
+          "portlar = [80, 443]\nportlar.append(22)\nİşleminden sonra len(portlar) ve portlar[-1] değerleri ne olur?",
+        options: [
+          "Uzunluk 3, son eleman 22",
+          "Uzunluk 2, son eleman 443",
+          "Uzunluk 3, son eleman 80",
+          "Hata verir, listeye sayı eklenemez",
+        ],
+        answer: 0,
+        explanation:
+          "append() elemanı listenin sonuna ekler. Eleman sayısı 2'den 3'e çıkar ve son eleman (-1) 22 olur.",
+      },
+      "Kolay-orta seviye append() ve len() sorusu.",
+    ),
+    s(
+      "Mini quiz 3: Liste dilimleme aralığı",
+      "quiz",
+      {
+        question:
+          "sayilar = [10, 20, 30, 40, 50]\nprint(sayilar[1:4]) ifadesinin çıktısı nedir?",
+        options: [
+          "[20, 30, 40]",
+          "[10, 20, 30, 40]",
+          "[20, 30, 40, 50]",
+          "[20, 30]",
+        ],
+        answer: 0,
+        explanation:
+          "Dilimleme [1:4], 1. indeksten başlar (20), 4. indekse kadar (4. indeks olan 50 hariç) alır: [20, 30, 40].",
+      },
+      "Orta seviye dilimleme (slicing) kavrama sorusu.",
+    ),
+    s(
+      "Mini quiz 4: Döngü ve toplayıcı izleme",
+      "quiz",
+      {
+        question:
+          "veri = [2, 5, 1]\ntoplam = 0\nfor x in veri:\n    toplam += x * 2\nprint(toplam)\nProgramın çıktısı nedir?",
+        options: ["16", "8", "20", "14"],
+        answer: 0,
+        explanation:
+          "Döngüde: 2*2=4, 5*2=10, 1*2=2 toplanır. toplam = 4 + 10 + 2 = 16 olur.",
+      },
+      "Orta-zor seviye döngü ve liste içi işlem sorusu.",
+    ),
+    s(
+      "Mini quiz 5: BGT Kara liste filtreleme analizi",
+      "quiz",
+      {
+        question:
+          "kara = ['10.0.0.1', '192.168.1.5']\ngelen = ['10.0.0.1', '8.8.8.8', '192.168.1.5']\nengellenen = []\nfor ip in gelen:\n    if ip in kara:\n        engellenen.append(ip)\nlen(engellenen) sonucu nedir?",
+        options: ["2", "1", "3", "0"],
+        answer: 0,
+        explanation:
+          "gelen listesindeki '10.0.0.1' ve '192.168.1.5' kara listede bulunduğu için if şartı True olur ve engellenen listesine eklenir. Toplam 2 IP engellenmiştir.",
+      },
+      "Zor seviye liste filtreleme ve güvenlik kurgusu sorusu.",
+    ),
+    s(
+      "Hafta 5: Kazanım kontrolü",
+      "outcomes",
+      {
+        lead: "Diziler ve veri işleme konusunun ardından şu 3 kanıtı kendi kodunla göster:",
+        items: [
+          "Birden fazla veriyi tek bir liste (dizi) yapısında saklar ve indeksle erişir.",
+          "for döngüsü ve if koşulları ile liste elemanlarını filtreler ve arama yapar.",
+          "Dinamik liste metotlarını (append, remove, len) güvenlik senaryolarında uygular.",
+        ],
+      },
+      "Kazanım kontrolü: Öğrencilerin listeleri döngü ve koşullarla birleştiren kodlarını değerlendirin.",
     ),
   ],
 };

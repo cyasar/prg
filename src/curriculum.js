@@ -2,15 +2,15 @@ const row = (id, title, theory, lab, outcomes) => ({
   id,
   title,
   short: title,
-  theme: id <= 3 ? "Etkileşimli ders" : "Dönem planı",
-  ready: id <= 3,
+  theme: id <= 5 ? "Etkileşimli ders" : "Dönem planı",
+  ready: id <= 5,
   theory,
   lab,
   outcomes,
   deliverable: "Algoritma, çalışan örnek ve test sonucu.",
   assessment:
     "Çözümünü açıklar, yeni bir girdiyle sınar ve küçük bir değişikliği uygular.",
-  alignment: id <= 3 ? ["A", "B", "D", "E"] : ["A", "B", "C", "D", "E"],
+  alignment: id <= 5 ? ["A", "B", "D", "E"] : ["A", "B", "C", "D", "E"],
 });
 export const curriculum = [
   row(
@@ -62,6 +62,17 @@ export const curriculum = [
   ),
   row(
     5,
+    "Diziler (Listeler) ve Veri İşleme",
+    "Python listeleri, indeksleme, dilimleme, liste metotları, döngüyle arama ve filtreleme.",
+    "Kurgusal IP kara listesi, şüpheli port denetimi ve güvenlik logları analizi.",
+    [
+      "Birden fazla veriyi tek bir liste (dizi) yapısında saklar ve indeksle erişir.",
+      "for döngüsü ve if koşulları ile liste elemanlarını filtreler ve arama yapar.",
+      "Dinamik liste metotlarını (append, remove, len) güvenlik senaryolarında uygular.",
+    ],
+  ),
+  row(
+    6,
     "Fonksiyonlarla problem parçalama",
     "Parametre, return, scope ve kod tekrarını azaltma.",
     "Veri doğrulama ve hesaplama adımlarını ayrı fonksiyonlara taşı.",
@@ -69,17 +80,6 @@ export const curriculum = [
       "Problemi tek sorumlu fonksiyonlara ayırır.",
       "Parametre ile dönüş değerini ayırt eder.",
       "Yerel kapsamı ve bağımsız fonksiyon testini açıklar.",
-    ],
-  ),
-  row(
-    6,
-    "Veri koleksiyonları",
-    "Python list, tuple, set, dictionary; JavaScript array ve object.",
-    "Kurgusal cihaz ve olay koleksiyonunu uygun yapılarla modelle.",
-    [
-      "Veriye uygun koleksiyon türünü seçer.",
-      "Koleksiyon içinde arama ve güncelleme yapar.",
-      "Python ve JavaScript veri yapılarının temel rollerini karşılaştırır.",
     ],
   ),
   row(
@@ -173,3 +173,7 @@ export const curriculum = [
 ];
 curriculum[0].short = "Programlama ve algoritma";
 curriculum[1].short = "Veri ve karar yapıları";
+curriculum[2].short = "Karar ve doğrulama";
+curriculum[3].short = "Döngüler ve tekrarlar";
+curriculum[4].short = "Diziler ve listeler";
+

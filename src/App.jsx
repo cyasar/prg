@@ -329,8 +329,8 @@ function Plan() {
         description="Her hafta bir problem, çalışan bir çözüm ve öğrenmeni gösteren bir ürün."
       />
       <p className="inline-note">
-        İlk iki haftanın etkileşimli sunumları hazır. 3–14. haftalar kazanımları
-        ve uygulamaları belirlenmiş ders planıdır.
+        1–5. haftaların etkileşimli ders sunumları ve ders notları hazır. 6–14.
+        haftalar kazanımları ve uygulamaları belirlenmiş ders planıdır.
       </p>
       <div className="plan-layout">
         <div className="timeline" aria-label="Hafta seçimi">

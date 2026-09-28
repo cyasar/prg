@@ -260,6 +260,117 @@ export const pythonExamples = {
       "Sıfır, negatif ve kota aşımı durumları savunmacı biçimde kontrol edilir.",
     ],
   ),
+  countdown: example(
+    "examples/week04/countdown.py",
+    '# while döngüsü ile oturum geri sayımı\nsayac = int(input("Geri sayım saniyesi: "))\n\nwhile sayac > 0:\n    print("Kalan süre:", sayac, "sn")\n    sayac -= 1\n\nprint("Süre doldu! Oturum güvenlik nedeniyle kilitlendi.")',
+    "3",
+    "Geri sayım saniyesi: Kalan süre: 3 sn\nKalan süre: 2 sn\nKalan süre: 1 sn\nSüre doldu! Oturum güvenlik nedeniyle kilitlendi.\n",
+    [
+      "while döngüsü koşul True olduğu sürece bloğu tekrarlar.",
+      "Her adımda sayac -= 1 ile bitiş koşuluna yaklaşılır.",
+    ],
+  ),
+  pin_bruteforce: example(
+    "examples/week04/pin_bruteforce.py",
+    '# while ve break ile PIN deneme kontrolü\nkalan_hak = 3\ndogru_pin = "1923"\ngiris_basarili = False\n\nwhile kalan_hak > 0:\n    tahmin = input("4 haneli PIN girin: ").strip()\n    if tahmin == dogru_pin:\n        giris_basarili = True\n        print("PIN doğrulandı! Güvenli kasa açıldı.")\n        break\n    else:\n        kalan_hak -= 1\n        if kalan_hak > 0:\n            print("Hatalı PIN! Kalan hakkınız:", kalan_hak)\n\nif not giris_basarili:\n    print("3 kez hatalı deneme! Kart bloke edildi.")',
+    "1000\n1923",
+    "4 haneli PIN girin: Hatalı PIN! Kalan hakkınız: 2\n4 haneli PIN girin: PIN doğrulandı! Güvenli kasa açıldı.\n",
+    [
+      "break anahtar sözcüğü döngüyü erken sonlandırır.",
+      "Hatalı denemelerde sayaç düşürülerek brute-force saldırısı engellenir.",
+    ],
+  ),
+  port_scan: example(
+    "examples/week04/port_scanner_mock.py",
+    '# for ve range ile hedef portları tarama simülasyonu\nbaslangic = int(input("Başlangıç portu: "))\nbitis = int(input("Bitiş portu: "))\nacik_portlar = [21, 22, 80, 443]\n\nprint("--- Tarama Başlatıldı ---")\nfor port in range(baslangic, bitis + 1):\n    if port in acik_portlar:\n        print(f"Port {port}: [AÇIK] Servis tespit edildi")\n    else:\n        print(f"Port {port}: [KAPALI]")\nprint("--- Tarama Tamamlandı ---")',
+    "79\n81",
+    "Başlangıç portu: Bitiş portu: --- Tarama Başlatıldı ---\nPort 79: [KAPALI]\nPort 80: [AÇIK] Servis tespit edildi\nPort 81: [KAPALI]\n--- Tarama Tamamlandı ---\n",
+    [
+      "range(baslangic, bitis + 1) belirlenen port aralığında ardışık sayılar üretir.",
+      "in operatörü ile açık portlar listesinde tarama yapılır.",
+    ],
+  ),
+  traffic_sum: example(
+    "examples/week04/traffic_accumulator.py",
+    '# Sayaç ve Toplayıcı kalıbı ile ağ trafiği analizi\npaket_adedi = int(input("İncelenecek paket adedi: "))\ntoplam_bayt = 0\nbuyuk_paket_sayaci = 0\n\nfor i in range(1, paket_adedi + 1):\n    boyut = int(input(f"Paket {i} boyutu (bayt): "))\n    toplam_bayt += boyut\n    if boyut > 1000:\n        buyuk_paket_sayaci += 1\n\nprint("Toplam aktarılan veri:", toplam_bayt, "bayt")\nprint("1000 bayt üzeri şüpheli paket sayısı:", buyuk_paket_sayaci)',
+    "3\n500\n1500\n300",
+    "İncelenecek paket adedi: Paket 1 boyutu (bayt): Paket 2 boyutu (bayt): Paket 3 boyutu (bayt): Toplam aktarılan veri: 2300 bayt\n1000 bayt üzeri şüpheli paket sayısı: 1\n",
+    [
+      "toplam_bayt toplayıcı (accumulator) olarak kümülatif toplamı biriktirir.",
+      "buyuk_paket_sayaci sayaç (counter) olarak eşiği aşan durumları sayar.",
+    ],
+  ),
+  continue_filter: example(
+    "examples/week04/port_filter_continue.py",
+    '# continue ile bilinen güvenli portları atlayıp inceleme\nguvenli_portlar = [80, 443]\n\nfor port in range(78, 83):\n    if port in guvenli_portlar:\n        continue\n    print("İnceleniyor (standart dışı port):", port)',
+    "",
+    "İnceleniyor (standart dışı port): 78\nİnceleniyor (standart dışı port): 79\nİnceleniyor (standart dışı port): 81\nİnceleniyor (standart dışı port): 82\n",
+    [
+      "continue ifadesi döngünün mevcut adımını hemen sonlandırıp bir sonraki adıma geçer.",
+      "Güvenli ve bilinen portlar pas geçilerek şüpheli portlar filtrelenir.",
+    ],
+  ),
+  device_inventory: example(
+    "examples/week05/device_inventory.py",
+    '# Liste oluşturma, indeksleme ve uzunluk kontrolü\ncihazlar = ["Router-01", "Switch-A", "Firewall-X", "Server-DB"]\n\nprint("Cihaz sayısı:", len(cihazlar))\nprint("İlk cihaz (indeks 0):", cihazlar[0])\nprint("Son cihaz (indeks -1):", cihazlar[-1])\nprint("İlk iki kritik cihaz:", cihazlar[:2])',
+    "",
+    "Cihaz sayısı: 4\nİlk cihaz (indeks 0): Router-01\nSon cihaz (indeks -1): Server-DB\nİlk iki kritik cihaz: ['Router-01', 'Switch-A']\n",
+    [
+      "Listeler köşeli parantez [] ile tanımlanır ve sıralı eleman tutar.",
+      "İndeksler 0'dan başlar; negatif indeksler sondan başa doğru erişir.",
+      "Dilimleme (slicing) [start:stop] ile listenin bir alt kümesi kopyalanır.",
+    ],
+  ),
+  blacklist_check: example(
+    "examples/week05/ip_blacklist_check.py",
+    '# in operatörü ile IP kara liste kontrolü\nkara_liste = ["192.168.1.105", "10.0.0.99", "172.16.5.20"]\n\ngelen_ip = input("Sorgulanacak IP: ").strip()\n\nif gelen_ip in kara_liste:\n    print("ERİŞİM ENGEL: Bu IP adresi kara listede!")\nelse:\n    print("ERİŞİM İZİN: IP güvenli görünüyor.")',
+    "192.168.1.105",
+    "Sorgulanacak IP: ERİŞİM ENGEL: Bu IP adresi kara listede!\n",
+    [
+      "in anahtar sözcüğü bir elemanın liste içinde var olup olmadığını Boolean olarak döndürür.",
+      "Ağ güvenlik duvarlarında kara liste denetimi bu mantıkla yapılır.",
+    ],
+  ),
+  list_operations: example(
+    "examples/week05/list_operations.py",
+    '# Dinamik liste yönetimi: append ve remove\nengellenen_portlar = [23, 25]\nprint("Başlangıç listesi:", engellenen_portlar)\n\nyeni_port = int(input("Engellenecek yeni port: "))\nengellenen_portlar.append(yeni_port)\nprint("Eklendikten sonra:", engellenen_portlar)\n\nif 23 in engellenen_portlar:\n    engellenen_portlar.remove(23)\n    print("Telnet (23) listeden kaldırıldı:", engellenen_portlar)',
+    "135",
+    "Başlangıç listesi: [23, 25]\nEngellenecek yeni port: Eklendikten sonra: [23, 25, 135]\nTelnet (23) listeden kaldırıldı: [25, 135]\n",
+    [
+      "append() listenin sonuna yeni bir eleman ekler.",
+      "remove() belirtilen değeri liste içinden siler.",
+    ],
+  ),
+  failed_login_stats: example(
+    "examples/week05/failed_login_stats.py",
+    '# Sayı dizisi üzerinde for döngüsü ve istatistik\nhatali_girisler = [3, 1, 0, 7, 2, 14, 4]\n\ntoplam = 0\nsupheli_gunler = 0\n\nfor sayi in hatali_girisler:\n    toplam += sayi\n    if sayi >= 5:\n        supheli_gunler += 1\n\nortalama = toplam / len(hatali_girisler)\nprint("Toplam hatalı giriş:", toplam)\nprint(f"Haftalık ortalama: {ortalama:.2f}")\nprint("Eşik (5) üstü şüpheli gün sayısı:", supheli_gunler)',
+    "",
+    "Toplam hatalı giriş: 31\nHaftalık ortalama: 4.43\nEşik (5) üstü şüpheli gün sayısı: 2\n",
+    [
+      "for eleman in liste: yapısı her bir elemanı sırayla ziyaret eder.",
+      "Sayaç ve toplayıcı kalıpları listelerle birleştirilerek istatistik üretilir.",
+    ],
+  ),
+  password_length_filter: example(
+    "examples/week05/password_length_filter.py",
+    '# Liste elemanlarını döngüyle denetleyip yeni bir listeye ayıklama\nparolalar = ["admin1", "supersecret2026", "123", "bgt_lab_pass!"]\nguvensizler = []\n\nfor p in parolalar:\n    if len(p) < 8:\n        guvensizler.append(p)\n\nprint("Taranan toplam parola:", len(parolalar))\nprint("8 karakterden kısa güvensiz parolalar:", guvensizler)',
+    "",
+    "Taranan toplam parola: 4\n8 karakterden kısa güvensiz parolalar: ['admin1', '123']\n",
+    [
+      "Filtreleme kalıbı: Boş bir liste açılır, koşulu sağlayanlar append() ile toplanır.",
+      "len() hem listenin eleman sayısını hem de metnin karakter uzunluğunu verir.",
+    ],
+  ),
+  traffic_max_detector: example(
+    "examples/week05/traffic_max_detector.py",
+    '# Döngü ile listede en büyük değeri (anomali tepe noktasını) bulma\npaket_boyutlari = [120, 450, 1500, 8900, 320, 1400]\n\nen_buyuk = paket_boyutlari[0]\n\nfor boyut in paket_boyutlari:\n    if boyut > en_buyuk:\n        en_buyuk = boyut\n\nprint("İncelenen paketler:", paket_boyutlari)\nprint("Tepe paket boyutu (olası anomali):", en_buyuk, "bayt")',
+    "",
+    "İncelenen paketler: [120, 450, 1500, 8900, 320, 1400]\nTepe paket boyutu (olası anomali): 8900 bayt\n",
+    [
+      "En büyük değeri bulurken ilk eleman başlangıç varsayılır.",
+      "Döngüde daha büyük bir değerle karşılaşıldığında en_buyuk güncellenir.",
+    ],
+  ),
 };
 
 export const webExamples = {
