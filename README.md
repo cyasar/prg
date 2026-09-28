@@ -22,42 +22,10 @@ YZ ile birlikte programlayın, direksiyonda siz olun. Öğrenci önce kendi çö
 - **Hafta 3: 53 slayt.** 4 saatlik (2 teori + 2 lab) zenginleştirilmiş ders içeriği: Girdi doğrulama hiyerarşisi (varlık, tür, aralık, izin), `strip()` ve `isdigit()` ile güvenli dönüşüm, derin iç içe koşullar (`nested if`) yerine Guard Clause (erken çıkış) prensibi, karar tabloları matrisi, beyaz liste vs kara liste yaklaşımı, BGT senaryoları (firewall kuralı, hesap kilitleme, 2FA, kota hesabı), 10 bağımsız Python örneği, 6 aşamalı sözde kod ve 5 soruluk pekiştirme quizi.
 - **Hafta 4: 29 slayt.** Döngüler ve Tekrarlayan Problemler: while döngüsü ve koşul yönetimi, sonsuz döngüden kaçınma, sayaç (counter) ve toplayıcı (accumulator) kalıpları, break ve continue akış yönetimi, for döngüsü ve range() fonksiyonu (başla, dur, adım), BGT senaryoları (oturum geri sayımı, brute-force PIN deneme kilidi, port tarama simülasyonu, continue ile şüpheli port süzme, ağ trafiği boyutu toplayıcısı), bol soru-cevap ve 5 soruluk aşamalı kendini sına quizi.
 - **Hafta 5: 30 slayt.** Diziler (Listeler) ve Veri İşleme: Python listeleri (diziler), bellek yapısı, 0 tabanlı indeksleme ve negatif indeksler, dilimleme (slicing), dinamik metotlar (append, remove, len), in ve not in ile arama, for ile liste gezinme yöntemleri, filtreleme deseni (filtering pattern), döngüyle tepe değer (anomali) bulma, BGT senaryoları (cihaz envanteri, IP kara liste denetimi, dinamik port yönetimi, 7 günlük hatalı oturum istatistiği, 8 karakterden kısa güvensiz parola filtreleme, trafik tepe boyutu tespiti), soru-cevap ve 5 soruluk aşamalı kendini sına quizi.
-- 35 bağımsız Python dosyası, iki bağımsız web örneği.
+- 35 bağımsız Python dosyası, iki bağımsız web örneği, toplam 218 etkileşimli slayt.
 - 6–14. haftalar “Yakında” durumundadır; bu aşamada ayrıntılı slaytları hazırlanmadı.
 
-### Hafta 4: Döngüler ve Tekrarlayan Problemler
-
-Döngüler, programlamada otomasyonun ve tekrarlanan veri akışlarını yönetmenin temel aracıdır. Hafta 4 içeriği bol örnekli soru-cevap, çalışan Python kodları ve kendini sına quiziyle kurgulanmıştır:
-1. **while Döngüsü & Koşullu Tekrar:** Başlangıç, koşul ve güncelleme adımları, sonsuz döngüden (infinite loop) kaçınma stratejileri.
-2. **Sayaç (Counter) ve Toplayıcı (Accumulator):** Olay adedini sayma (`sayac += 1`) ile miktarları kümülatif biriktirme (`toplam += deger`) kalıpları ve kuru çalıştırma adımları.
-3. **Akış Kırıcılar (break ve continue):** Erken çıkış (`break`) ile gereksiz işlemleri pas geçme (`continue`) farkı ve güvenlik senaryoları.
-4. **for Döngüsü ve range():** Sayılabilir adımlar, `range(dur)`, `range(basla, dur)` ve `range(basla, dur, adim)` sınır kuralları.
-5. **BGT Uygulama Örnekleri:**
-   - `countdown.py`: Güvenlik oturumu geri sayımı.
-   - `pin_bruteforce.py`: 3 haklı PIN deneme ve kart bloke simülasyonu.
-   - `port_scanner_mock.py`: Hedef port aralığını tarama ve açık servisleri tespit etme.
-   - `traffic_accumulator.py`: Ağ trafiği paket boyutu toplayıcısı ve anomali sayacı.
-   - `port_filter_continue.py`: Standart portları `continue` ile atlayıp şüpheli portları raporlama.
-6. **Hafta Sonu Kendini Sına (5 Aşamalı Quiz):** `range()` çıktısı, sonsuz döngü tuzağı, toplayıcı hesabı, `break`/`continue` davranışı ve brute-force deneme eşiği analizi.
-
-### Hafta 5: Diziler (Listeler) ve Veri İşleme
-
-Çoklu verileri tek bir konteyner altında düzenli tutma, indeksleme ve döngülerle toplu analiz etme becerileri:
-1. **Dizi (Liste) Temelleri:** Bellekte sıralı veri saklama, köşeli parantez `[]` sözdizimi, veri tipleri çeşitliliği ve değiştirilebilirlik (mutable).
-2. **İndeksleme & Dilimleme:** 0 tabanlı indeksleme mantığı, negatif indeksler (`-1` son eleman), `[basla:dur]` ile parça alma ve `IndexError` sınır hatası.
-3. **Dinamik Metotlar & in Operatörü:** `len()`, `append()`, `remove()` ile dinamik liste yönetimi ve `in` ile tek satırda üyelik sorgulama.
-4. **for ile Liste Gezinme:** Doğrudan değer okuma (`for x in liste:`), indeks ile gezinme ve kümülatif istatistik (toplam, ortalama).
-5. **Filtreleme Kalıbı (Filtering Pattern):** Boş liste açma, döngüyle tarama ve koşula uyan elemanları `append()` ile yeni listeye ayıklama.
-6. **BGT Uygulama Örnekleri:**
-   - `device_inventory.py`: Ağ cihazları envanteri, indeksleme ve dilimleme.
-   - `ip_blacklist_check.py`: `in` operatörü ile IP kara liste güvenlik kontrolü.
-   - `list_operations.py`: Dinamik port engelleme listesi yönetimi (`append`, `remove`).
-   - `failed_login_stats.py`: 7 günlük hatalı oturum istatistikleri, haftalık ortalama ve şüpheli gün eşik analizi.
-   - `password_length_filter.py`: 8 karakterden kısa zayıf parolaları otomatik filtreleme.
-   - `traffic_max_detector.py`: Liste içindeki tepe paket boyutunu (olası veri sızıntısı anomalisi) döngüyle bulma.
-7. **Hafta Sonu Kendini Sına (5 Aşamalı Quiz):** İlk/son indeks kuralı, `append()` etkisi, dilimleme sınırları, liste içi toplayıcı hesabı ve BGT kara liste filtreleme analizi.
-
-### Hafta 2 Algoritmik Sözde Kod ve Pekiştirme Quizi
+### Hafta 2: Algoritmik Sözde Kod ve Pekiştirme Quizi
 
 Öğrencilerin algoritmik düşünme ve problem çözme becerilerini pekiştirmek amacıyla 2. haftaya basitten karmaşığa 4 aşamalı sözde kod (pseudocode) modeli ve 5 soruluk aşamalı pekiştirme quizi eklenmiştir:
 1. **Sözde Kod Örnekleri (Basitten Karmaşığa):**
@@ -79,6 +47,48 @@ Haftalık 4 saatlik (2 teori + 2 laboratuvar) ders yapısına tam uyumlu olarak 
 2. **2. Saat (Tasarım & Refactoring):** Derin iç içe if yapıları (Piramit anti-pattern) yerine Guard Clause (Erken Çıkış) yaklaşımı ve kod sadeleştirme.
 3. **3. Saat (Karar Tabloları Matrisi):** $2^n$ kural analizi, eksik durum tespiti, rol ve işlem matrisi (Admin/Öğretmen/Öğrenci).
 4. **4. Saat (BGT Uygulamaları & Sınav):** Güvenlik duvarı paket filtresi, hatalı deneme sayacı (Account Lockout), 2FA kontrolü, kota yönetimi ve 5 soruluk aşamalı sınav.
+
+### Hafta 4: Döngüler ve Tekrarlayan Problemler (Örnek-Çözüm & Kendini Sına)
+
+Döngüler, programlamada otomasyonun ve tekrarlanan veri akışlarını yönetmenin temel aracıdır. Hafta 4 içeriği bol örnekli soru-cevap, çalışan Python kodları ve kendini sına quiziyle kurgulanmıştır:
+1. **while Döngüsü & Koşullu Tekrar:** Başlangıç, koşul ve güncelleme adımları, sonsuz döngüden (infinite loop) kaçınma stratejileri.
+2. **Sayaç (Counter) ve Toplayıcı (Accumulator):** Olay adedini sayma (`sayac += 1`) ile miktarları kümülatif biriktirme (`toplam += deger`) kalıpları ve kuru çalıştırma adımları.
+3. **Akış Kırıcılar (break ve continue):** Erken çıkış (`break`) ile gereksiz işlemleri pas geçme (`continue`) farkı ve güvenlik senaryoları.
+4. **for Döngüsü ve range():** Sayılabilir adımlar, `range(dur)`, `range(basla, dur)` ve `range(basla, dur, adim)` sınır kuralları.
+5. **BGT Uygulama Örnekleri (Bağımsız Python Dosyaları):**
+   - `countdown.py`: while döngüsü ile oturum geri sayımı ve güvenlik kilidi.
+   - `pin_bruteforce.py`: 3 deneme haklı PIN doğrulama ve kart bloke simülasyonu (while + break).
+   - `port_scanner_mock.py`: for ve range ile hedef port aralığını tarama ve açık servisleri tespit etme.
+   - `traffic_accumulator.py`: Ağ trafiği paket boyutu toplayıcısı ve anomali sayacı.
+   - `port_filter_continue.py`: Standart portları continue ile atlayıp şüpheli portları raporlama.
+6. **Hafta Sonu Kendini Sına (5 Aşamalı Quiz):**
+   - Mini Quiz 1 (Kolay): `range(2, 9, 2)` serisini okuma.
+   - Mini Quiz 2 (Kolay-Orta): `while` döngüsünde sayaç güncellenmezse oluşan sonsuz döngü tuzağı.
+   - Mini Quiz 3 (Orta): Döngü izleme ve toplayıcı hesabı (`toplam += x`).
+   - Mini Quiz 4 (Orta-Zor): `break` ve `continue` komutlarının çalışma anı farkı.
+   - Mini Quiz 5 (Zor / BGT): Brute-force deneme eşiği ve sayaç son durumu analizi.
+
+### Hafta 5: Diziler (Listeler) ve Veri İşleme (Örnek-Çözüm & Kendini Sına)
+
+Çoklu verileri tek bir konteyner altında düzenli tutma, indeksleme ve döngülerle toplu analiz etme becerileri:
+1. **Dizi (Liste) Temelleri:** Bellekte sıralı veri saklama, köşeli parantez `[]` sözdizimi, veri tipleri çeşitliliği ve değiştirilebilirlik (mutable).
+2. **İndeksleme & Dilimleme:** 0 tabanlı indeksleme mantığı, negatif indeksler (`-1` son eleman), `[basla:dur]` ile parça alma ve `IndexError` sınır hatası.
+3. **Dinamik Metotlar & in Operatörü:** `len()`, `append()`, `remove()` ile dinamik liste yönetimi ve `in` ile tek satırda üyelik sorgulama.
+4. **for ile Liste Gezinme:** Doğrudan değer okuma (`for x in liste:`), indeks ile gezinme ve kümülatif istatistik (toplam, ortalama).
+5. **Filtreleme Kalıbı (Filtering Pattern):** Boş liste açma, döngüyle tarama ve koşula uyan elemanları `append()` ile yeni listeye ayıklama.
+6. **BGT Uygulama Örnekleri (Bağımsız Python Dosyaları):**
+   - `device_inventory.py`: Ağ cihazları envanteri, indeksleme ve dilimleme.
+   - `ip_blacklist_check.py`: in operatörü ile IP kara liste güvenlik kontrolü.
+   - `list_operations.py`: Dinamik port engelleme listesi yönetimi (`append`, `remove`).
+   - `failed_login_stats.py`: 7 günlük hatalı oturum istatistikleri, haftalık ortalama ve şüpheli gün eşik analizi.
+   - `password_length_filter.py`: 8 karakterden kısa zayıf parolaları otomatik filtreleme.
+   - `traffic_max_detector.py`: Liste içindeki tepe paket boyutunu (olası veri sızıntısı anomalisi) döngüyle bulma.
+7. **Hafta Sonu Kendini Sına (5 Aşamalı Quiz):**
+   - Mini Quiz 1 (Kolay): İlk eleman `[0]` ve son eleman `[-1]` indeks kuralı.
+   - Mini Quiz 2 (Kolay-Orta): `append()` metodunun listenin boyutuna ve son elemanına etkisi.
+   - Mini Quiz 3 (Orta): `sayilar[1:4]` dilimleme çıktısı analizi.
+   - Mini Quiz 4 (Orta-Zor): Liste üzerinde for döngüsü ile işlem ve toplayıcı hesabı.
+   - Mini Quiz 5 (Zor / BGT): Gelen istekler ile IP kara liste filtreleme algoritmasının çıktısı.
 
 
 
@@ -140,8 +150,10 @@ Depo kökünde:
 ```sh
 # Windows
 py examples/week01/hello.py
-py examples/week01/sum_two_numbers.py
 py examples/week02/pass_fail.py
+py examples/week03/nested_vs_guard.py
+py examples/week04/pin_bruteforce.py
+py examples/week05/ip_blacklist_check.py
 
 # macOS / Linux
 python3 examples/week01/hello.py
@@ -158,7 +170,7 @@ src/
   learning-widgets.jsx    ThinkBox, AIBox, Flowchart, MemoryBoxes, SumTrace,
                           BooleanLab, LiveDemo
   curriculum.js           14 haftalık tek müfredat kaynağı
-  lessons.js              92 slayt ve ayrıntılı açıklamalar
+  lessons.js              218 slayt ve ayrıntılı açıklamalar
   motivation.js           Motivasyon slaytları, sentetik veriler ve örnek kurallar
   motivation-visuals.jsx  Altı görsel anlatım; kayıt, özet ve otomasyon etkileşimleri
   motivation.css          Beyaz temaya uyumlu, responsive görsel bileşenler
@@ -172,6 +184,15 @@ examples/week02/          variables.py, input_output.py, arithmetic.py,
                           pass_fail.py, positive.py, even_odd.py, larger.py,
                           age_category.py, username.py, password_length.py,
                           boolean_rules.py
+examples/week03/          digit_check.py, empty_check.py, range_validation.py,
+                          nested_vs_guard.py, file_policy.py, decision_table_auth.py,
+                          firewall_rule.py, account_lockout.py, two_factor_mock.py,
+                          quota_calculator.py
+examples/week04/          countdown.py, pin_bruteforce.py, port_scanner_mock.py,
+                          traffic_accumulator.py, port_filter_continue.py
+examples/week05/          device_inventory.py, ip_blacklist_check.py,
+                          list_operations.py, failed_login_stats.py,
+                          password_length_filter.py, traffic_max_detector.py
 examples/web/week01/      index.html, style.css, script.js, README.md
 examples/web/week02/      index.html, style.css, script.js, README.md
 scripts/                 İçerik/örnek kontrolleri ve eşitleme
