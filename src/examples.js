@@ -371,6 +371,56 @@ export const pythonExamples = {
       "Döngüde daha büyük bir değerle karşılaşıldığında en_buyuk güncellenir.",
     ],
   ),
+  queue_event_processor: example(
+    "examples/week05/queue_event_processor.py",
+    '# While döngüsü ve liste ile FIFO güvenlik olay kuyruğu işleme\nolay_kuyrugu = ["SYN_FLOOD", "SSH_BRUTEFORCE", "PORT_SCAN", "SQL_INJECTION"]\nislenen_olaylar = []\nkritik_sayisi = 0\n\nprint("Başlangıç kuyruk boyutu:", len(olay_kuyrugu))\n\nwhile len(olay_kuyrugu) > 0:\n    suanki_olay = olay_kuyrugu.pop(0)  # Kuyruğun başındaki ilk olayı al ve çıkar\n    islenen_olaylar.append(suanki_olay)\n    if suanki_olay in ["SYN_FLOOD", "SQL_INJECTION"]:\n        kritik_sayisi += 1\n\nprint("İşlenen olay sayısı:", len(islenen_olaylar))\nprint("Tespit edilen kritik tehdit:", kritik_sayisi)\nprint("Kalan kuyruk:", olay_kuyrugu)',
+    "",
+    "Başlangıç kuyruk boyutu: 4\nİşlenen olay sayısı: 4\nTespit edilen kritik tehdit: 2\nKalan kuyruk: []\n",
+    [
+      "pop(0) metodu listenin ilk elemanını kuyruktan çeker ve listeden siler.",
+      "while len(kuyruk) > 0 döngüsü liste boşalana kadar dinamik olarak çalışır.",
+    ],
+  ),
+  while_linear_search: example(
+    "examples/week05/while_linear_search.py",
+    '# While döngüsü ve indeks sayacı ile doğrusal liste araması\nsupheli_macler = ["00:1A:2B:3C:4D:5E", "AA:BB:CC:DD:EE:FF", "12:34:56:78:9A:BC"]\nhedef_mac = input("Aranacak MAC adresi: ").strip().upper()\n\ni = 0\nbulundu = False\nbulunan_indeks = -1\n\nwhile i < len(supheli_macler):\n    if supheli_macler[i] == hedef_mac:\n        bulundu = True\n        bulunan_indeks = i\n        break  # Hedef bulunduğunda döngüyü erken sonlandır\n    i += 1\n\nif bulundu:\n    print(f"ALARM: Şüpheli MAC bulundu! İndeks: {bulunan_indeks}")\nelse:\n    print("GÜVENLİ: MAC adresi şüpheli listesinde yok.")',
+    "AA:BB:CC:DD:EE:FF",
+    "Aranacak MAC adresi: ALARM: Şüpheli MAC bulundu! İndeks: 1\n",
+    [
+      "While döngüsünde indeks değişkeni (i) elle yönetilir ve her adımda i += 1 ile artırılır.",
+      "break anahtar sözcüğü aranan eleman bulunduğunda gereksiz turları önler.",
+    ],
+  ),
+  firewall_matrix_2d: example(
+    "examples/week05/firewall_matrix_2d.py",
+    '# 2 Boyutlu Dizi (Matris): Sunucuların 3 günlük hata logları\n# matris[satir][sutun] -> [Sunucu No][Gün No]\nlog_matrisi = [\n    [12, 45, 8],    # Web-01 (Pzt, Sal, Çar)\n    [3, 98, 14],    # DB-01\n    [27, 5, 62]     # Auth-01\n]\n\nsunucu_adlari = ["Web-01", "DB-01", "Auth-01"]\ngenel_toplam = 0\nen_yuksek_hata = log_matrisi[0][0]\nen_riskli_sunucu = ""\nen_riskli_gun = -1\n\nfor r in range(len(log_matrisi)):\n    satir_toplami = 0\n    for c in range(len(log_matrisi[r])):\n        hata = log_matrisi[r][c]\n        satir_toplami += hata\n        genel_toplam += hata\n        if hata > en_yuksek_hata:\n            en_yuksek_hata = hata\n            en_riskli_sunucu = sunucu_adlari[r]\n            en_riskli_gun = c + 1\n    print(f"{sunucu_adlari[r]} 3 günlük toplam: {satir_toplami}")\n\nprint("Tüm sunucularda genel toplam hata:", genel_toplam)\nprint(f"Tepe Anomali: {en_riskli_sunucu} (Gün {en_riskli_gun}) -> {en_yuksek_hata} hata")',
+    "",
+    "Web-01 3 günlük toplam: 65\nDB-01 3 günlük toplam: 115\nAuth-01 3 günlük toplam: 94\nTüm sunucularda genel toplam hata: 274\nTepe Anomali: DB-01 (Gün 2) -> 98 hata\n",
+    [
+      "2 boyutlu listelerde matris[r][c] sözdizimi ile r satırına ve c sütununa erişilir.",
+      "İç içe (nested) iki for döngüsü tablonun tüm satır ve sütunlarını sırayla tarar.",
+    ],
+  ),
+  acl_matrix: example(
+    "examples/week05/acl_matrix.py",
+    '# 2 Boyutlu Dizi: Rol Tabanlı Erişim Kontrol Matrisi (ACL)\n# İzinler: [Okuma(0), Yazma(1), Silme(2)]\nyetki_matrisi = [\n    [1, 0, 0],  # Misafir: sadece Okuma\n    [1, 1, 0],  # Operatör: Okuma + Yazma\n    [1, 1, 1]   # Güvenlik Yöneticisi: Okuma + Yazma + Silme\n]\n\nroller = ["Misafir", "Operatör", "Yönetici"]\nislemler = ["Okuma", "Yazma", "Silme"]\n\nrol_id = int(input("Rol seçin (0: Misafir, 1: Operatör, 2: Yönetici): "))\nislem_id = int(input("İşlem seçin (0: Okuma, 1: Yazma, 2: Silme): "))\n\nif 0 <= rol_id <= 2 and 0 <= islem_id <= 2:\n    yetki = yetki_matrisi[rol_id][islem_id]\n    if yetki == 1:\n        print(f"ONAY: {roller[rol_id]} kullanıcısı için {islemler[islem_id]} izni VERİLDİ.")\n    else:\n        print(f"RED: {roller[rol_id]} kullanıcısının {islemler[islem_id]} yetkisi YOK!")\nelse:\n    print("Hata: Geçersiz rol veya işlem numarası.")',
+    "1\n2",
+    "Rol seçin (0: Misafir, 1: Operatör, 2: Yönetici): İşlem seçin (0: Okuma, 1: Yazma, 2: Silme): RED: Operatör kullanıcısının Silme yetkisi YOK!\n",
+    [
+      "Erişim kontrol matrisi (ACL), güvenlik modellerinde 2D ikili (0/1) matrislerle ifade edilir.",
+      "İki boyutlu koordinat kontrolü [rol][islem] ile O(1) sabit sürede yetki doğrulanır.",
+    ],
+  ),
+  datacenter_sensors_3d: example(
+    "examples/week05/datacenter_sensors_3d.py",
+    '# 3 Boyutlu Dizi: Veri Merkezi Sıcaklık Sensör Küpü\n# Boyutlar: [Şube / Veri Merkezi][Kabin][Sunucu Sensörü]\nsensor_kupu = [\n    # Şube 0 (İstanbul)\n    [\n        [24, 26, 28],  # Kabin 0\n        [22, 23, 31]   # Kabin 1\n    ],\n    # Şube 1 (Ankara)\n    [\n        [21, 22, 22],  # Kabin 0\n        [25, 29, 36]   # Kabin 1\n    ]\n]\n\nsube_adlari = ["İstanbul", "Ankara"]\nesik_derece = 30\nalarm_koordinatlari = []\n\nfor b in range(len(sensor_kupu)):             # 1. Boyut: Şube\n    for r in range(len(sensor_kupu[b])):         # 2. Boyut: Kabin\n        for c in range(len(sensor_kupu[b][r])):     # 3. Boyut: Sunucu\n            derece = sensor_kupu[b][r][c]\n            if derece >= esik_derece:\n                konum = f"{sube_adlari[b]} Kabin-{r} Sunucu-{c} ({derece}°C)"\n                alarm_koordinatlari.append(konum)\n\nprint("İncelenen toplam sensör:", 2 * 2 * 3)\nprint(f"Kritik ısı eşiğini ({esik_derece}°C) aşan noktalar:")\nfor alarm in alarm_koordinatlari:\n    print("[ALARM]:", alarm)',
+    "",
+    "İncelenen toplam sensör: 12\nKritik ısı eşiğini (30°C) aşan noktalar:\n[ALARM]: İstanbul Kabin-1 Sunucu-2 (31°C)\n[ALARM]: Ankara Kabin-1 Sunucu-2 (36°C)\n",
+    [
+      "3 boyutlu listeler [blok][satir][sutun] hiyerarşik veri yapısıyla derinlik modeller.",
+      "3 iç içe for döngüsü ile küpün tüm koordinatları taranarak anomali noktaları yakalanır.",
+    ],
+  ),
 };
 
 export const webExamples = {

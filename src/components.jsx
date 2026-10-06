@@ -20,6 +20,7 @@ import {
   SumTrace,
   ThinkBox,
 } from "./learning-widgets.jsx";
+import { ArrayLoopSimulation } from "./array-loop-simulator.jsx";
 
 function Highlight({ text }) {
   const tokens = text.split(
@@ -378,6 +379,7 @@ export function SlideBody({ slide }) {
       {slide.type === "flowchart" && <Flowchart variant={slide.variant} />}
       {slide.type === "sumtrace" && <SumTrace />}
       {slide.type === "boolean" && <BooleanLab />}
+      {slide.type === "array_simulation" && <ArrayLoopSimulation />}
       {slide.type === "motivation" && (
         <MotivationVisual variant={slide.variant} />
       )}

@@ -68,27 +68,36 @@ Döngüler, programlamada otomasyonun ve tekrarlanan veri akışlarını yönetm
    - Mini Quiz 4 (Orta-Zor): `break` ve `continue` komutlarının çalışma anı farkı.
    - Mini Quiz 5 (Zor / BGT): Brute-force deneme eşiği ve sayaç son durumu analizi.
 
-### Hafta 5: Diziler (Listeler) ve Veri İşleme (Örnek-Çözüm & Kendini Sına)
+### Hafta 5: Diziler (Listeler) ve Veri İşleme (İnteraktif Simülatör, 2D/3D Matrisler & Soru-Çözüm)
 
-Çoklu verileri tek bir konteyner altında düzenli tutma, indeksleme ve döngülerle toplu analiz etme becerileri:
-1. **Dizi (Liste) Temelleri:** Bellekte sıralı veri saklama, köşeli parantez `[]` sözdizimi, veri tipleri çeşitliliği ve değiştirilebilirlik (mutable).
-2. **İndeksleme & Dilimleme:** 0 tabanlı indeksleme mantığı, negatif indeksler (`-1` son eleman), `[basla:dur]` ile parça alma ve `IndexError` sınır hatası.
-3. **Dinamik Metotlar & in Operatörü:** `len()`, `append()`, `remove()` ile dinamik liste yönetimi ve `in` ile tek satırda üyelik sorgulama.
-4. **for ile Liste Gezinme:** Doğrudan değer okuma (`for x in liste:`), indeks ile gezinme ve kümülatif istatistik (toplam, ortalama).
-5. **Filtreleme Kalıbı (Filtering Pattern):** Boş liste açma, döngüyle tarama ve koşula uyan elemanları `append()` ile yeni listeye ayıklama.
-6. **BGT Uygulama Örnekleri (Bağımsız Python Dosyaları):**
+Çoklu verileri tek bir konteyner altında düzenli tutma, indeksleme, döngülerle toplu analiz etme ve çok boyutlu modelleme becerileri:
+1. **İnteraktif Laboratuvar (Dizi & Döngü Simülatörü):** Web arayüzünde 1D, 2D ve 3D diziler üzerinde for/while döngülerini bloklarla kurgulama, bellek adımlarını görsel imleçle izleme ve otomatik Python kodu üretme aracı.
+2. **Dizi (Liste) Temelleri:** Bellekte sıralı veri saklama, köşeli parantez `[]` sözdizimi, veri tipleri çeşitliliği ve değiştirilebilirlik (mutable).
+3. **İndeksleme & Dilimleme:** 0 tabanlı indeksleme mantığı, negatif indeksler (`-1` son eleman), `[basla:dur]` ile parça alma ve `IndexError` sınır hatası.
+4. **Dinamik Metotlar & in Operatörü:** `len()`, `append()`, `remove()` ile dinamik liste yönetimi ve `in` ile tek satırda üyelik sorgulama.
+5. **Döngüler ve Listeler (for & while):** Doğrudan değer okuma, indeks sayacıyla `while` gezinmesi, erken çıkış (`break`) ve FIFO kuyruk işleme (`pop(0)`).
+6. **İki Boyutlu Diziler (2D Listeler / Matrisler):** `matris[satir][sutun]` koordinat mantığı, iç içe (nested) iki for döngüsü ile satır toplamları, tepe anomali tespiti ve Erişim Kontrol Matrisleri (ACL).
+7. **Üç Boyutlu Diziler (3D Listeler):** `kup[blok][satir][sutun]` derinlik hiyerarşisi, 3 iç içe döngü ile Veri Merkezi / Kabin / Sunucu IoT sıcaklık sensör küpü taraması.
+8. **BGT Uygulama Örnekleri (Bağımsız Python Dosyaları):**
    - `device_inventory.py`: Ağ cihazları envanteri, indeksleme ve dilimleme.
    - `ip_blacklist_check.py`: in operatörü ile IP kara liste güvenlik kontrolü.
    - `list_operations.py`: Dinamik port engelleme listesi yönetimi (`append`, `remove`).
    - `failed_login_stats.py`: 7 günlük hatalı oturum istatistikleri, haftalık ortalama ve şüpheli gün eşik analizi.
    - `password_length_filter.py`: 8 karakterden kısa zayıf parolaları otomatik filtreleme.
-   - `traffic_max_detector.py`: Liste içindeki tepe paket boyutunu (olası veri sızıntısı anomalisi) döngüyle bulma.
-7. **Hafta Sonu Kendini Sına (5 Aşamalı Quiz):**
+   - `traffic_max_detector.py`: Liste içindeki tepe paket boyutunu döngüyle bulma.
+   - `queue_event_processor.py`: While döngüsü ve `pop(0)` ile FIFO güvenlik olay kuyruğu işleme.
+   - `while_linear_search.py`: While döngüsü ve indeks sayacı ile şüpheli MAC arama ve `break` ile erken çıkış.
+   - `firewall_matrix_2d.py`: 2D sunucu log matrisinde satır toplamları ve tepe anomali hücresi bulma.
+   - `acl_matrix.py`: Rol ve işlem bazlı 2D erişim kontrol matrisi (ACL) yetki denetimi.
+   - `datacenter_sensors_3d.py`: 3D sensör küpünde (2x2x3) 30°C üzeri kritik aşırı ısınma koordinat taraması.
+9. **Hafta Sonu Kendini Sına (7 Aşamalı Quiz):**
    - Mini Quiz 1 (Kolay): İlk eleman `[0]` ve son eleman `[-1]` indeks kuralı.
    - Mini Quiz 2 (Kolay-Orta): `append()` metodunun listenin boyutuna ve son elemanına etkisi.
    - Mini Quiz 3 (Orta): `sayilar[1:4]` dilimleme çıktısı analizi.
    - Mini Quiz 4 (Orta-Zor): Liste üzerinde for döngüsü ile işlem ve toplayıcı hesabı.
-   - Mini Quiz 5 (Zor / BGT): Gelen istekler ile IP kara liste filtreleme algoritmasının çıktısı.
+   - Mini Quiz 5 (Zor / BGT): Kara liste filtreleme ve engellenen IP adedi analizi.
+   - Mini Quiz 6 (Orta-Zor): 2D matris çift indeksleme `matris[1][2]` mantığı.
+   - Mini Quiz 7 (Zor): 3 Boyutlu dizide (2x3x4) iç içe 3 döngünün toplam adım sayısı.
 
 
 

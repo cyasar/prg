@@ -2204,6 +2204,157 @@ export const decks = {
       "# Paket boyutlarını değiştirip en yüksek değeri teyit et.",
       "Ağ trafiğindeki sıradışı sıçramaların siber güvenlikteki önemini belirtin.",
     ),
+    s(
+      "İnteraktif Laboratuvar: Dizi & Döngü Simülatörü",
+      "array_simulation",
+      {},
+      "Öğrencilerin 1D, 2D ve 3D diziler üzerinde for ve while döngülerini bloklarla kurgulamasını, bellek durumunu adım adım izlemesini ve otomatik üretilen Python kodunu analiz etmesini sağlayın.",
+    ),
+    cards(
+      "Diziler ve While Döngüsü (Dinamik Liste Yönetimi)",
+      [
+        [
+          "İndeks Sayacı ile Gezinme",
+          "i = 0 ile başlanır, her adımda i += 1 ile ilerlenir. while i < len(liste): koşuluyla sınırda durulur.",
+        ],
+        [
+          "Kuyruk (Queue / FIFO) Mantığı",
+          "while len(kuyruk) > 0: ve kuyruk.pop(0) kalıbıyla liste elemanları geldikleri sırayla işlenip tüketilir.",
+        ],
+        [
+          "Erken Çıkış (break)",
+          "Aranan bir güvenlik tehdidi (şüpheli MAC/IP) bulunduğunda döngüyü hemen bitirip gereksiz turları önler.",
+        ],
+        [
+          "Sonsuz Döngü Tehlikesi",
+          "While döngüsünde sayaç artırılmazsa (i += 1 unutulursa) veya liste küçültülmezse program kilitlenir!",
+        ],
+      ],
+      "Döngü koşulu ve dinamik değişen liste boyutu.",
+      "While döngüsünün liste elemanlarını tüketerek (pop) işleme senaryolarını vurgulayın.",
+    ),
+    exercise(
+      "Soru & Çözüm 7: Olay Kuyruğu İşleme (While & pop)",
+      "Soru: Bir güvenlik olay kuyruğundaki (olay_kuyrugu) olayları while döngüsü ve pop(0) kullanarak sırayla işleyen, kuyruk boşalana kadar devam eden ve 'SYN_FLOOD' veya 'SQL_INJECTION' gibi kritik olayları sayan programı yazınız.",
+      "olay_kuyrugu = ['SYN_FLOOD', 'SSH_BRUTEFORCE', 'PORT_SCAN', 'SQL_INJECTION']\nislenen_olaylar = []\nkritik_sayisi = 0\nwhile len(olay_kuyrugu) > 0:\n    suanki = olay_kuyrugu.pop(0)\n    islenen_olaylar.append(suanki)\n    if suanki in ['SYN_FLOOD', 'SQL_INJECTION']:\n        kritik_sayisi += 1\nprint('İşlenen olay sayısı:', len(islenen_olaylar))\nprint('Tespit edilen kritik tehdit:', kritik_sayisi)",
+      "pop(0) metodunun listenin başından eleman çıkararak kuyruğu kısalttığını gösterin.",
+    ),
+    run(
+      "Uygulama 7: Güvenlik Olay Kuyruğu (While & FIFO)",
+      "queue_event_processor",
+      "While döngüsü ve pop(0) ile olay kuyruğu tüketme ve kritik tehdit sayımı.",
+      "# Yeni olaylar ekleyerek kuyruğun nasıl sıfırlandığını gözlemle.",
+      "SOC (Güvenlik Operasyon Merkezi) olay işleme kuyruklarının temel algoritmasını tartışın.",
+    ),
+    exercise(
+      "Soru & Çözüm 8: Doğrusal Arama (Linear Search & break)",
+      "Soru: Şüpheli MAC adresleri listesinde kullanıcının girdiği bir MAC adresini while döngüsü ve indeks sayacıyla arayan, bulunursa indeksini yazdırıp break ile döngüden çıkan programı yazınız.",
+      "supheli_macler = ['00:1A:2B:3C:4D:5E', 'AA:BB:CC:DD:EE:FF', '12:34:56:78:9A:BC']\nhedef = input('Aranacak MAC: ').strip().upper()\ni = 0\nbulundu = False\nwhile i < len(supheli_macler):\n    if supheli_macler[i] == hedef:\n        bulundu = True\n        print('ALARM: Bulundu! İndeks:', i)\n        break\n    i += 1\nif not bulundu:\n    print('GÜVENLİ: Listede yok.')",
+      "break ifadesinin arama tamamlandığında döngüyü erken keserek kaynak tasarrufu sağladığını açıklayın.",
+    ),
+    run(
+      "Uygulama 8: Doğrusal Arama ve Erken Çıkış",
+      "while_linear_search",
+      "While döngüsü ve indeks sayacı ile şüpheli MAC adresi arama ve break kullanımı.",
+      "# Listede olan ve olmayan MAC adresleriyle sınır durumlarını sına.",
+      "Büyük listelerde erken çıkışın (break) performans kazancını örnekleyin.",
+    ),
+    cards(
+      "İki Boyutlu Diziler (2D Listeler / Matrisler)",
+      [
+        [
+          "Liste İçinde Liste",
+          "2D dizi, satırlar ve sütunlardan oluşan bir tablodur: matris = [[1, 2], [3, 4]].",
+        ],
+        [
+          "Satır ve Sütun İndeksi",
+          "matris[satir][sutun] biçiminde çift indeksle erişilir: matris[0][1] ilk satırın ikinci sütunudur.",
+        ],
+        [
+          "İç İçe İki Döngü (Nested)",
+          "Dış döngü satırları (for r in range(len(matris))), iç döngü sütunları (for c in range(len(matris[r]))) gezer.",
+        ],
+        [
+          "Güvenlik Modelleri",
+          "Erişim Kontrol Matrisleri (ACL), sunucu-günlük log tabloları ve ağ bağlantı haritaları 2D matrislerle modellenir.",
+        ],
+      ],
+      "Tablo ve ızgara (grid) veri yapılarını programlama diliyle ifade etme.",
+      "Matrislerin bellek yapısını ve [satir][sutun] kuralını tahtada çizerek gösterin.",
+    ),
+    table(
+      "2D Matris Çift İndeks Haritası (3x3 Örnek)",
+      ["Satır \\ Sütun", "Sütun 0 (Pzt)", "Sütun 1 (Sal)", "Sütun 2 (Çar)"],
+      [
+        ["Satır 0 (Web-01)", "matris[0][0] = 12", "matris[0][1] = 45", "matris[0][2] = 8"],
+        ["Satır 1 (DB-01)", "matris[1][0] = 3", "matris[1][1] = 98", "matris[1][2] = 14"],
+        ["Satır 2 (Auth-01)", "matris[2][0] = 27", "matris[2][1] = 5", "matris[2][2] = 62"],
+      ],
+      "matris[1][1] hücresinde hangi sunucu ve günün değeri vardır?",
+      "Satır indeksi birinci, sütun indeksi ikinci köşeli parantezdir.",
+    ),
+    exercise(
+      "Soru & Çözüm 9: 2D Sunucu Log Matrisi Analizi",
+      "Soru: 3 sunucunun 3 günlük hata sayılarını tutan bir 2D matris üzerinde iç içe döngülerle her sunucunun satır toplamını ve matristeki en büyük tepe anomaliyi bulan programı yazınız.",
+      "log_matrisi = [[12, 45, 8], [3, 98, 14], [27, 5, 62]]\nsunucular = ['Web-01', 'DB-01', 'Auth-01']\nen_buyuk = log_matrisi[0][0]\nfor r in range(len(log_matrisi)):\n    satir_top = 0\n    for c in range(len(log_matrisi[r])):\n        val = log_matrisi[r][c]\n        satir_top += val\n        if val > en_buyuk:\n            en_buyuk = val\n    print(f'{sunucular[r]} toplam:', satir_top)\nprint('Tepe Anomali:', en_buyuk)",
+      "Dış döngünün her turunda satir_top değişkeninin 0 olarak sıfırlandığına dikkat çekin.",
+    ),
+    run(
+      "Uygulama 9: 2D Sunucu Log Analizi",
+      "firewall_matrix_2d",
+      "İç içe for döngüleri ile 2D matriste satır toplamı ve tepe anomali tespiti.",
+      "# Matristeki değerleri değiştirip en riskli sunucunun değişimini izle.",
+      "Matrislerin veri merkezlerindeki çok boyutlu izleme panelleriyle bağını kurun.",
+    ),
+    exercise(
+      "Soru & Çözüm 10: 2D Erişim Yetki Matrisi (ACL Kontrolü)",
+      "Soru: 3 rol (Misafir, Operatör, Yönetici) ve 3 izin (Okuma=0, Yazma=1, Silme=2) içeren 2D yetki matrisinde kullanıcının girdiği rol ve işlem numarasına göre yetki durumunu (1 ise ONAY, 0 ise RED) bildiren programı yazınız.",
+      "yetki = [[1, 0, 0], [1, 1, 0], [1, 1, 1]]\nrol = int(input('Rol (0,1,2): '))\nislem = int(input('İşlem (0,1,2): '))\nif 0 <= rol <= 2 and 0 <= islem <= 2:\n    if yetki[rol][islem] == 1:\n        print('ONAY: Yetki verildi.')\n    else:\n        print('RED: Yetki yok!')\nelse:\n    print('Geçersiz girdi.')",
+      "Erişim kontrol matrislerinin sabit sürede O(1) yetki denetimi sağladığını açıklayın.",
+    ),
+    run(
+      "Uygulama 10: 2D Erişim Yetki Matrisi",
+      "acl_matrix",
+      "2D ikili matris ile rol ve işlem bazlı yetkilendirme kontrolü demosu.",
+      "# Farklı rol ve işlem indeksleri girerek izin tablosunu doğrula.",
+      "İşletim sistemlerindeki dosya izin matrisleri (r-w-x) ile paralellik kurun.",
+    ),
+    cards(
+      "Üç Boyutlu Diziler (3D Listeler): Derinlik ve Hiyerarşi",
+      [
+        [
+          "3 Boyutlu Küp Modeli",
+          "3D liste, liste içinde listelerin listesidir: kup[blok][satir][sutun].",
+        ],
+        [
+          "Hiyerarşik Fiziksel Anlam",
+          "Örn: [Veri Merkezi Şubesi][Kabin Numarası][Sunucu Sensörü]. Gerçek dünyadaki fiziksel konumu modeller.",
+        ],
+        [
+          "3 İç İçe Döngü",
+          "Tüm sensörleri taramak için: for b in ... -> for r in ... -> for c in ... kullanılır.",
+        ],
+        [
+          "Kritik Sınır Tarama",
+          "Küp içindeki herhangi bir hücre kritik eşiği (örn: 30°C) aştığında tam koordinatı [b][r][c] raporlanır.",
+        ],
+      ],
+      "Çok boyutlu veri yapılarıyla fiziksel sistemleri ve IoT ağlarını modelleme.",
+      "3D dizi indekslerinin matrisler katmanı (blok), satır ve sütun sırasıyla çalıştığını açıklayın.",
+    ),
+    exercise(
+      "Soru & Çözüm 11: 3D Veri Merkezi Sensör Isı Taraması",
+      "Soru: 2 Şube, 2 Kabin ve 3 Sunucudan oluşan 3D sensör küpünde (2x2x3) 30°C ve üzeri olan aşırı ısınmış sunucuların konumunu (Şube, Kabin, Sunucu) tespit edip listeleyen programı yazınız.",
+      "kup = [[[24, 26, 28], [22, 23, 31]], [[21, 22, 22], [25, 29, 36]]]\nfor b in range(len(kup)):\n    for r in range(len(kup[b])):\n        for c in range(len(kup[b][r])):\n            sicaklik = kup[b][r][c]\n            if sicaklik >= 30:\n                print(f'ALARM: Şube-{b} Kabin-{r} Sunucu-{c} -> {sicaklik}°C')",
+      "3 iç içe döngünün toplam adım sayısının 2 * 2 * 3 = 12 olduğunu vurgulayın.",
+    ),
+    run(
+      "Uygulama 11: 3D Veri Merkezi Sensör Küpü",
+      "datacenter_sensors_3d",
+      "3D dizi ve 3 iç içe for döngüsü ile çok boyutlu IoT sıcaklık anomali taraması.",
+      "# Farklı sensör sıcaklıkları ekleyerek alarm koordinatlarını izle.",
+      "Büyük veri merkezlerindeki ortam denetim otomasyonlarını tartışın.",
+    ),
     ai(
       "🤖 YZ ile Çalış: Liste Algoritmalarını Denetle",
       "Yazdığım liste filtreleme ve arama kodunda liste boş olduğunda, tek elemanlı olduğunda veya tüm elemanlar aynı olduğunda ne gibi hatalar oluşabileceğini öğrenmek için bana 3 soru sor.",
@@ -2312,6 +2463,32 @@ export const decks = {
           "gelen listesindeki '10.0.0.1' ve '192.168.1.5' kara listede bulunduğu için if şartı True olur ve engellenen listesine eklenir. Toplam 2 IP engellenmiştir.",
       },
       "Zor seviye liste filtreleme ve güvenlik kurgusu sorusu.",
+    ),
+    s(
+      "Mini quiz 6: 2 Boyutlu matris hücre erişimi",
+      "quiz",
+      {
+        question:
+          "matris = [[10, 20, 30], [40, 50, 60], [70, 80, 90]]\nprint(matris[1][2]) ifadesinin ekrana yazdıracağı değer nedir?",
+        options: ["60", "50", "20", "80"],
+        answer: 0,
+        explanation:
+          "matris[1], 1. indeksteki satırı ([40, 50, 60]) seçer. matris[1][2] ise bu satırdaki 2. indeksteki elemanı (60) döndürür.",
+      },
+      "2D dizi çift indeks kavrama sorusu.",
+    ),
+    s(
+      "Mini quiz 7: 3 Boyutlu dizide toplam eleman sayısı",
+      "quiz",
+      {
+        question:
+          "2 Veri Merkezi Şubesi, her şubede 3 Sunucu Kabini ve her kabinde 4 Sensör bulunan 3D bir listede (2x3x4) iç içe 3 döngü toplam kaç adımda tamamlanır?",
+        options: ["24 adım", "9 adım", "14 adım", "18 adım"],
+        answer: 0,
+        explanation:
+          "3 boyutlu yapıda toplam hücre sayısı ve döngü iterasyon adedi boyutların çarpımıdır: 2 x 3 x 4 = 24 adım.",
+      },
+      "3D dizi boyut mantığı ve döngü karmaşıklığı sorusu.",
     ),
     s(
       "Hafta 5: Kazanım kontrolü",

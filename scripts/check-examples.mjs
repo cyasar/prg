@@ -72,6 +72,9 @@ const edgeCases = [
   ["traffic_sum", "1\n2000", "1000 bayt üzeri şüpheli paket sayısı: 1"],
   ["blacklist_check", "8.8.8.8", "ERİŞİM İZİN: IP güvenli görünüyor"],
   ["list_operations", "445", "[25, 445]"],
+  ["while_linear_search", "11:22:33:44:55:66", "GÜVENLİ: MAC adresi şüpheli listesinde yok"],
+  ["acl_matrix", "2\n2", "ONAY: Yönetici kullanıcısı için Silme izni VERİLDİ"],
+  ["acl_matrix", "0\n1", "RED: Misafir kullanıcısının Yazma yetkisi YOK!"],
 ];
 for (const [key, input, expected] of edgeCases) {
   const r = run(pythonExamples[key], input);

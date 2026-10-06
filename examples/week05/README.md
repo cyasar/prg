@@ -16,5 +16,10 @@ macOS/Linux için py yerine python3 kullan. Her input sorusunu terminalde sıray
 - [failed_login_stats.py](failed_login_stats.py): for eleman in liste: yapısı her bir elemanı sırayla ziyaret eder.
 - [password_length_filter.py](password_length_filter.py): Filtreleme kalıbı: Boş bir liste açılır, koşulu sağlayanlar append() ile toplanır.
 - [traffic_max_detector.py](traffic_max_detector.py): En büyük değeri bulurken ilk eleman başlangıç varsayılır.
+- [queue_event_processor.py](queue_event_processor.py): pop(0) metodu listenin ilk elemanını kuyruktan çeker ve listeden siler.
+- [while_linear_search.py](while_linear_search.py): While döngüsünde indeks değişkeni (i) elle yönetilir ve her adımda i += 1 ile artırılır.
+- [firewall_matrix_2d.py](firewall_matrix_2d.py): 2 boyutlu listelerde matris[r][c] sözdizimi ile r satırına ve c sütununa erişilir.
+- [acl_matrix.py](acl_matrix.py): Erişim kontrol matrisi (ACL), güvenlik modellerinde 2D ikili (0/1) matrislerle ifade edilir.
+- [datacenter_sensors_3d.py](datacenter_sensors_3d.py): 3 boyutlu listeler [blok][satir][sutun] hiyerarşik veri yapısıyla derinlik modeller.
 
 Örneklerde belirtilen normal girdi biçimini kullan. abc gibi girdiler bazı örneklerde bilerek yönetilmez; hata türünü gözlemlemek dersin parçasıdır. Sayısal biçim ile geçerli değer aralığı farklıdır. Not eşiği ve yaş kategorileri yalnızca eğitim örneğidir. Gerçek parola veya kişisel veri kullanma.
