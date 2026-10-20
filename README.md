@@ -22,9 +22,9 @@ YZ ile birlikte programlayın, direksiyonda siz olun. Öğrenci önce kendi çö
 - **Hafta 3: 53 slayt.** 4 saatlik (2 teori + 2 lab) zenginleştirilmiş ders içeriği: Girdi doğrulama hiyerarşisi (varlık, tür, aralık, izin), `strip()` ve `isdigit()` ile güvenli dönüşüm, derin iç içe koşullar (`nested if`) yerine Guard Clause (erken çıkış) prensibi, karar tabloları matrisi, beyaz liste vs kara liste yaklaşımı, BGT senaryoları (firewall kuralı, hesap kilitleme, 2FA, kota hesabı), 10 bağımsız Python örneği, 6 aşamalı sözde kod ve 5 soruluk pekiştirme quizi.
 - **Hafta 4: 29 slayt.** Döngüler ve Tekrarlayan Problemler: while döngüsü ve koşul yönetimi, sonsuz döngüden kaçınma, sayaç (counter) ve toplayıcı (accumulator) kalıpları, break ve continue akış yönetimi, for döngüsü ve range() fonksiyonu (başla, dur, adım), BGT senaryoları (oturum geri sayımı, brute-force PIN deneme kilidi, port tarama simülasyonu, continue ile şüpheli port süzme, ağ trafiği boyutu toplayıcısı), bol soru-cevap ve 5 soruluk aşamalı kendini sına quizi.
 - **Hafta 5: 30 slayt.** Diziler (Listeler) ve Veri İşleme: Python listeleri (diziler), bellek yapısı, 0 tabanlı indeksleme ve negatif indeksler, dilimleme (slicing), dinamik metotlar (append, remove, len), in ve not in ile arama, for ile liste gezinme yöntemleri, filtreleme deseni (filtering pattern), döngüyle tepe değer (anomali) bulma, BGT senaryoları (cihaz envanteri, IP kara liste denetimi, dinamik port yönetimi, 7 günlük hatalı oturum istatistiği, 8 karakterden kısa güvensiz parola filtreleme, trafik tepe boyutu tespiti), soru-cevap ve 5 soruluk aşamalı kendini sına quizi.
-- **Hafta 6: 37 slayt.** Fonksiyonlarla Problem Parçalama: def anahtar sözcüğü, parametre ve argümanlar, print vs return hayati farkı, varsayılan (default) parametreler, yerel (local) ve genel (global) değişken kapsamı (scope), birden fazla değer döndürme (tuple unpacking), savunmacı guard clause fonksiyonları, büyük problemleri alt fonksiyonlara bölme (Top-Down decomposition), BGT senaryoları (kullanıcı karşılama, port doğrulayıcı, modüler parola güç analizi, güvenlik olayı risk sınıflandırma), bol soru-cevap ve 10 soruluk aşamalı kendini sına quizi.
+- **Hafta 6: 42 slayt.** Fonksiyonlarla Problem Parçalama: print() fonksiyonunun gelişmiş parametreleri (sep, end, flush), f-string formatlama süper güçleri (işlemler, metotlar, .2f hassasiyeti, {degisken=} debug sözdizimi, sütun hizalama ve hex/bin tabanları ile CLI güvenlik tablosu), def anahtar sözcüğü, parametre ve argümanlar, print vs return hayati farkı, varsayılan (default) parametreler, yerel (local) ve genel (global) değişken kapsamı (scope), birden fazla değer döndürme (tuple unpacking), savunmacı guard clause fonksiyonları, büyük problemleri alt fonksiyonlara bölme (Top-Down decomposition), BGT senaryoları (print/f-string CLI ustası, kullanıcı karşılama, port doğrulayıcı, modüler parola güç analizi, güvenlik olayı risk sınıflandırma), bol soru-cevap ve 10 soruluk aşamalı kendini sına quizi.
 - **Hafta 7: 35 slayt.** String İşlemleri ve Basit Log Analizi: Metin indeksleme, dilimleme ve ters çevirme, büyük/küçük harf dönüşümü (upper/lower), girdi temizleme (strip), metin doğrulama (startswith/endswith/isdigit), in ile imza arama, split ve join ile veri parçalama/birleştirme, replace ile hassas veri (kredi kartı/parola) maskeleme, log formatı analizi, HTTP durum kodları ile tehdit ayrıştırma, BGT senaryoları (tek satır web log parser, başarısız SSH oturumu süzücü, XSS/SQLi/Path Traversal saldırı tespit motoru, IP frekans ve DoS anomali sayacı), bol soru-cevap ve 10 soruluk aşamalı kendini sına quizi.
-- 52 bağımsız Python dosyası, iki bağımsız web örneği, toplam 307 etkileşimli slayt.
+- 53 bağımsız Python dosyası, iki bağımsız web örneği, toplam 312 etkileşimli slayt.
 - 8–14. haftalar “Yakında” durumundadır; bu aşamada ayrıntılı slaytları hazırlanmadı.
 
 ### Hafta 2: Algoritmik Sözde Kod ve Pekiştirme Quizi
@@ -104,14 +104,16 @@ Döngüler, programlamada otomasyonun ve tekrarlanan veri akışlarını yönetm
 ### Hafta 6: Fonksiyonlarla Problem Parçalama (Modüler Mimari, Guard Clause & 10 Soruluk Quiz)
 
 Monolitik ve tekrarlanan kodları yönetilebilir, test edilebilir ve yeniden kullanılabilir fonksiyonlara dönüştürme becerileri:
-1. **DRY Prensibi & Problem Parçalama:** "Don't Repeat Yourself" (Kendini Tekrar Etme) yaklaşımı, kod tekrarının (WET) siber güvenlik bakım maliyeti ve Top-Down Decomposition (böl ve yönet).
-2. **Fonksiyon Tanımlama (`def`) & Çağırma:** Fonksiyon başlığı, isimlendirme kuralları (snake_case), girintileme (`indentation`) ve parametre-argüman eşleşmesi.
-3. **print() vs return Farkı:** Ekrana çıktı basma ile hesaplanan değeri çağıran koda teslim etme arasındaki hayati fark; boru hattı (pipeline) veri aktarımı ve erken çıkış kapısı.
-4. **Varsayılan (Default) Parametreler & İsimlendirilmiş Argümanlar:** Opsiyonel argüman tasarımı, ağ protokollerinde standart portların varsayılan değerlerle yönetimi (`port=80, protokol="HTTP"`).
-5. **Değişken Kapsamı (Scope):** Yerel (Local) vs Genel (Global) değişkenler, fonksiyon içi değişken yaşam döngüsü ve global değişken kullanımının güvenlik riskleri (race condition, yetki yükseltme).
-6. **Birden Fazla Değer Döndürme:** Tuple unpacking mekanizması ile tek fonksiyondan çoklu özet istatistik (`toplam, min, max, ort`) alma.
-7. **Savunmacı Programlama & Guard Clause:** Tip ve sınır kontrollerinin (`isinstance`, `1 <= p <= 65535`) fonksiyon başında erken çıkışla yapılması ve derin `if/else` piramitlerinin önlenmesi.
-8. **BGT Uygulama Örnekleri (Bağımsız Python Dosyaları):**
+1. **print() ve f-string Ustalığı (Haftaya Giriş):** `sep` (özel ayraçlar, IP/log biçimlendirme), `end` (satır içi birleştirme, tarama simülasyonu), `flush`, f-string içinde doğrudan ifade/metot çalıştırma, `.2f` hassasiyeti, `{degisken=}` hızlı debug sözdizimi, sütun hizalama (`<`, `>`, `^`) ve Hex/Binary sayı tabanları ile CLI güvenlik tablosu oluşturma.
+2. **DRY Prensibi & Problem Parçalama:** "Don't Repeat Yourself" (Kendini Tekrar Etme) yaklaşımı, kod tekrarının (WET) siber güvenlik bakım maliyeti ve Top-Down Decomposition (böl ve yönet).
+3. **Fonksiyon Tanımlama (`def`) & Çağırma:** Fonksiyon başlığı, isimlendirme kuralları (snake_case), girintileme (`indentation`) ve parametre-argüman eşleşmesi.
+4. **print() vs return Farkı:** Ekrana çıktı basma ile hesaplanan değeri çağıran koda teslim etme arasındaki hayati fark; boru hattı (pipeline) veri aktarımı ve erken çıkış kapısı.
+5. **Varsayılan (Default) Parametreler & İsimlendirilmiş Argümanlar:** Opsiyonel argüman tasarımı, ağ protokollerinde standart portların varsayılan değerlerle yönetimi (`port=80, protokol="HTTP"`).
+6. **Değişken Kapsamı (Scope):** Yerel (Local) vs Genel (Global) değişkenler, fonksiyon içi değişken yaşam döngüsü ve global değişken kullanımının güvenlik riskleri (race condition, yetki yükseltme).
+7. **Birden Fazla Değer Döndürme:** Tuple unpacking mekanizması ile tek fonksiyondan çoklu özet istatistik (`toplam, min, max, ort`) alma.
+8. **Savunmacı Programlama & Guard Clause:** Tip ve sınır kontrollerinin (`isinstance`, `1 <= p <= 65535`) fonksiyon başında erken çıkışla yapılması ve derin `if/else` piramitlerinin önlenmesi.
+9. **BGT Uygulama Örnekleri (Bağımsız Python Dosyaları):**
+   - `print_fstring_mastery.py`: print() gelişmiş parametreleri (sep, end), f-string hizalama ve CLI güvenlik tablosu.
    - `def_greet.py`: Fonksiyon tanımlama ve kullanıcı karşılama.
    - `calc_return.py`: `return` ile matematiksel kare ve çiftlik kontrolü.
    - `default_params.py`: Varsayılan parametreli ağ bağlantı URL oluşturucusu.
@@ -120,7 +122,7 @@ Monolitik ve tekrarlanan kodları yönetilebilir, test edilebilir ve yeniden kul
    - `port_validator.py`: Guard clause ile savunmacı port doğrulayıcı ve servis sınıflandırıcısı.
    - `password_strength_func.py`: 4 küçük fonksiyona parçalanmış modüler parola güç analizi.
    - `incident_classifier.py`: Güvenlik olayı şiddet çarpanı, risk skoru ve SOC aksiyonu karar dağıtımı.
-9. **Hafta Sonu Kendini Sına (10 Aşamalı Quiz):**
+10. **Hafta Sonu Kendini Sına (10 Aşamalı Quiz):**
    - Mini Quiz 1 (Kolay): `def` anahtar sözcüğü ile fonksiyon tanımlama.
    - Mini Quiz 2 (Kolay): Parametre ve argüman sırasal aktarımı.
    - Mini Quiz 3 (Kolay-Orta): `return` içermeyen fonksiyonun `None` dönüş davranışı.
@@ -268,7 +270,8 @@ examples/week05/          device_inventory.py, ip_blacklist_check.py,
                           password_length_filter.py, traffic_max_detector.py,
                           queue_event_processor.py, while_linear_search.py,
                           firewall_matrix_2d.py, acl_matrix.py, datacenter_sensors_3d.py
-examples/week06/          def_greet.py, calc_return.py, default_params.py,
+examples/week06/          print_fstring_mastery.py, def_greet.py,
+                          calc_return.py, default_params.py,
                           scope_local_global.py, multi_return.py,
                           port_validator.py, password_strength_func.py,
                           incident_classifier.py

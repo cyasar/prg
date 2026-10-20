@@ -2515,6 +2515,88 @@ export const decks = {
   6: [
     outcomes(6),
     think(
+      "print() Sadece Basit Bir Ekrana Yazma Aracı mıdır?",
+      "Python'a ilk başladığımızda print('Merhaba Dünya') yazdık. Ancak profesyonel bir siber güvenlik analisti terminalde log üretirken, ağ tablosu çizerken veya anlık tarama yaparken print()'i nasıl bir silaha dönüştürür?",
+      "print() yalnızca çıktı vermez; sep ile özel veri formatları (IP/tarih/CSV), end ile satır içi ilerleme çubukları, f-string ile matematiksel hesaplamalar ve hizalama ile konsol gösterge panelleri (CLI dashboards) inşa eder.",
+      "Öğrencilerin print()'e bakış açısını 'yeni başlayan komutu'ndan 'profesyonel terminal aracı' seviyesine taşıyın.",
+    ),
+    cards(
+      "print() Fonksiyonunun Gizli Parametreleri: sep ve end",
+      [
+        [
+          "sep (Separator / Ayraç)",
+          "Varsayılanı boşluktur (' '). sep='.' ile IP (192.168.1.1), sep=':' ile zaman, sep=' | ' ile güvenlik log formatı oluşturur.",
+        ],
+        [
+          "end (Satır Sonu Belirteci)",
+          "Varsayılanı yeni satırdır ('\\n'). end='' veya end='... ' yazıldığında alt satıra geçmez, bir sonraki çıktıyı aynı satıra ekler.",
+        ],
+        [
+          "Çoklu Argüman Desteği",
+          "print('IP:', ip, 'Port:', port) şeklinde sınırsız sayıda değişkeni otomatik aralıklarla tek hamlede basar.",
+        ],
+        [
+          "flush=True (Tamponu Boşaltma)",
+          "Canlı sayaç veya tarama durumlarında çıktının bellekte beklemeden anında ekrana düşmesini sağlar.",
+        ],
+      ],
+      "Terminal çıktılarını kontrol etme sanatı.",
+      "sep ve end parametrelerinin güvenlik loglarındaki rollerini gösterin.",
+    ),
+    cards(
+      "f-string (Format String) Süper Güçleri",
+      [
+        [
+          "f'...' Devrimi (Python 3.6+)",
+          "Metnin başına küçük f koyarak süslü parantezler {} içine doğrudan değişken ve ifadeler yazılır.",
+        ],
+        [
+          "İfade ve Metot Çalıştırma",
+          "Süslü parantez içinde doğrudan kod çalışır: {len(parola)}, {sayi * 2}, {kullanici.strip().upper()}.",
+        ],
+        [
+          "Hassasiyet Formatı (.2f)",
+          "Kayan noktalı sayıları virgülden sonra sınırlandırma: {oran * 100:.2f} -> %4.57 gibi temiz rapor çıktısı.",
+        ],
+        [
+          "Hızlı Debugging ({degisken=})",
+          "Python 3.8+: print(f'{token=}') yazdığınızda ekrana token='BGT_SECRET' şeklinde adı ve değeriyle basar!",
+        ],
+      ],
+      "Python'un en güçlü ve modern metin biçimlendiricisi.",
+      "Eski % ve .format() yöntemleri yerine modern f-string kullanımını benimsetin.",
+    ),
+    cards(
+      "CLI Güvenlik Tablosu: Hizalama ve Sayı Tabanları",
+      [
+        [
+          "Sola Yasla ({degisken:<15})",
+          "Metni soldan 15 karakterlik bir sütun içine yerleştirir, sağı boşlukla doldurur.",
+        ],
+        [
+          "Sağa Yasla ({degisken:>10})",
+          "Sayısal değerleri veya durum kodlarını sağa yaslayarak düzgün sütunlar oluşturur.",
+        ],
+        [
+          "Ortala ({degisken:^8})",
+          "Port veya protokol adlarını sütunun tam ortasına hizalar.",
+        ],
+        [
+          "Hex (#06x) ve Binary (016b)",
+          "Ağ baytlarını onaltılık (0x01bb) veya ikili bitler (0000000110111011) olarak terminalde görselleştirir.",
+        ],
+      ],
+      "Konsolda profesyonel SOC gösterge panelleri ve tablolar.",
+      "Terminalde hizalı sütunlar üretmenin konsol araçlarındaki önemini açıklayın.",
+    ),
+    run(
+      "Uygulama: print() ve f-string Ustalığı",
+      "print_fstring_mastery",
+      "sep, end, f-string hesaplama, hizalama ve taban dönüştürme demosu.",
+      "# Hizalama genişliklerini ve sep ayracını değiştirerek dene.",
+      "Öğrencilere terminalde tablo oluşturmanın ve debug çıktısı almanın pratikliğini gösterin.",
+    ),
+    think(
       "Fonksiyonlar Neden Gereklidir?",
       "Aynı port kontrolünü veya parola denetimini programın 10 farklı yerinde kopyala-yapıştır yaparsak ne gibi güvenlik ve bakım sorunları yaşarız?",
       "Kod tekrarı (WET) kural değişiminde hatalara yol açar. Bir yerde düzeltilen açık diğer 9 yerde unutulur. Fonksiyonlar kodu tek bir merkezde toplar (DRY prensibi) ve tek noktadan güncellemeyi sağlar.",

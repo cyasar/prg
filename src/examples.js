@@ -421,6 +421,18 @@ export const pythonExamples = {
       "3 iç içe for döngüsü ile küpün tüm koordinatları taranarak anomali noktaları yakalanır.",
     ],
   ),
+  print_fstring_mastery: example(
+    "examples/week06/print_fstring_mastery.py",
+    '# print() fonksiyonunun gelişmiş parametreleri ve f-string yetenekleri\n\n# 1. sep parametresi ile özel ayraçlar\nprint("192", "168", "1", "105", sep=".")\nprint("2026-10-20", "10:15:30", "FIREWALL", "DROP", sep=" | ")\n\n# 2. end parametresi ile satır sonunu yönetme\nprint("Port 443 taranıyor", end="... ")\nprint("[AÇIK]")\n\n# 3. f-string ile matematiksel işlem ve metot çağırma\nkullanici = "   admin   "\nyetki_seviyesi = 3\nprint(f"Kullanıcı: {kullanici.strip().upper()} (Yetki x2: {yetki_seviyesi * 2})")\n\n# 4. Sütun hizalama ile CLI güvenlik tablosu oluşturma (< sola, > sağa, ^ ortala)\nprint("-" * 35)\nprint(f"{\'HEDEF IP\':<15} {\'PORT\':^8} {\'DURUM\':>10}")\nprint("-" * 35)\nprint(f"{\'10.0.0.1\':<15} {80:^8} {\'İZİN\':>10}")\nprint(f"{\'192.168.1.99\':<15} {443:^8} {\'BLOKE\':>10}")\nprint("-" * 35)\n\n# 5. Sayı formatlama: Basamak hassasiyeti (.2f) ve Hex/Binary tabanları\nkayip_orani = 0.04567\nport_numarasi = 443\nprint(f"Paket Kaybı: %{kayip_orani * 100:.2f}")\nprint(f"Port 443 Hex: {port_numarasi:#06x} | İkili (Binary): {port_numarasi:016b}")\n\n# 6. Hızlı Debugging sözdizimi ({degisken=})\ntoken = "BGT_SECRET_99"\nprint(f"Debug Çıktısı -> {token=}")',
+    "",
+    "192.168.1.105\n2026-10-20 | 10:15:30 | FIREWALL | DROP\nPort 443 taranıyor... [AÇIK]\nKullanıcı: ADMIN (Yetki x2: 6)\n-----------------------------------\nHEDEF IP          PORT        DURUM\n-----------------------------------\n10.0.0.1           80          İZİN\n192.168.1.99      443         BLOKE\n-----------------------------------\nPaket Kaybı: %4.57\nPort 443 Hex: 0x01bb | İkili (Binary): 0000000110111011\nDebug Çıktısı -> token='BGT_SECRET_99'\n",
+    [
+      "sep parametresi argümanlar arasındaki varsayılan boşluğu değiştirir (IP, log, tarih formatı).",
+      "end parametresi satır sonuna eklenen '\\n' karakterini ezerek aynı satırda devam etmeyi sağlar.",
+      "f-string süslü parantez '{}' içinde doğrudan değişken, hesaplama ve metot çalıştırmayı destekler.",
+      "Hizalama (<, >, ^) ve format belirteçleri (.2f, hex/bin, {degisken=}) profesyonel CLI çıktıları sunar.",
+    ],
+  ),
   def_greet: example(
     "examples/week06/def_greet.py",
     '# Fonksiyon tanımlama (def) ve parametre ile çağırma\ndef kullanici_karsila(kullanici_adi, rol):\n    print("Sisteme hoş geldiniz:", kullanici_adi)\n    print("Mevcut rolünüz:", rol)\n\nkullanici_karsila("Ahmet", "Operatör")\nkullanici_karsila("Zeynep", "Güvenlik Yöneticisi")',

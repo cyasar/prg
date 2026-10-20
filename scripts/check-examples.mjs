@@ -80,6 +80,7 @@ const edgeCases = [
   ["str_split_join", "", "root | admin | guest"],
   ["log_failed_login_filter", "", "Başarısız oturum sayısı: 3"],
   ["log_attack_detector", "", "Yakalanan şüpheli olay adedi: 3"],
+  ["print_fstring_mastery", "", "192.168.1.105"],
 ];
 for (const [key, input, expected] of edgeCases) {
   const r = run(pythonExamples[key], input);

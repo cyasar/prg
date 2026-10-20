@@ -5,11 +5,12 @@ Python 3 dışında paket gerekmez. Önce kodu oku ve çıktıyı tahmin et.
 Depo kökünde Windows için:
 
 ```sh
-py examples/week06/def_greet.py
+py examples/week06/print_fstring_mastery.py
 ```
 
 macOS/Linux için py yerine python3 kullan. Her input sorusunu terminalde sırayla yanıtla.
 
+- [print_fstring_mastery.py](print_fstring_mastery.py): sep parametresi argümanlar arasındaki varsayılan boşluğu değiştirir (IP, log, tarih formatı).
 - [def_greet.py](def_greet.py): def anahtar sözcüğü ile fonksiyon tanımlanır ve girintili blok fonksiyon gövdesini oluşturur.
 - [calc_return.py](calc_return.py): return fonksiyonun çalışmasını bitirir ve üretilen sonucu çağıran yere geri yollar.
 - [default_params.py](default_params.py): Varsayılan parametreler fonksiyon çağrısında belirtilmezse tanımlanan ilk değerlerini alır.
