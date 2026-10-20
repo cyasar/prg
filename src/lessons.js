@@ -26,7 +26,11 @@ const outcomes = (id) =>
           ? "Karar Yapıları ve Veri Doğrulama"
           : id === 4
             ? "Döngüler ve Tekrarlayan Problemler"
-            : "Diziler (Listeler) ve Veri İşleme",
+            : id === 5
+              ? "Diziler (Listeler) ve Veri İşleme"
+              : id === 6
+                ? "Fonksiyonlarla Problem Parçalama"
+                : "String İşlemleri ve Basit Log Analizi",
     "outcomes",
     {
       lead:
@@ -38,7 +42,11 @@ const outcomes = (id) =>
               ? "Karmaşık karar mekanizmalarını sadeleştirip veriyi hatalara ve kötüye kullanıma karşı nasıl doğrularız?"
               : id === 4
                 ? "Tekrarlanan işlemleri, sayaçları ve toplayıcıları döngülerle nasıl otomatikleştiririz?"
-                : "Birden çok veriyi dizilerde (listelerde) nasıl saklar, filtreler ve analiz ederiz?",
+                : id === 5
+                  ? "Birden çok veriyi dizilerde (listelerde) nasıl saklar, filtreler ve analiz ederiz?"
+                  : id === 6
+                    ? "Büyük ve karmaşık problemleri tek sorumlu, yeniden kullanılabilir ve test edilebilir fonksiyonlara nasıl ayırırız?"
+                    : "Metin verilerini nasıl dilimler, temizler, dönüştürür ve sistem/güvenlik loglarını nasıl analiz ederiz?",
       items: weeks[id - 1].outcomes,
     },
     "Bu haftanın kazanımlarını birlikte okuyun. Her kazanım için hafta sonunda bir uygulama kanıtı isteyin. Bilgi güvenliğiyle ilişki: açık kurallar, güvenilmeyen veri ve test sorumluluğu.",
@@ -2502,6 +2510,863 @@ export const decks = {
         ],
       },
       "Kazanım kontrolü: Öğrencilerin listeleri döngü ve koşullarla birleştiren kodlarını değerlendirin.",
+    ),
+  ],
+  6: [
+    outcomes(6),
+    think(
+      "Fonksiyonlar Neden Gereklidir?",
+      "Aynı port kontrolünü veya parola denetimini programın 10 farklı yerinde kopyala-yapıştır yaparsak ne gibi güvenlik ve bakım sorunları yaşarız?",
+      "Kod tekrarı (WET) kural değişiminde hatalara yol açar. Bir yerde düzeltilen açık diğer 9 yerde unutulur. Fonksiyonlar kodu tek bir merkezde toplar (DRY prensibi) ve tek noktadan güncellemeyi sağlar.",
+      "Öğrencilere 'Don't Repeat Yourself' (DRY) prensibini ve bakım maliyetini anlatın.",
+    ),
+    cards(
+      "Fonksiyonların Temel Avantajları",
+      [
+        [
+          "Problem Parçalama (Decomposition)",
+          "Büyük ve karmaşık bir problemi bağımsız, yönetilebilir küçük alt problemlere böler.",
+        ],
+        [
+          "Yeniden Kullanılabilirlik (Reusability)",
+          "Bir kez yazılan mantık, programın herhangi bir yerinde tek satırla defalarca çağrılır.",
+        ],
+        [
+          "Birim Test Edilebilirlik (Testability)",
+          "Her fonksiyon tek bir işi yapar; bu sayede bağımsız birim testlerle (unit test) kolayca doğrulanır.",
+        ],
+        [
+          "Soyutlama (Abstraction)",
+          "Fonksiyonun iç detaylarını bilmeden yalnızca ne girdi alıp ne çıktı verdiğini bilmek yeterlidir.",
+        ],
+      ],
+      "Yazılım mühendisliğinin ve modüler güvenliğin temeli.",
+      "Karmaşık sistemlerin fonksiyonel yapı taşlarıyla nasıl güvenli hale geldiğini açıklayın.",
+    ),
+    cards(
+      "Fonksiyon Tanımlama Sözdizimi",
+      [
+        [
+          "def anahtarı",
+          "Python'a yeni bir fonksiyon tanımlandığını bildirir (define sözcüğünün kısaltması).",
+        ],
+        [
+          "Fonksiyon Adı",
+          "Yapılan işi net açıklayan yılan_yazimi (snake_case) ad verilir.",
+        ],
+        [
+          "Parametreler",
+          "Fonksiyonun işini yapmak için dışarıdan beklediği girdi değişkenleri.",
+        ],
+        [
+          "Gövde (Body)",
+          "Girintili (indentation) blok içinde yürütülen komutlar bütünü.",
+        ],
+      ],
+      "def fonksiyon_adi(parametre1, parametre2):",
+      "Fonksiyon tanımlandığında çalışmaz; ancak çağrıldığında (call) yürütülür.",
+    ),
+    exercise(
+      "Soru & Çözüm 1: İlk Fonksiyon Tanımlama",
+      "Soru: Verilen kullanıcı adı ve rolünü ekrana biçimlendirilmiş olarak yazdıran 'kullanici_karsila' fonksiyonunu tanımlayıp iki farklı kullanıcı için çağırınız.",
+      "def kullanici_karsila(kullanici_adi, rol):\n    print('Sisteme hoş geldiniz:', kullanici_adi)\n    print('Mevcut rolünüz:', rol)\n\nkullanici_karsila('Ahmet', 'Operatör')\nkullanici_karsila('Zeynep', 'Güvenlik Yöneticisi')",
+      "Parametrelerin fonksiyon çağrılırken sırayla argümanlarla eşleştiğini vurgulayın.",
+    ),
+    run(
+      "Uygulama 1: Parametreli Fonksiyon Çağrısı",
+      "def_greet",
+      "def ve argüman aktarımı ile kullanıcı karşılama demosu.",
+      "# Fonksiyona 3. bir kullanıcı çağrısı ekle.",
+      "Fonksiyon çağrısının akışını Pyodide üzerinde adım adım izletin.",
+    ),
+    cards(
+      "print() ile return Arasındaki Hayati Fark",
+      [
+        [
+          "print() (Ekrana Yazma)",
+          "Yalnızca terminale metin basar. Üretilen değeri bellekte tutmaz. Geriye None döner.",
+        ],
+        [
+          "return (Değer Döndürme)",
+          "Fonksiyonun çalışmasını bitirir ve hesaplanan değeri çağıran koda teslim eder. Değişkene atanabilir.",
+        ],
+        [
+          "Boru Hattı (Pipeline)",
+          "return edilen değer başka bir fonksiyona girdi olarak aktarılabilir; print edilen değer aktarılamaz.",
+        ],
+        [
+          "Erken Çıkış (Guard Clause)",
+          "Fonksiyon içinde koşul sağlandığı anda return ile erken çıkış yapılarak gereksiz işlemler önlenir.",
+        ],
+      ],
+      "Programlamanın en sık karıştırılan iki kavramı.",
+      "print'in son kullanıcıya, return'ün ise programın kendisine hizmet ettiğini vurgulayın.",
+    ),
+    think(
+      "return Sonrası Komutlar Çalışır mı?",
+      "def test():\n    return 'TAMAM'\n    print('Bu satır çalışır mı?')\nfonksiyonu çağrıldığında ne olur?",
+      "print satırı asla çalışmaz! return komutu fonksiyonun yürütülmesini anında sonlandırır ve kontrolü çağıran satıra devreder. return altındaki kodlar 'ölü kod' (unreachable code) haline gelir.",
+      "Öğrencilere return'ün fonksiyon için nihai çıkış kapısı olduğunu hatırlatın.",
+    ),
+    exercise(
+      "Soru & Çözüm 2: Değer Döndüren Fonksiyon",
+      "Soru: Kendisine verilen bir tam sayının karesini hesaplayıp return eden ve sayının çift olup olmadığını (True/False) döndüren iki ayrı fonksiyon yazınız.",
+      "def kare_al(sayi):\n    return sayi * sayi\n\ndef cift_mi(sayi):\n    return sayi % 2 == 0\n\nx = 6\nprint('Kare:', kare_al(x), '| Çift mi?:', cift_mi(x))",
+      "return sayesinde sonucun print veya başka matematik ifadelerine doğrudan gömülebildiğine dikkat çekin.",
+    ),
+    run(
+      "Uygulama 2: return ile Hesaplama",
+      "calc_return",
+      "Hesaplanan değeri return ile döndürüp değişkene aktarma demosu.",
+      "# Tek sayı girdiğinde cift_mi sonucunu gözlemle.",
+      "return ifadesinin ürettiği değeri değişkende saklama mantığını gösterin.",
+    ),
+    cards(
+      "Varsayılan (Default) Parametreler",
+      [
+        [
+          "Tanımlama",
+          "def baglanti(ip, port=80): şeklinde parametreye varsayılan bir değer atanır.",
+        ],
+        [
+          "Opsiyonel Çağrı",
+          "Argüman girilmezse varsayılan değer devreye girer. Girilirse yeni değer geçerli olur.",
+        ],
+        [
+          "Sıralama Kuralı",
+          "Varsayılan değere sahip parametreler her zaman parametre listesinin SONUNDA yer almalıdır.",
+        ],
+        [
+          "İsimlendirilmiş Argüman",
+          "baglanti('10.0.0.1', port=443) şeklinde argüman adı belirtilerek çağrılabilir.",
+        ],
+      ],
+      "Esnek ve savunmacı API tasarımı.",
+      "Ağ protokollerinde standart portların varsayılan parametrelerle nasıl yönetildiğini anlatın.",
+    ),
+    exercise(
+      "Soru & Çözüm 3: Varsayılan Parametreli URL Oluşturucu",
+      "Soru: IP, port (varsayılan: 80) ve protokol (varsayılan: 'HTTP') alıp 'protokol://ip:port' string'i döndüren fonksiyonu kodlayınız.",
+      "def baglanti_olustur(ip, port=80, protokol='HTTP'):\n    return f'{protokol}://{ip}:{port}'\n\nprint(baglanti_olustur('192.168.1.1'))\nprint(baglanti_olustur('10.0.0.1', port=443, protokol='HTTPS'))",
+      "Varsayılan değerlerin gereksiz parametre tekrarını nasıl önlediğini gösterin.",
+    ),
+    run(
+      "Uygulama 3: Varsayılan Parametreler",
+      "default_params",
+      "Ağ bağlantı dizgisi üretici fonksiyon demosu.",
+      "# Farklı bir port ve protokol argümanı ile test et.",
+      "Override (üzerine yazma) davranışını sınıfta deneyin.",
+    ),
+    cards(
+      "Değişken Kapsamı: Yerel (Local) vs Genel (Global)",
+      [
+        [
+          "Yerel (Local) Kapsam",
+          "Fonksiyon içinde tanımlanan değişkenler sadece o fonksiyon çalışırken vardır. Fonksiyon bitince bellekten silinir.",
+        ],
+        [
+          "Genel (Global) Kapsam",
+          "Fonksiyonların dışında tanımlanan değişkenlerdir. Program boyunca yaşar.",
+        ],
+        [
+          "İsim Çakışması",
+          "Yerel değişken, aynı ada sahip genel değişkeni fonksiyon içinde maskeler (gölgeler).",
+        ],
+        [
+          "Küresel Değişken Tehlikesi",
+          "Fonksiyonların dışarıdaki global değişkenleri değiştirmesi yan etkilere (side-effects) ve güvenlik açıklarına yol açar.",
+        ],
+      ],
+      "Bellek yönetimi ve temiz fonksiyon sınırları.",
+      "LEGB (Local, Enclosing, Global, Built-in) arama sırasını özetleyin.",
+    ),
+    think(
+      "Neden Global Değişkenlerden Kaçınmalıyız?",
+      "Bir güvenlik sisteminde tüm fonksiyonlar ortak tek bir global 'kullanici_yetkisi' değişkenini değiştirirse ne tür güvenlik zaafiyetleri doğar?",
+      "Yarış durumu (race condition), beklenmeyen durum bozulması ve yetki yükseltme (privilege escalation) açıkları doğar. Güvenli tasarımda veriler fonksiyonlara parametre olarak verilmeli ve sonuçlar return ile döndürülmelidir.",
+      "Saf fonksiyon (pure function) yaklaşımını ve yan etkisiz kodu açıklayın.",
+    ),
+    run(
+      "Uygulama 4: Değişken Kapsamı (Scope)",
+      "scope_local_global",
+      "Yerel ve genel değişkenlerin bellek yaşam döngüsü demosu.",
+      "# Fonksiyon dışından yerel değişkene erişmeyi deneyerek hatayı gözlemle.",
+      "NameError hatasını öğrencilerle birlikte inceleyin.",
+    ),
+    cards(
+      "Birden Fazla Değer Döndürme (Tuple Unpacking)",
+      [
+        [
+          "Sözdizimi",
+          "return toplam, en_kucuk, en_buyuk şeklinde virgülle ayrılmış çoklu değer döner.",
+        ],
+        [
+          "Paket Açma (Unpacking)",
+          "a, b, c = fonksiyon() çağrısıyla dönen değerler sırasıyla değişkenlere dağıtılır.",
+        ],
+        [
+          "Koleksiyon Özeti",
+          "Büyük bir veri listesinden tek seferde özet istatistik üretirken çok kullanışlıdır.",
+        ],
+        [
+          "Eşleşme Kuralı",
+          "Sol taraftaki değişken sayısı, dönen eleman sayısıyla birebir eşit olmalıdır.",
+        ],
+      ],
+      "Tek fonksiyondan çoklu sonuç alma tekniği.",
+      "Python'un arka planda demet (tuple) oluşturduğunu ve paket açtığını gösterin.",
+    ),
+    exercise(
+      "Soru & Çözüm 4: Paket Boyut İstatistikleri",
+      "Soru: Kendisine verilen bayt listesinden toplam boyutu, minimum ve maksimum paket boyutunu aynı anda döndüren fonksiyonu yazınız.",
+      "def paket_ozeti(paketler):\n    return sum(paketler), min(paketler), max(paketler)\n\ntoplam, kucuk, buyuk = paket_ozeti([64, 128, 1500])\nprint(f'Toplam: {toplam}, Min: {kucuk}, Max: {buyuk}')",
+      "Tuple unpacking mekanizmasını tahtada gösterin.",
+    ),
+    run(
+      "Uygulama 5: Çoklu Değer Döndürme",
+      "multi_return",
+      "Ağ trafiği paket istatistiklerini hesaplayıp dağıtma demosu.",
+      "# Listeye yeni bir büyük paket ekleyip değerleri incele.",
+      "Dönen değerlerin ayrı değişkenlere atanmasını inceletin.",
+    ),
+    cards(
+      "Savunmacı Programlama: Guard Clause ile Doğrulama",
+      [
+        [
+          "Guard Clause Prensibi",
+          "Fonksiyonun en başında geçersiz durumları tespit edip hemen return False / None ile çıkmak.",
+        ],
+        [
+          "İç İçe Koddan Kaçınma",
+          "Derin if/else piramitleri yerine düz, temiz ve okunabilir fonksiyon gövdesi sağlar.",
+        ],
+        [
+          "Tip ve Aralık Kontrolü",
+          "isinstance() ile veri türünü, ardından sayısal aralığı doğrular.",
+        ],
+        [
+          "Tek Sorumluluk (Single Responsibility)",
+          "Bir fonksiyon yalnızca tek bir işi doğrulamalı veya hesaplamalıdır.",
+        ],
+      ],
+      "Güvenli yazılım geliştirmenin temel yapı taşı.",
+      "Erken çıkış yapmanın hata ihtimalini nasıl azalttığını açıklayın.",
+    ),
+    exercise(
+      "Soru & Çözüm 5: Port Doğrulama Fonksiyonu",
+      "Soru: Verilen portun 1 ile 65535 arasında bir tam sayı olup olmadığını doğrulayan ve ardından port kategorisini belirleyen iki fonksiyonu kodlayınız.",
+      "def port_gecerli_mi(p):\n    return isinstance(p, int) and 1 <= p <= 65535\n\ndef kategori(p):\n    if not port_gecerli_mi(p): return 'GEÇERSİZ'\n    return 'Sistem' if p < 1024 else 'Kullanıcı'\n\nprint(kategori(80), kategori(70000))",
+      "Bir fonksiyonun diğerini doğrulama için çağırma desenini vurgulayın.",
+    ),
+    run(
+      "Uygulama 6: Port Doğrulayıcı ve Sınıflandırıcı",
+      "port_validator",
+      "Guard clause ile sınır denetimi ve port sınıflandırma demosu.",
+      "# Sınır değerleri (0, 1, 65535, 65536) ile fonksiyonu sına.",
+      "Sistem (well-known) ve kayıtlı port farklarını özetleyin.",
+    ),
+    cards(
+      "Büyük Problemleri Parçalama (Top-Down Decomposition)",
+      [
+        [
+          "1. Adım: Problemi Böl",
+          "Karmaşık bir siber güvenlik gereksinimini (örn. Parola Güç Analizi) bağımsız kurallara böl.",
+        ],
+        [
+          "2. Adım: Küçük Fonksiyonlar Yaz",
+          "Her kural için tek bir fonksiyon yaz: uzunluk_kontrol(), rakam_kontrol(), sembol_kontrol().",
+        ],
+        [
+          "3. Adım: Birleştirici Fonksiyon",
+          "Tüm alt fonksiyonları çağıran ve genel skoru hesaplayan ana fonksiyonu oluştur.",
+        ],
+        [
+          "4. Adım: Kolay Bakım ve Test",
+          "Kural değiştiğinde yalnızca ilgili fonksiyonu güncelle, tüm sistemi bozma.",
+        ],
+      ],
+      "Böl ve Yönet (Divide and Conquer) mimarisi.",
+      "Monolitik kod yazmak yerine modüler fonksiyonlar geliştirmenin değerini vurgulayın.",
+    ),
+    run(
+      "Uygulama 7: Modüler Parola Güç Analizi",
+      "password_strength_func",
+      "Problemi 4 küçük fonksiyona bölerek parola puanlama demosu.",
+      "# Özel karakter listesine yeni semboller ekle.",
+      "Her yardımcı fonksiyonun bağımsız test edilebilirliğini gösterin.",
+    ),
+    run(
+      "Uygulama 8: Güvenlik Olayı Risk Hesaplayıcı",
+      "incident_classifier",
+      "Şiddet çarpanı, risk skoru ve aksiyon kararını fonksiyonlara dağıtma demosu.",
+      "# Yeni bir tehdit türü ('Ransomware') ekleyerek fonksiyonu genişlet.",
+      "Gerçek SOC senaryolarında fonksiyonel puanlama modellerini anlatın.",
+    ),
+    ai(
+      "🤖 YZ ile Çalış: Fonksiyon Parçalama Refactoring",
+      "Bana tek bir büyük fonksiyonda yazılmış karmaşık bir güvenlik kodu ver ve bunu tek sorumluluk prensibine göre nasıl 3 küçük fonksiyona ayırabileceğimi adım adım göster.",
+      "Önce kendi fonksiyon taslağını kur, YZ'den birim test önerisi iste.",
+      "Öğrencilere büyük fonksiyonları parçalama ve refactoring alışkanlığı kazandırın.",
+    ),
+    s(
+      "Mini Quiz 1: Fonksiyon tanımlama sözdizimi",
+      "quiz",
+      {
+        question:
+          "Python'da bir fonksiyon tanımlamak için hangi anahtar sözcük kullanılır?",
+        options: ["def", "function", "fn", "define"],
+        answer: 0,
+        explanation:
+          "Python'da fonksiyonlar 'def' (define kısaltması) anahtar sözcüğü ile tanımlanır.",
+      },
+      "Temel sözdizimi sorusu.",
+    ),
+    s(
+      "Mini Quiz 2: Parametre ve Argüman Eşleşmesi",
+      "quiz",
+      {
+        question:
+          "def topla(a, b):\n    return a + b\nprint(topla(3, 7)) ifadesinin çıktısı nedir?",
+        options: ["10", "37", "None", "Hata"],
+        answer: 0,
+        explanation:
+          "3 değeri a parametresine, 7 değeri b parametresine aktarılır. 3 + 7 = 10 hesaplanıp return edilir.",
+      },
+      "Temel argüman aktarım sorusu.",
+    ),
+    s(
+      "Mini Quiz 3: return Olmayan Fonksiyonun Dönüş Değeri",
+      "quiz",
+      {
+        question:
+          "def selamla(isim):\n    print('Merhaba', isim)\nsonuc = selamla('Ali')\nprint(sonuc) ekrana ne yazar?",
+        options: ["None", "Merhaba Ali", "Ali", "Hata"],
+        answer: 0,
+        explanation:
+          "Fonksiyon içinde 'return' ifadesi bulunmazsa veya boş return kullanılırsa, Python otomatik olarak 'None' döndürür.",
+      },
+      "print vs return ayrımı sorusu.",
+    ),
+    s(
+      "Mini Quiz 4: return ile Erken Çıkış (Early Return)",
+      "quiz",
+      {
+        question:
+          "def kontrol(sayi):\n    if sayi < 0:\n        return 'Negatif'\n    return 'Pozitif'\nprint(kontrol(-5)) çıktısı nedir?",
+        options: ["Negatif", "Pozitif", "Negatif\nPozitif", "None"],
+        answer: 0,
+        explanation:
+          "sayi < 0 koşulu sağlandığı için ilk return çalışır ve fonksiyon hemen sonlanır. İkinci return çalışmaz.",
+      },
+      "Guard clause mantığı sorusu.",
+    ),
+    s(
+      "Mini Quiz 5: Varsayılan (Default) Parametre Davranışı",
+      "quiz",
+      {
+        question:
+          "def baglan(ip, port=22):\n    return f'{ip}:{port}'\nprint(baglan('10.0.0.1')) ifadesinin sonucu nedir?",
+        options: [
+          "'10.0.0.1:22'",
+          "'10.0.0.1:80'",
+          "'10.0.0.1'",
+          "Hata: eksik argüman",
+        ],
+        answer: 0,
+        explanation:
+          "port parametresi çağrıda belirtilmediği için tanımlanan varsayılan değeri (22) alır.",
+      },
+      "Default parametre sorusu.",
+    ),
+    s(
+      "Mini Quiz 6: Yerel (Local) Değişken Kapsamı",
+      "quiz",
+      {
+        question:
+          "def hesapla():\n    gizli_anahtar = 999\nhesapla()\nprint(gizli_anahtar) satırı çalıştırılırsa ne olur?",
+        options: [
+          "NameError: name 'gizli_anahtar' is not defined",
+          "999",
+          "None",
+          "0",
+        ],
+        answer: 0,
+        explanation:
+          "gizli_anahtar değişkeni yerel kapsamda (fonksiyon içinde) tanımlanmıştır. Fonksiyon dışında erişilemez.",
+      },
+      "Scope ve NameError sorusu.",
+    ),
+    s(
+      "Mini Quiz 7: Çoklu Değer Döndürme (Unpacking)",
+      "quiz",
+      {
+        question:
+          "def min_max(liste):\n    return min(liste), max(liste)\nkucuk, buyuk = min_max([10, 5, 25])\nprint(buyuk) ekrana ne yazar?",
+        options: ["25", "5", "10", "(5, 25)"],
+        answer: 0,
+        explanation:
+          "Fonksiyon (5, 25) döndürür. kucuk=5, buyuk=25 olarak paket açılır. buyuk değeri 25'tir.",
+      },
+      "Tuple unpacking sorusu.",
+    ),
+    s(
+      "Mini Quiz 8: Fonksiyon İçinde Fonksiyon Çağırma",
+      "quiz",
+      {
+        question:
+          "def iki_kat(x):\n    return x * 2\ndef kare_iki_kat(x):\n    return iki_kat(x) ** 2\nprint(kare_iki_kat(3)) sonucu nedir?",
+        options: ["36", "18", "12", "9"],
+        answer: 0,
+        explanation:
+          "kare_iki_kat(3) fonksiyonu iki_kat(3)'ü çağırır. iki_kat(3) = 6 döner. 6 ** 2 = 36 elde edilir.",
+      },
+      "Modüler çağrı zinciri sorusu.",
+    ),
+    s(
+      "Mini Quiz 9: BGT IP Oktet Doğrulama Fonksiyonu",
+      "quiz",
+      {
+        question:
+          "def oktet_gecerli(oktet):\n    if not oktet.isdigit():\n        return False\n    deger = int(oktet)\n    return 0 <= deger <= 255\nprint(oktet_gecerli('300')) çıktısı nedir?",
+        options: ["False", "True", "ValueError", "None"],
+        answer: 0,
+        explanation:
+          "'300' rakamlardan oluşur (isdigit=True) fakat 300 <= 255 koşulunu sağlamadığı için False döner.",
+      },
+      "BGT veri doğrulama sorusu.",
+    ),
+    s(
+      "Mini Quiz 10: Zor / BGT Parola Güç Puanı Analizi",
+      "quiz",
+      {
+        question:
+          "def puan(p):\n    skor = 0\n    if len(p) >= 8: skor += 1\n    if any(c.isdigit() for c in p): skor += 1\n    return skor\nprint(puan('Bgt2026')) sonucu nedir?",
+        options: ["1", "2", "0", "8"],
+        answer: 0,
+        explanation:
+          "'Bgt2026' 7 karakterdir (len >= 8 False, +0). Rakam içerir ('2', '0', '2', '6' True, +1). Toplam skor 1 olur.",
+      },
+      "Zor seviye sınır ve mantık analizi sorusu.",
+    ),
+    s(
+      "Hafta 6: Kazanım kontrolü",
+      "outcomes",
+      {
+        lead: "Fonksiyonlarla problem parçalama konusunun ardından şu 3 kanıtı kendi kodunla göster:",
+        items: weeks[5].outcomes,
+      },
+      "Kazanım kontrolü: Öğrencilerin fonksiyonları savunmacı ve modüler tarzda kurgulamasını değerlendirin.",
+    ),
+  ],
+  7: [
+    outcomes(7),
+    think(
+      "Siber Güvenlikte Metinler (String) Neden Bu Kadar Önemlidir?",
+      "Web siteleri, güvenlik duvarları, işletim sistemleri ve saldırganlar arasındaki tüm iletişim metinlerden oluşur. Metin analizi bilmeyen bir siber güvenlik uzmanı neyi kaçırır?",
+      "Log dosyalarını, HTTP isteklerini, kimlik doğrulama paketlerini ve zararlı kod imzalarını anlamlandıramaz. Saldırı tespit sistemleri (IDS/IPS) özünde ileri düzey metin işleme motorlarıdır.",
+      "Metinlerin güvenliğin ana iletişim dili olduğunu öğrencilere vurgulayın.",
+    ),
+    cards(
+      "String Temelleri: İndeksleme ve Dilimleme",
+      [
+        [
+          "0 Tabanlı İndeksleme",
+          "Metnin her bir karakterine pozitif [0, 1, 2...] veya negatif [-1, -2...] indeksle erişilir.",
+        ],
+        [
+          "Dilimleme (Slicing)",
+          "metin[basla:dur:adim] sözdizimi ile belirli bir karakter parçası güvenle kopyalanır.",
+        ],
+        [
+          "Değiştirilemezlik (Immutability)",
+          "String'lerin bir karakteri doğrudan metin[0] = 'X' ile değiştirilemez! Yeni bir metin üretilir.",
+        ],
+        [
+          "len() Fonksiyonu",
+          "Metnin toplam karakter adedini tam sayı olarak verir.",
+        ],
+      ],
+      "Karakter dizisi olarak metin mantığı.",
+      "String'lerin bellekte sabit (immutable) tutulduğunu açıklayın.",
+    ),
+    exercise(
+      "Soru & Çözüm 1: String İndeksleme ve Dilimleme",
+      "Soru: 'BGT-2026-SEC' metninin ilk karakterini, son karakterini, yıl kısmını ('2026') ve tersini ekrana yazdıran program.",
+      "kod = 'BGT-2026-SEC'\nprint('İlk:', kod[0], '| Son:', kod[-1])\nprint('Yıl:', kod[4:8], '| Ters:', kod[::-1])",
+      "kod[4:8] diliminde 4 dahil, 8 hariçtir.",
+    ),
+    run(
+      "Uygulama 1: String İndeksleme ve Dilimleme",
+      "str_indexing_slicing",
+      "Metin indeksleme, dilimleme ve ters çevirme demosu.",
+      "# Kendi adın ve okul numaranla dilimleme aralıklarını dene.",
+      "Negatif indeksleme ve ters çevirme pratiği yaptırın.",
+    ),
+    cards(
+      "Büyük/Küçük Harf ve Temizleme Metotları",
+      [
+        [
+          "strip(), lstrip(), rstrip()",
+          "Metnin başındaki ve sonundaki boşluk, tab ve satır sonu (\\n) karakterlerini budar.",
+        ],
+        [
+          "upper() ve lower()",
+          "Tüm harfleri BÜYÜK veya küçük harfe çevirir. Case-insensitive karşılaştırmanın anahtarıdır.",
+        ],
+        [
+          "capitalize() ve title()",
+          "İlk harfi veya her kelimenin baş harfini büyük yapar.",
+        ],
+        [
+          "Temizlik Önceliği",
+          "Kullanıcıdan input alındığında her zaman önce .strip().lower() yapılmalıdır!",
+        ],
+      ],
+      "Girdi sanitizasyonu ve standartlaştırma.",
+      "Güvenlik kontrollerinde küçük-büyük harf bypass açıklarını anlatın.",
+    ),
+    exercise(
+      "Soru & Çözüm 2: Güvenli Kullanıcı Rolü Doğrulama",
+      "Soru: Kullanıcıdan alınan '  aDMin  ' şeklindeki kirli rol bilgisini temizleyip büyük/küçük harf fark etmeksizin 'admin' ise onay veren kodu yazınız.",
+      "rol = input('Rol: ').strip().lower()\nif rol == 'admin':\n    print('ONAY: Yönetici yetkisi verildi.')\nelse:\n    print('RED: Yetkisiz rol.')",
+      "strip().lower() zincirleme metot (method chaining) kullanımını gösterin.",
+    ),
+    run(
+      "Uygulama 2: Temizleme ve Harf Dönüşümü",
+      "str_case_strip",
+      "strip, upper, lower ve vaka duyarsız kontrol demosu.",
+      "# Boşluklu ve karışık büyük/küçük harfli girişler dene.",
+      "repr() fonksiyonu ile görünmez boşlukları terminalde fark ettirin.",
+    ),
+    cards(
+      "Metin Sorgulama ve İmza Tarama",
+      [
+        [
+          "startswith(onek)",
+          "Metnin belirtilen ön ekle başlayıp başlamadığını kontrol eder (True/False). Örn: 'https://'",
+        ],
+        [
+          "endswith(sonek)",
+          "Metnin belirtilen son ekle bitip bitmediğini denetler. Örn: '.php', '.exe', '.tar.gz'",
+        ],
+        [
+          "isdigit(), isalpha()",
+          "Yalnızca rakamlardan mı yoksa harflerden mi oluştuğunu denetler.",
+        ],
+        [
+          "in / not in Operatörü",
+          "Metin içinde saldırı payload'ı (örn: \"' OR '1'='1\", '<script>') geçip geçmediğini tek hamlede arar.",
+        ],
+      ],
+      "Saldırı imzası yakalama araçları.",
+      "Zararlı dosya yükleme ve web zafiyeti taraması ile ilişkilendirin.",
+    ),
+    exercise(
+      "Soru & Çözüm 3: Protokol ve Uzantı Doğrulama",
+      "Soru: Bir URL'nin 'https://' ile başlayıp başlamadığını ve dosya adının '.tar.gz' ile bitip bitmediğini denetleyen program.",
+      "url = 'https://guvenlik.com'\ndosya = 'backup.tar.gz'\nprint('Güvenli web mi?:', url.startswith('https://'))\nprint('Sıkıştırılmış arşiv mi?:', dosya.endswith('.tar.gz'))",
+      "startswith ve endswith metotlarının Boolean döndürdüğünü belirtin.",
+    ),
+    run(
+      "Uygulama 3: Metin Sorgulama ve İmza Denetimi",
+      "str_inspection",
+      "startswith, endswith, isdigit ve in ile saldırı tespiti demosu.",
+      "# SQL enjeksiyon imzasını değiştirip alarmı gözlemle.",
+      "Kurgusal SQL injection imzasının nasıl tetiklendiğini inceleyin.",
+    ),
+    cards(
+      "Metin Parçalama (split) ve Birleştirme (join)",
+      [
+        [
+          "metin.split(ayrac)",
+          "Metni belirtilen karaktere göre dilimleyip bir string listesi döndürür. Varsayılanı boşluktur.",
+        ],
+        [
+          "Log Formatı Ayrıştırma",
+          "IP, zaman damgası ve HTTP isteklerini ayırmak için split(' ') kullanılır.",
+        ],
+        [
+          "ayrac.join(liste)",
+          "Liste içindeki metinleri aralarına belirtilen ayracı koyarak tek bir string yapar.",
+        ],
+        [
+          "CSV / TSV İşleme",
+          "Virgül (,) veya noktalı virgül (;) ile ayrılmış veri satırlarını alanlara döker.",
+        ],
+      ],
+      "Yapılandırılmamış metni veriye dönüştürme.",
+      "join() metodunun bir string metodu olduğunu vurgulayın.",
+    ),
+    exercise(
+      "Soru & Çözüm 4: IP Oktetlerine Ayırma",
+      "Soru: '192.168.1.100' IP adresini split('.') ile oktet listesine ayıran ve 1. oktet ile son okteti yazdıran program.",
+      "ip = '192.168.1.100'\noktetler = ip.split('.')\nprint('Oktetler:', oktetler)\nprint('Ağ:', oktetler[0], '| Host:', oktetler[-1])",
+      "split çıktısının bir liste olduğunu ve elemanların string kaldığını unutmayın.",
+    ),
+    run(
+      "Uygulama 4: split() ve join() ile Veri Dönüşümü",
+      "str_split_join",
+      "IP parçalama, CSV ayıklama ve liste birleştirme demosu.",
+      "# Farklı bir ayraç (| veya :) ile parçalama dene.",
+      "join ve split simetrisini inceletin.",
+    ),
+    cards(
+      "Hassas Veri Maskeleme ve Sanitizasyon (replace)",
+      [
+        [
+          "replace(eski, yeni)",
+          "Metin içindeki belirli bir karakter veya kelime öbeğini yenisiyle değiştirir.",
+        ],
+        [
+          "Maskeleme",
+          "Kredi kartı, TC kimlik ve parola gibi hassas verilerin son birkaç hanesi hariç yıldızlanması (****).",
+        ],
+        [
+          "Log Temizleme",
+          "Loglara açık olarak düşmüş parolaların sansürlenmesi (pass=********).",
+        ],
+        [
+          "Path Traversal Filtresi",
+          "Dosya yollarındaki tehlikeli '../' üst dizine çıkma ifadelerinin temizlenmesi.",
+        ],
+      ],
+      "Veri güvenliği ve gizlilik uyumluluğu (KVKK/GDPR).",
+      "replace metodunun yeni bir kopya ürettiğini, orijinal metni bozmadığını hatırlatın.",
+    ),
+    run(
+      "Uygulama 5: replace() ile Hassas Veri Maskeleme",
+      "str_replace_mask",
+      "Kart maskeleme, log parola gizleme ve yol temizleme demosu.",
+      "# Maskeleme karakterini '#' yaparak çıktıyı incele.",
+      "PII (Kişisel Tanımlanabilir Bilgi) güvenliğini sınıfta tartışın.",
+    ),
+    cards(
+      "Log Nedir? Standart Log Mimarisi",
+      [
+        [
+          "Olay Günlüğü (Log)",
+          "İşletim sistemlerinin, sunucuların ve güvenlik duvarlarının kaydettiği zaman damgalı olay izi.",
+        ],
+        [
+          "Web Sunucu Logu (Access Log)",
+          "Format: IP - [Zaman] 'Metod URL Protokol' Durum_Kodu Boyut",
+        ],
+        [
+          "Kimlik Doğrulama Logu (Auth Log)",
+          "SSH ve sistem oturum açma, parola deneme ve yetki yükseltme kayıtları.",
+        ],
+        [
+          "Güvenlik Operasyonları (SOC)",
+          "Milyonlarca log satırı filtrelenerek brute-force, sızıntı ve ihlaller tespit edilir.",
+        ],
+      ],
+      "Siber güvenliğin en kritik veri kaynağı.",
+      "Adli bilişim (forensics) süreçlerinde logların hukuki delil niteliğini anlatın.",
+    ),
+    exercise(
+      "Soru & Çözüm 5: Tek Satır Web Logu Ayrıştırma",
+      "Soru: '192.168.1.45 - [20/Oct/2026:10:15:30] \"POST /login HTTP/1.1\" 401 230' satırından IP, URL ve durum kodunu ayıklayınız.",
+      "satir = '192.168.1.45 - [20/Oct/2026:10:15:30] \"POST /login HTTP/1.1\" 401 230'\nparcalar = satir.split(' ')\nprint('IP:', parcalar[0], '| URL:', parcalar[4], '| Durum:', parcalar[6])",
+      "Boşluk indekslerini sayarak alanları doğru seçmeyi gösterin.",
+    ),
+    run(
+      "Uygulama 6: Tek Satır Web Logu Ayrıştırıcı",
+      "log_single_line_parser",
+      "Web erişim logunu parçalara ayırıp durum kodunu inceleme demosu.",
+      "# Durum kodunu 200 yaparak uyarı koşulunu sına.",
+      "strip('[]') ve strip('\"') ile temizlemeyi gösterin.",
+    ),
+    cards(
+      "HTTP Durum Kodları ile Tehdit Analizi",
+      [
+        [
+          "200 OK",
+          "İstek başarılı. Normal kullanıcı trafiği veya başarılı oturum.",
+        ],
+        [
+          "401 Unauthorized",
+          "Kimlik doğrulama başarısız. Hatalı parola denemesi veya brute-force atağı.",
+        ],
+        [
+          "403 Forbidden",
+          "Erişim yasaklandı. Yetkisiz alana sızma veya WAF (Güvenlik Duvarı) engeli.",
+        ],
+        [
+          "404 Not Found",
+          "Sayfa yok. Gizli dizin/dosya taraması (Dirb/Gobuster) şüphesi.",
+        ],
+        [
+          "500 Internal Server Error",
+          "Sunucu çöktü. Başarılı bir SQL enjeksiyonu veya bellek taşması belirtisi.",
+        ],
+      ],
+      "Log analizinde durum kodlarının anlamı.",
+      "Durum kodlarının güvenlik analistine hangi ipuçlarını verdiğini özetleyin.",
+    ),
+    run(
+      "Uygulama 7: Başarısız SSH Oturumlarını Filtreleme",
+      "log_failed_login_filter",
+      "Auth log listesinden 'Failed password' olaylarını ve saldıran IP'leri süzme demosu.",
+      "# Listeye yeni bir başarısız oturum ekleyip sayacı kontrol et.",
+      "Brute force saldırılarının log izlerini analiz edin.",
+    ),
+    run(
+      "Uygulama 8: Web Loglarında Siber Saldırı İmzası Tespiti",
+      "log_attack_detector",
+      "XSS, SQLi ve Path Traversal imzalarını sözlük ile otomatik tarama demosu.",
+      "# Yeni bir şüpheli payload (<iframe veya /etc/passwd) ile test et.",
+      "WAF (Web Application Firewall) çalışma mantığını görselleştirin.",
+    ),
+    run(
+      "Uygulama 9: IP İstek Yoğunluğu ve DoS Analizi",
+      "log_ip_counter",
+      "Log satırlarından IP frekansı hesaplama ve tepe anomaliyi tespit etme demosu.",
+      "# Bir IP'nin istek sayısını artırarak alarmı tetikle.",
+      "Rate-limiting (hız sınırlama) eşiklerini tartışın.",
+    ),
+    ai(
+      "🤖 YZ ile Çalış: Düzenli İfade (Regex) ve Log Analizi",
+      "Bana Apache access log satırlarını ayıklamak için basit string split yöntemleri ile Python re (Regex) modülünün karşılaştırmasını yap ve avantajlarını açıkla.",
+      "YZ'den log analizi için pratik bir Python fonksiyon taslağı iste.",
+      "Regex'e sezgisel bir giriş yaparak string metotlarının gücünü pekiştirin.",
+    ),
+    s(
+      "Mini Quiz 1: String Negatif İndeksleme",
+      "quiz",
+      {
+        question: "s = 'CYBER'\nprint(s[-2]) ifadesinin çıktısı nedir?",
+        options: ["E", "R", "B", "Y"],
+        answer: 0,
+        explanation:
+          "Negatif indeksler sağdan başlar: s[-1]='R', s[-2]='E' olur.",
+      },
+      "String indeks sorusu.",
+    ),
+    s(
+      "Mini Quiz 2: String Dilimleme (Slicing)",
+      "quiz",
+      {
+        question:
+          "log = 'FIREWALL_ALERT'\nprint(log[0:4]) ekrana ne yazdırır?",
+        options: ["FIRE", "FIREW", "FIR", "WALL"],
+        answer: 0,
+        explanation:
+          "0:4 dilimi 0, 1, 2 ve 3. indekslerdeki karakterleri (F, I, R, E) alır. 4. indeks dahil değildir.",
+      },
+      "Dilimleme sınır sorusu.",
+    ),
+    s(
+      "Mini Quiz 3: strip() Metodunun İşlevi",
+      "quiz",
+      {
+        question:
+          "ham = '   admin\\n'\nsonuc = ham.strip()\nlen(sonuc) değeri kaçtır?",
+        options: ["5", "8", "6", "9"],
+        answer: 0,
+        explanation:
+          "ham metninin başındaki 3 boşluk ve sonundaki '\\n' strip() ile atılır. Geriye 'admin' (5 karakter) kalır.",
+      },
+      "strip ve len sorusu.",
+    ),
+    s(
+      "Mini Quiz 4: lower() ile Vaka Duyarsız Kontrol",
+      "quiz",
+      {
+        question:
+          "kullanici = 'Admin'\nif kullanici.lower() == 'admin':\n    print('Geçerli')\nçıktısı nedir?",
+        options: ["Geçerli", "Hata", "Çıktı vermez", "False"],
+        answer: 0,
+        explanation:
+          "'Admin'.lower() 'admin' üretir ve eşitlik sağlandığı için 'Geçerli' yazdırılır.",
+      },
+      "lower() kontrol sorusu.",
+    ),
+    s(
+      "Mini Quiz 5: startswith() ve endswith() Kontrolü",
+      "quiz",
+      {
+        question:
+          "dosya = 'zararli_kod.py.exe'\nprint(dosya.endswith('.py')) sonucu nedir?",
+        options: ["False", "True", "None", "Hata"],
+        answer: 0,
+        explanation:
+          "Dosya adı '.py' ile değil, en sonda '.exe' ile bittiği için endswith('.py') False döndürür.",
+      },
+      "Çift uzantılı dosya aldatmacası sorusu.",
+    ),
+    s(
+      "Mini Quiz 6: split() ile Metni Listeye Ayırma",
+      "quiz",
+      {
+        question:
+          "veri = '10.0.0.1:8080'\nparcalar = veri.split(':')\nprint(parcalar[1]) çıktısı nedir?",
+        options: ["'8080'", "'10.0.0.1'", "['8080']", "8080"],
+        answer: 0,
+        explanation:
+          "veri.split(':') metni ':' karakterinden bölerek ['10.0.0.1', '8080'] listesini oluşturur. 1. indeksteki eleman '8080' string'idir.",
+      },
+      "split ve liste indeksi sorusu.",
+    ),
+    s(
+      "Mini Quiz 7: replace() ile Karakter Değiştirme",
+      "quiz",
+      {
+        question:
+          "metin = 'admin--bgt'\nprint(metin.replace('--', '__')) çıktısı nedir?",
+        options: ["'admin__bgt'", "'admin--bgt'", "'adminbgt'", "Hata"],
+        answer: 0,
+        explanation:
+          "replace('--', '__') metindeki '--' kısmını '__' ile değiştirerek 'admin__bgt' üretir.",
+      },
+      "replace sorusu.",
+    ),
+    s(
+      "Mini Quiz 8: in Operatörü ile Saldırı İmzası Arama",
+      "quiz",
+      {
+        question:
+          "istek = 'GET /login?user=admin OR 1=1'\nif 'OR 1=1' in istek:\n    print('ALARM')\nekrana ne yazar?",
+        options: ["ALARM", "Hiçbir şey", "False", "Hata"],
+        answer: 0,
+        explanation:
+          "'OR 1=1' alt metni istek içinde birebir bulunduğu için in operatörü True döndürür ve ALARM basılır.",
+      },
+      "in operatörü ile imza denetimi sorusu.",
+    ),
+    s(
+      "Mini Quiz 9: BGT Apache Log Durum Kodu Ayıklama",
+      "quiz",
+      {
+        question:
+          "log = '10.0.0.5 - - [20/Oct/2026] \"GET /secret HTTP/1.1\" 403 512'\nkod = log.split(' ')[8]\nprint(kod) çıktısı nedir?",
+        options: ["403", "512", "GET", "/secret"],
+        answer: 0,
+        explanation:
+          "Boşluklara göre split edildiğinde: [0]:'10.0.0.5', [1]:'-', [2]:'-', [3]:'[20/Oct/2026]', [4]:'\"GET', [5]:'/secret', [6]:'HTTP/1.1\"', [7]:(durum öncesi boşluk yönetimi değil doğrudan 8. alanda 403 yer alır).",
+      },
+      "Log parsing alan indeksi sorusu.",
+    ),
+    s(
+      "Mini Quiz 10: Zor / BGT Log Filtreleme ve Sayaç Hesabı",
+      "quiz",
+      {
+        question:
+          "loglar = ['401 Fail', '200 OK', '401 Fail', '403 Forbidden']\nsayac = 0\nfor l in loglar:\n    if l.startswith('401'):\n        sayac += 1\nprint(sayac) sonucu kaçtır?",
+        options: ["2", "1", "3", "4"],
+        answer: 0,
+        explanation:
+          "loglar listesinde '401 Fail' ile başlayan 2 adet kayıt vardır. sayac döngü sonunda 2 olur.",
+      },
+      "Zor seviye log filtreleme ve sayaç sorusu.",
+    ),
+    s(
+      "Hafta 7: Kazanım kontrolü",
+      "outcomes",
+      {
+        lead: "String işlemleri ve basit log analizi konusunun ardından şu 3 kanıtı kendi kodunla göster:",
+        items: weeks[6].outcomes,
+      },
+      "Kazanım kontrolü: Öğrencilerin metin metotlarını log filtreleme senaryolarında başarıyla kullanmasını değerlendirin.",
     ),
   ],
 };

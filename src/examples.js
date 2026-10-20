@@ -421,6 +421,176 @@ export const pythonExamples = {
       "3 iç içe for döngüsü ile küpün tüm koordinatları taranarak anomali noktaları yakalanır.",
     ],
   ),
+  def_greet: example(
+    "examples/week06/def_greet.py",
+    '# Fonksiyon tanımlama (def) ve parametre ile çağırma\ndef kullanici_karsila(kullanici_adi, rol):\n    print("Sisteme hoş geldiniz:", kullanici_adi)\n    print("Mevcut rolünüz:", rol)\n\nkullanici_karsila("Ahmet", "Operatör")\nkullanici_karsila("Zeynep", "Güvenlik Yöneticisi")',
+    "",
+    "Sisteme hoş geldiniz: Ahmet\nMevcut rolünüz: Operatör\nSisteme hoş geldiniz: Zeynep\nMevcut rolünüz: Güvenlik Yöneticisi\n",
+    [
+      "def anahtar sözcüğü ile fonksiyon tanımlanır ve girintili blok fonksiyon gövdesini oluşturur.",
+      "Fonksiyon çağrıldığında parametrelere karşılık gelen argümanlar sırayla aktarılır.",
+    ],
+  ),
+  calc_return: example(
+    "examples/week06/calc_return.py",
+    '# return anahtar sözcüğü ile değer döndürme ve sonucu değişkene aktarma\ndef kare_al(sayi):\n    return sayi * sayi\n\ndef cift_mi(sayi):\n    return sayi % 2 == 0\n\nx = int(input("Bir sayı girin: "))\nkare = kare_al(x)\ndurum = cift_mi(x)\n\nprint(f"Girdi: {x}")\nprint(f"Karesi: {kare}")\nprint(f"Çift sayı mı?: {durum}")',
+    "6",
+    "Bir sayı girin: Girdi: 6\nKaresi: 36\nÇift sayı mı?: True\n",
+    [
+      "return fonksiyonun çalışmasını bitirir ve üretilen sonucu çağıran yere geri yollar.",
+      "print ekrana çıktı basarken, return fonksiyon sonucunu başka hesaplamalarda kullanmak üzere verir.",
+    ],
+  ),
+  default_params: example(
+    "examples/week06/default_params.py",
+    '# Varsayılan (default) parametreler ve opsiyonel argüman yönetimi\ndef baglanti_olustur(ip, port=80, protokol="HTTP"):\n    return f"{protokol}://{ip}:{port}"\n\n# Varsayılan port (80) ve protokol (HTTP) kullanılır\nurl1 = baglanti_olustur("192.168.1.10")\n# Port ve protokol elle ezilebilir (override)\nurl2 = baglanti_olustur("10.0.0.1", port=443, protokol="HTTPS")\nurl3 = baglanti_olustur("172.16.0.5", 8080)\n\nprint("Varsayılan bağlantı:", url1)\nprint("Güvenli bağlantı:", url2)\nprint("Özel port bağlantısı:", url3)',
+    "",
+    "Varsayılan bağlantı: HTTP://192.168.1.10:80\nGüvenli bağlantı: HTTPS://10.0.0.1:443\nÖzel port bağlantısı: HTTP://172.16.0.5:8080\n",
+    [
+      "Varsayılan parametreler fonksiyon çağrısında belirtilmezse tanımlanan ilk değerlerini alır.",
+      "İsimlendirilmiş argümanlar (port=443 gibi) kodun okunabilirliğini ve esnekliğini artırır.",
+    ],
+  ),
+  scope_local_global: example(
+    "examples/week06/scope_local_global.py",
+    '# Yerel (Local) ve Genel (Global) değişken kapsamı (Scope)\nsistem_adi = "BGT_Guvenlik_Duvari"\n\ndef oturum_sayaci():\n    yerel_sayac = 5\n    print(f"[{sistem_adi}] Fonksiyon içi sayaç: {yerel_sayac}")\n\noturum_sayaci()\nprint(f"Sistem adı dışarıda da erişilebilir: {sistem_adi}")',
+    "",
+    "[BGT_Guvenlik_Duvari] Fonksiyon içi sayaç: 5\nSistem adı dışarıda da erişilebilir: BGT_Guvenlik_Duvari\n",
+    [
+      "Fonksiyon içinde tanımlanan değişkenler (yerel) fonksiyon bitince bellekten silinir.",
+      "Dışarıdaki genel değişkenler fonksiyon içinden okunabilir ancak yan etki yaratmamak için doğrudan değiştirilmemelidir.",
+    ],
+  ),
+  multi_return: example(
+    "examples/week06/multi_return.py",
+    '# Birden fazla değer döndürme (Tuple unpacking)\ndef paket_istatistikleri(paketler):\n    toplam = sum(paketler)\n    en_kucuk = min(paketler)\n    en_buyuk = max(paketler)\n    ortalama = round(toplam / len(paketler), 1)\n    return toplam, en_kucuk, en_buyuk, ortalama\n\nveri = [128, 512, 1400, 64, 1500]\ntoplam_b, min_b, max_b, ort_b = paket_istatistikleri(veri)\n\nprint("İncelenen paketler:", veri)\nprint(f"Toplam Boyut: {toplam_b} bayt")\nprint(f"En Küçük: {min_b} bayt | En Büyük: {max_b} bayt")\nprint(f"Ortalama: {ort_b} bayt")',
+    "",
+    "İncelenen paketler: [128, 512, 1400, 64, 1500]\nToplam Boyut: 3604 bayt\nEn Küçük: 64 bayt | En Büyük: 1500 bayt\nOrtalama: 720.8 bayt\n",
+    [
+      "Python'da return deger1, deger2 sözdizimi ile virgülle ayrılmış çoklu değerler tek seferde döndürülür.",
+      "Dönen değerler çağrılan tarafta sırasıyla değişkenlere paket açılarak (unpacking) atanır.",
+    ],
+  ),
+  port_validator: example(
+    "examples/week06/port_validator.py",
+    '# Savunmacı programlama: Erken çıkış (Guard Clause) ile port doğrulama\ndef port_gecerli_mi(port):\n    if not isinstance(port, int):\n        return False\n    if port < 1 or port > 65535:\n        return False\n    return True\n\ndef port_kategorisi(port):\n    if not port_gecerli_mi(port):\n        return "GEÇERSİZ_PORT"\n    if port < 1024:\n        return "Sistem (Well-known)"\n    elif port <= 49151:\n        return "Kayıtlı (Registered)"\n    else:\n        return "Dinamik/Özel (Dynamic)"\n\ntest_portlari = [22, 8080, 55000, 70000]\nfor p in test_portlari:\n    durum = port_gecerli_mi(p)\n    kat = port_kategorisi(p)\n    print(f"Port {p} -> Geçerli: {durum} | Kategori: {kat}")',
+    "",
+    "Port 22 -> Geçerli: True | Kategori: Sistem (Well-known)\nPort 8080 -> Geçerli: True | Kategori: Kayıtlı (Registered)\nPort 55000 -> Geçerli: True | Kategori: Dinamik/Özel (Dynamic)\nPort 70000 -> Geçerli: False | Kategori: GEÇERSİZ_PORT\n",
+    [
+      "port_gecerli_mi tek bir sorumluluğa sahiptir: portun geçerliliğini doğrulamak.",
+      "port_kategorisi fonksiyonu diğer fonksiyonu yardımcı olarak çağırarak kod tekrarını önler.",
+    ],
+  ),
+  password_strength_func: example(
+    "examples/week06/password_strength_func.py",
+    '# Parola gücünü parçalı fonksiyonlarla denetleme\ndef uzunluk_yeterli_mi(parola, min_uzunluk=8):\n    return len(parola) >= min_uzunluk\n\ndef rakam_icerir_mi(parola):\n    for karakter in parola:\n        if karakter.isdigit():\n            return True\n    return False\n\ndef ozel_karakter_icerir_mi(parola):\n    ozel_karakterler = "!@#$%^&*-_+=?"\n    for karakter in parola:\n        if karakter in ozel_karakterler:\n            return True\n    return False\n\ndef parola_skoru_hesapla(parola):\n    skor = 0\n    if uzunluk_yeterli_mi(parola):\n        skor += 1\n    if rakam_icerir_mi(parola):\n        skor += 1\n    if ozel_karakter_icerir_mi(parola):\n        skor += 1\n    return skor\n\nparolalar = ["12345", "gizli123", "Bgt2026!"]\nfor p in parolalar:\n    puan = parola_skoru_hesapla(p)\n    seviye = "Zayıf" if puan < 2 else ("Orta" if puan == 2 else "Güçlü")\n    print(f"Parola: {p} -> Puan: {puan}/3 ({seviye})")',
+    "",
+    "Parola: 12345 -> Puan: 1/3 (Zayıf)\nParola: gizli123 -> Puan: 2/3 (Orta)\nParola: Bgt2026! -> Puan: 3/3 (Güçlü)\n",
+    [
+      "Karmaşık bir problem (parola analizi), 3 küçük bağımsız fonksiyona parçalanmıştır.",
+      "Her fonksiyon tek bir işi mükemmel yapar ve bağımsız olarak birim teste tabi tutulabilir.",
+    ],
+  ),
+  incident_classifier: example(
+    "examples/week06/incident_classifier.py",
+    '# Problem parçalama: Güvenlik olayı puanlama ve aksiyon belirleme\ndef siddet_carpani(olay_turu):\n    if olay_turu == "DDoS":\n        return 3.0\n    elif olay_turu == "SQLi":\n        return 2.5\n    elif olay_turu == "BruteForce":\n        return 1.5\n    return 1.0\n\ndef risk_skoru(olay_turu, etkilenen_kullanici):\n    carpan = siddet_carpani(olay_turu)\n    return round(carpan * etkilenen_kullanici, 1)\n\ndef aksiyon_oner(skor):\n    if skor >= 100:\n        return "ACİL: Ağ erişimini kes ve SOC ekibini ara!"\n    elif skor >= 30:\n        return "UYARI: IP adresini geçici kara listeye al."\n    else:\n        return "BİLGİ: Rutin log takibi yap."\n\nolaylar = [\n    ("BruteForce", 10),\n    ("SQLi", 20),\n    ("DDoS", 50)\n]\n\nfor olay, kullanici in olaylar:\n    skor = risk_skoru(olay, kullanici)\n    karar = aksiyon_oner(skor)\n    print(f"Olay: {olay} (Kullanıcı: {kullanici}) -> Skor: {skor} | Aksiyon: {karar}")',
+    "",
+    "Olay: BruteForce (Kullanıcı: 10) -> Skor: 15.0 | Aksiyon: BİLGİ: Rutin log takibi yap.\nOlay: SQLi (Kullanıcı: 20) -> Skor: 50.0 | Aksiyon: UYARI: IP adresini geçici kara listeye al.\nOlay: DDoS (Kullanıcı: 50) -> Skor: 150.0 | Aksiyon: ACİL: Ağ erişimini kes ve SOC ekibini ara!\n",
+    [
+      "Büyük karar mekanizması 3 fonksiyon arasında dağıtılmıştır: çarpan bulma, skor hesaplama ve aksiyon önerme.",
+      "Değişen iş kuralları (örneğin skor eşikleri) yalnızca ilgili fonksiyon içinde güncellenir.",
+    ],
+  ),
+  str_indexing_slicing: example(
+    "examples/week07/str_indexing_slicing.py",
+    '# String indeksleme, negatif indeks ve dilimleme (slicing)\nkod = "BGT-2026-SEC"\n\nprint("Metin:", kod)\nprint("Uzunluk (len):", len(kod))\nprint("İlk karakter [0]:", kod[0])\nprint("Son karakter [-1]:", kod[-1])\nprint("Bölüm kodu [0:3]:", kod[0:3])\nprint("Yıl kısmı [4:8]:", kod[4:8])\nprint("Son takı [9:]:", kod[9:])\nprint("Tersten yazım [::-1]:", kod[::-1])',
+    "",
+    "Metin: BGT-2026-SEC\nUzunluk (len): 12\nİlk karakter [0]: B\nSon karakter [-1]: C\nBölüm kodu [0:3]: BGT\nYıl kısmı [4:8]: 2026\nSon takı [9:]: SEC\nTersten yazım [::-1]: CES-6202-TGB\n",
+    [
+      "String'ler karakterler dizisidir; 0 tabanlı indeksleme ve dilimleme kuralları geçerlidir.",
+      "[::-1] negatif adım parametresiyle metni pratik biçimde tersine çevirir.",
+    ],
+  ),
+  str_case_strip: example(
+    "examples/week07/str_case_strip.py",
+    '# Harf boyutu dönüşümleri (upper, lower) ve boşluk temizleme (strip)\nkirli_girdi = "   Admin_BGT   \\n"\ntemiz = kirli_girdi.strip()\n\nprint("Orijinal ham girdi:", repr(kirli_girdi))\nprint("strip() sonrası:", repr(temiz))\nprint("upper() ile büyük:", temiz.upper())\nprint("lower() ile küçük:", temiz.lower())\n\nkullanici_rolu = "  aDMin  ".strip().lower()\nif kullanici_rolu == "admin":\n    print("Doğrulama başarılı: Tam yönetici erişimi verildi.")\nelse:\n    print("Erişim reddedildi.")',
+    "",
+    "Orijinal ham girdi: '   Admin_BGT   \\n'\nstrip() sonrası: 'Admin_BGT'\nupper() ile büyük: ADMIN_BGT\nlower() ile küçük: admin_bgt\nDoğrulama başarılı: Tam yönetici erişimi verildi.\n",
+    [
+      "strip() baştaki ve sondaki gereksiz boşlukları, tab ve satır sonu (\\n) karakterlerini budar.",
+      "lower() veya upper() kullanılarak yapılan vaka-duyarsız karşılaştırmalar kullanıcı hatalarını önler.",
+    ],
+  ),
+  str_inspection: example(
+    "examples/week07/str_inspection.py",
+    '# Metin sorgulama metotları: startswith, endswith, isdigit, in\nurl = "https://banka.com/odeme.php"\ndosya = "rapor_yedek.tar.gz"\ntc_no = "12345678901"\n\nprint("HTTPS ile mi başlıyor?:", url.startswith("https://"))\nprint(".gz ile mi bitiyor?:", dosya.endswith(".gz"))\nprint("tc_no tamamen rakamlardan mı oluşuyor?:", tc_no.isdigit())\n\nistek = "GET /login.php?user=admin\' OR \'1\'=\'1 HTTP/1.1"\nif "\' OR \'" in istek:\n    print("ALARM: SQL Enjeksiyon şüphesi tespit edildi!")',
+    "",
+    "HTTPS ile mi başlıyor?: True\n.gz ile mi bitiyor?: True\ntc_no tamamen rakamlardan mı oluşuyor?: True\nALARM: SQL Enjeksiyon şüphesi tespit edildi!\n",
+    [
+      "startswith ve endswith protokol ve dosya uzantısı doğrulamalarında kullanılır.",
+      "in operatörü metin içinde belirli bir saldırı imzasının (signature) geçip geçmediğini Boolean kontrol eder.",
+    ],
+  ),
+  str_split_join: example(
+    "examples/week07/str_split_join.py",
+    '# split() ile metni listeye ayırma ve join() ile listeyi birleştirme\nip_adresi = "192.168.1.100"\noktetler = ip_adresi.split(".")\nprint("IP Oktetleri listesi:", oktetler)\nprint("1. Oktet (Ağ sınıfı):", oktetler[0])\n\ncsv_satiri = "ahmet;10.0.0.5;SSH;Yetkili"\nalanlar = csv_satiri.split(";")\nprint(f"Kullanıcı: {alanlar[0]} | IP: {alanlar[1]} | Protokol: {alanlar[2]}")\n\nyasakli_kelimeler = ["root", "admin", "guest"]\nfiltre_kurali = " | ".join(yasakli_kelimeler)\nprint("Oluşturulan regex kuralı:", filtre_kurali)',
+    "",
+    "IP Oktetleri listesi: ['192', '168', '1', '100']\n1. Oktet (Ağ sınıfı): 192\nKullanıcı: ahmet | IP: 10.0.0.5 | Protokol: SSH\nOluşturulan regex kuralı: root | admin | guest\n",
+    [
+      "split(ayrac) metni belirtilen ayraçtan parçalayarak liste haline getirir.",
+      "ayrac.join(liste) liste elemanlarını aralarına ayracı ekleyerek tek bir string'e birleştirir.",
+    ],
+  ),
+  str_replace_mask: example(
+    "examples/week07/str_replace_mask.py",
+    '# replace() ile veri temizleme ve hassas veri maskeleme\nkredi_karti = "4543-1234-5678-9012"\nmaskeli = "****-****-****-" + kredi_karti[-4:]\nprint("Orijinal Kart:", kredi_karti)\nprint("Maskeli Kart :", maskeli)\n\nlog = "GIRIS_DENEMESI user=mehmet pass=Sifre2026! sonuc=FAIL"\nguvenli_log = log.replace("pass=Sifre2026!", "pass=********")\nprint("Temizlenmiş Log:", guvenli_log)\n\nguvensiz_yol = "/var/www/uploads/../../etc/passwd"\ntemiz_yol = guvensiz_yol.replace("../", "")\nprint("Filtrelenmiş dosya yolu:", temiz_yol)',
+    "",
+    "Orijinal Kart: 4543-1234-5678-9012\nMaskeli Kart : ****-****-****-9012\nTemizlenmiş Log: GIRIS_DENEMESI user=mehmet pass=******** sonuc=FAIL\nFiltrelenmiş dosya yolu: /var/www/uploads/etc/passwd\n",
+    [
+      "replace(eski, yeni) metindeki tüm eşleşmeleri yeni değerle değiştirir.",
+      "Kişisel verilerin (PII) ve parolaların loglara açık düşmesini önlemek için maskeleme kullanılır.",
+    ],
+  ),
+  log_single_line_parser: example(
+    "examples/week07/log_single_line_parser.py",
+    '# Basit web sunucu log satırını parçalama (Log Parsing)\nlog_satiri = \'192.168.1.45 - [20/Oct/2026:10:15:30] "POST /api/login HTTP/1.1" 401 230\'\n\nparcalar = log_satiri.split(" ")\nip = parcalar[0]\nzaman = parcalar[2].strip("[]")\nmetod = parcalar[3].strip(\'"\')\nurl = parcalar[4]\ndurum_kodu = int(parcalar[6])\nboyut = int(parcalar[7])\n\nprint("Kaynak IP    :", ip)\nprint("Zaman Damgası:", zaman)\nprint("HTTP Metodu  :", metod)\nprint("Hedef URL    :", url)\nprint("Durum Kodu   :", durum_kodu)\nprint("Yanıt Boyutu :", boyut, "bayt")\n\nif durum_kodu == 401:\n    print("[UYARI]: Başarısız oturum denemesi tespit edildi!")',
+    "",
+    "Kaynak IP    : 192.168.1.45\nZaman Damgası: 20/Oct/2026:10:15:30\nHTTP Metodu  : POST\nHedef URL    : /api/login\nDurum Kodu   : 401\nYanıt Boyutu : 230 bayt\n[UYARI]: Başarısız oturum denemesi tespit edildi!\n",
+    [
+      "Log satırları düzenli ayraçlarla (boşluk gibi) ayrıldığında split() ile yapılandırılmış alanlara çevrilebilir.",
+      "strip() ile tırnak (\") veya köşeli parantez ([]) gibi gürültü karakterler ayıklanır.",
+    ],
+  ),
+  log_failed_login_filter: example(
+    "examples/week07/log_failed_login_filter.py",
+    '# Çok satırlı auth logundan başarısız giriş denemelerini süzme\nauth_loglari = [\n    "Oct 20 08:12:01 server sshd: Accepted password for root from 192.168.1.10 port 22",\n    "Oct 20 08:14:22 server sshd: Failed password for invalid user admin from 203.0.113.55 port 4421",\n    "Oct 20 08:14:25 server sshd: Failed password for invalid user admin from 203.0.113.55 port 4424",\n    "Oct 20 08:15:00 server sshd: Failed password for root from 198.51.100.2 port 5122",\n    "Oct 20 08:16:10 server sshd: Accepted password for ahmet from 192.168.1.15 port 22"\n]\n\nbasarisiz_denemeler = []\nsaldirgan_ipler = []\n\nfor satir in auth_loglari:\n    if "Failed password" in satir:\n        basarisiz_denemeler.append(satir)\n        ip_kismi = satir.split("from ")[1].split(" ")[0]\n        saldirgan_ipler.append(ip_kismi)\n\nprint("İncelenen toplam log:", len(auth_loglari))\nprint("Başarısız oturum sayısı:", len(basarisiz_denemeler))\nprint("Tespit edilen saldırgan IP\'ler:", saldirgan_ipler)',
+    "",
+    "İncelenen toplam log: 5\nBaşarısız oturum sayısı: 3\nTespit edilen saldırgan IP'ler: ['203.0.113.55', '203.0.113.55', '198.51.100.2']\n",
+    [
+      "for döngüsü ile log satırları sırayla taranır ve 'Failed password' filtresi uygulanır.",
+      "split('from ')[1] zinciri aranan bilginin hemen sonrasına konumlanmayı sağlar.",
+    ],
+  ),
+  log_attack_detector: example(
+    "examples/week07/log_attack_detector.py",
+    '# Web erişim loglarında siber saldırı imzası (XSS, SQLi, LFI) tespiti\nweb_loglari = [\n    "10.0.0.2 - GET /index.html 200",\n    "192.168.1.99 - GET /search?q=<script>alert(1)</script> 403",\n    "172.16.0.4 - GET /download?file=../../../../etc/shadow 403",\n    "10.0.0.5 - POST /login 200",\n    "192.168.1.88 - GET /products?id=1\' UNION SELECT null,password FROM users-- 403"\n]\n\ntehdit_imzalari = {\n    "<script>": "XSS (Cross-Site Scripting)",\n    "../": "Path Traversal (Dizin Gezinme)",\n    "UNION SELECT": "SQL Enjeksiyonu"\n}\n\nalarmlar = []\n\nfor log in web_loglari:\n    for imza, saldiri_turu in tehdit_imzalari.items():\n        if imza in log:\n            ip = log.split(" - ")[0]\n            alarmlar.append(f"[ALARM] {saldiri_turu} -> Kaynak IP: {ip}")\n\nprint("Taranan web istekleri:", len(web_loglari))\nprint(f"Yakalanan şüpheli olay adedi: {len(alarmlar)}")\nfor a in alarmlar:\n    print(a)',
+    "",
+    "Taranan web istekleri: 5\nYakalanan şüpheli olay adedi: 3\n[ALARM] XSS (Cross-Site Scripting) -> Kaynak IP: 192.168.1.99\n[ALARM] Path Traversal (Dizin Gezinme) -> Kaynak IP: 172.16.0.4\n[ALARM] SQL Enjeksiyonu -> Kaynak IP: 192.168.1.88\n",
+    [
+      "Güvenlik imza kütüphanesi (sözlük) ile her bir log satırı otomatik karşılaştırılır.",
+      "Şüpheli payload yakalandığında kaynak IP izole edilir ve güvenlik analistine raporlanır.",
+    ],
+  ),
+  log_ip_counter: example(
+    "examples/week07/log_ip_counter.py",
+    '# Basit log analizi: IP bazlı istek sayma ve DoS şüphesi tespiti\nerisim_logu = [\n    "192.168.1.5 - GET /api/data",\n    "10.0.0.99 - GET /index.html",\n    "10.0.0.99 - POST /login",\n    "10.0.0.99 - GET /dashboard",\n    "192.168.1.5 - GET /profile",\n    "10.0.0.99 - GET /reports",\n    "172.16.0.1 - GET /health"\n]\n\nip_sayilari = {}\n\nfor satir in erisim_logu:\n    ip = satir.split(" - ")[0]\n    if ip in ip_sayilari:\n        ip_sayilari[ip] += 1\n    else:\n        ip_sayilari[ip] = 1\n\nprint("IP İstek İstatistikleri:")\nfor ip, adet in ip_sayilari.items():\n    print(f"  {ip}: {adet} istek")\n\nen_cok_istek_yapan = max(ip_sayilari, key=ip_sayilari.get)\nprint(f"En yoğun trafik üreten IP: {en_cok_istek_yapan} ({ip_sayilari[en_cok_istek_yapan]} istek)")\nif ip_sayilari[en_cok_istek_yapan] >= 4:\n    print("[DİKKAT]: Anormal istek yoğunluğu (Olası DoS taraması)!")',
+    "",
+    "IP İstek İstatistikleri:\n  192.168.1.5: 2 istek\n  10.0.0.99: 4 istek\n  172.16.0.1: 1 istek\nEn yoğun trafik üreten IP: 10.0.0.99 (4 istek)\n[DİKKAT]: Anormal istek yoğunluğu (Olası DoS taraması)!\n",
+    [
+      "Sözlük (dict) sayacı ile her benzersiz IP'nin frekansı hesaplanır.",
+      "Anormal istek yoğunluğuna sahip IP adresleri hız sınırı (rate-limiting) uygulamak üzere tespit edilir.",
+    ],
+  ),
 };
 
 export const webExamples = {

@@ -22,8 +22,10 @@ YZ ile birlikte programlayın, direksiyonda siz olun. Öğrenci önce kendi çö
 - **Hafta 3: 53 slayt.** 4 saatlik (2 teori + 2 lab) zenginleştirilmiş ders içeriği: Girdi doğrulama hiyerarşisi (varlık, tür, aralık, izin), `strip()` ve `isdigit()` ile güvenli dönüşüm, derin iç içe koşullar (`nested if`) yerine Guard Clause (erken çıkış) prensibi, karar tabloları matrisi, beyaz liste vs kara liste yaklaşımı, BGT senaryoları (firewall kuralı, hesap kilitleme, 2FA, kota hesabı), 10 bağımsız Python örneği, 6 aşamalı sözde kod ve 5 soruluk pekiştirme quizi.
 - **Hafta 4: 29 slayt.** Döngüler ve Tekrarlayan Problemler: while döngüsü ve koşul yönetimi, sonsuz döngüden kaçınma, sayaç (counter) ve toplayıcı (accumulator) kalıpları, break ve continue akış yönetimi, for döngüsü ve range() fonksiyonu (başla, dur, adım), BGT senaryoları (oturum geri sayımı, brute-force PIN deneme kilidi, port tarama simülasyonu, continue ile şüpheli port süzme, ağ trafiği boyutu toplayıcısı), bol soru-cevap ve 5 soruluk aşamalı kendini sına quizi.
 - **Hafta 5: 30 slayt.** Diziler (Listeler) ve Veri İşleme: Python listeleri (diziler), bellek yapısı, 0 tabanlı indeksleme ve negatif indeksler, dilimleme (slicing), dinamik metotlar (append, remove, len), in ve not in ile arama, for ile liste gezinme yöntemleri, filtreleme deseni (filtering pattern), döngüyle tepe değer (anomali) bulma, BGT senaryoları (cihaz envanteri, IP kara liste denetimi, dinamik port yönetimi, 7 günlük hatalı oturum istatistiği, 8 karakterden kısa güvensiz parola filtreleme, trafik tepe boyutu tespiti), soru-cevap ve 5 soruluk aşamalı kendini sına quizi.
-- 35 bağımsız Python dosyası, iki bağımsız web örneği, toplam 218 etkileşimli slayt.
-- 6–14. haftalar “Yakında” durumundadır; bu aşamada ayrıntılı slaytları hazırlanmadı.
+- **Hafta 6: 37 slayt.** Fonksiyonlarla Problem Parçalama: def anahtar sözcüğü, parametre ve argümanlar, print vs return hayati farkı, varsayılan (default) parametreler, yerel (local) ve genel (global) değişken kapsamı (scope), birden fazla değer döndürme (tuple unpacking), savunmacı guard clause fonksiyonları, büyük problemleri alt fonksiyonlara bölme (Top-Down decomposition), BGT senaryoları (kullanıcı karşılama, port doğrulayıcı, modüler parola güç analizi, güvenlik olayı risk sınıflandırma), bol soru-cevap ve 10 soruluk aşamalı kendini sına quizi.
+- **Hafta 7: 35 slayt.** String İşlemleri ve Basit Log Analizi: Metin indeksleme, dilimleme ve ters çevirme, büyük/küçük harf dönüşümü (upper/lower), girdi temizleme (strip), metin doğrulama (startswith/endswith/isdigit), in ile imza arama, split ve join ile veri parçalama/birleştirme, replace ile hassas veri (kredi kartı/parola) maskeleme, log formatı analizi, HTTP durum kodları ile tehdit ayrıştırma, BGT senaryoları (tek satır web log parser, başarısız SSH oturumu süzücü, XSS/SQLi/Path Traversal saldırı tespit motoru, IP frekans ve DoS anomali sayacı), bol soru-cevap ve 10 soruluk aşamalı kendini sına quizi.
+- 52 bağımsız Python dosyası, iki bağımsız web örneği, toplam 307 etkileşimli slayt.
+- 8–14. haftalar “Yakında” durumundadır; bu aşamada ayrıntılı slaytları hazırlanmadı.
 
 ### Hafta 2: Algoritmik Sözde Kod ve Pekiştirme Quizi
 
@@ -98,6 +100,68 @@ Döngüler, programlamada otomasyonun ve tekrarlanan veri akışlarını yönetm
    - Mini Quiz 5 (Zor / BGT): Kara liste filtreleme ve engellenen IP adedi analizi.
    - Mini Quiz 6 (Orta-Zor): 2D matris çift indeksleme `matris[1][2]` mantığı.
    - Mini Quiz 7 (Zor): 3 Boyutlu dizide (2x3x4) iç içe 3 döngünün toplam adım sayısı.
+
+### Hafta 6: Fonksiyonlarla Problem Parçalama (Modüler Mimari, Guard Clause & 10 Soruluk Quiz)
+
+Monolitik ve tekrarlanan kodları yönetilebilir, test edilebilir ve yeniden kullanılabilir fonksiyonlara dönüştürme becerileri:
+1. **DRY Prensibi & Problem Parçalama:** "Don't Repeat Yourself" (Kendini Tekrar Etme) yaklaşımı, kod tekrarının (WET) siber güvenlik bakım maliyeti ve Top-Down Decomposition (böl ve yönet).
+2. **Fonksiyon Tanımlama (`def`) & Çağırma:** Fonksiyon başlığı, isimlendirme kuralları (snake_case), girintileme (`indentation`) ve parametre-argüman eşleşmesi.
+3. **print() vs return Farkı:** Ekrana çıktı basma ile hesaplanan değeri çağıran koda teslim etme arasındaki hayati fark; boru hattı (pipeline) veri aktarımı ve erken çıkış kapısı.
+4. **Varsayılan (Default) Parametreler & İsimlendirilmiş Argümanlar:** Opsiyonel argüman tasarımı, ağ protokollerinde standart portların varsayılan değerlerle yönetimi (`port=80, protokol="HTTP"`).
+5. **Değişken Kapsamı (Scope):** Yerel (Local) vs Genel (Global) değişkenler, fonksiyon içi değişken yaşam döngüsü ve global değişken kullanımının güvenlik riskleri (race condition, yetki yükseltme).
+6. **Birden Fazla Değer Döndürme:** Tuple unpacking mekanizması ile tek fonksiyondan çoklu özet istatistik (`toplam, min, max, ort`) alma.
+7. **Savunmacı Programlama & Guard Clause:** Tip ve sınır kontrollerinin (`isinstance`, `1 <= p <= 65535`) fonksiyon başında erken çıkışla yapılması ve derin `if/else` piramitlerinin önlenmesi.
+8. **BGT Uygulama Örnekleri (Bağımsız Python Dosyaları):**
+   - `def_greet.py`: Fonksiyon tanımlama ve kullanıcı karşılama.
+   - `calc_return.py`: `return` ile matematiksel kare ve çiftlik kontrolü.
+   - `default_params.py`: Varsayılan parametreli ağ bağlantı URL oluşturucusu.
+   - `scope_local_global.py`: Yerel ve genel kapsam bellek yaşam döngüsü.
+   - `multi_return.py`: Ağ trafiği paket boyutu özet istatistikleri ve tuple unpacking.
+   - `port_validator.py`: Guard clause ile savunmacı port doğrulayıcı ve servis sınıflandırıcısı.
+   - `password_strength_func.py`: 4 küçük fonksiyona parçalanmış modüler parola güç analizi.
+   - `incident_classifier.py`: Güvenlik olayı şiddet çarpanı, risk skoru ve SOC aksiyonu karar dağıtımı.
+9. **Hafta Sonu Kendini Sına (10 Aşamalı Quiz):**
+   - Mini Quiz 1 (Kolay): `def` anahtar sözcüğü ile fonksiyon tanımlama.
+   - Mini Quiz 2 (Kolay): Parametre ve argüman sırasal aktarımı.
+   - Mini Quiz 3 (Kolay-Orta): `return` içermeyen fonksiyonun `None` dönüş davranışı.
+   - Mini Quiz 4 (Orta): `return` ile erken çıkış (early return) ve ölü kod analizi.
+   - Mini Quiz 5 (Orta): Varsayılan (default) parametre devreye girme koşulu.
+   - Mini Quiz 6 (Orta): Yerel kapsam (local scope) ve `NameError` hatası.
+   - Mini Quiz 7 (Orta-Zor): Çoklu değer döndürme ve tuple unpacking paket açma.
+   - Mini Quiz 8 (Orta-Zor): Fonksiyon içinde yardımcı fonksiyon çağırma zinciri.
+   - Mini Quiz 9 (Zor / BGT): IP oktet doğrulama fonksiyonu ve `0 <= deger <= 255` aralık denetimi.
+   - Mini Quiz 10 (Zor / BGT): Parola güç puanı hesaplayıcı fonksiyon ve sınır durumu analizi.
+
+### Hafta 7: String İşlemleri ve Basit Log Analizi (Metin İşleme, Güvenlik İmzaları & 10 Soruluk Quiz)
+
+Sistemlerin, web sunucularının ve güvenlik duvarlarının ana dili olan metinleri parçalama, temizleme ve güvenlik loglarını süzme becerileri:
+1. **String Temelleri & İmmutability:** 0 tabanlı pozitif indeksleme, sağdan negatif indeksleme (`[-1]`), dilimleme (`[basla:dur:adim]`), `len()` ve metinlerin değiştirilemezlik (immutable) yapısı.
+2. **Büyük/Küçük Harf & Girdi Temizleme:** `strip()`, `lstrip()`, `rstrip()` ile görünmez boşluk ve satır sonu (`\n`) budama, `upper()` ve `lower()` ile vaka duyarsız (case-insensitive) güvenli rol kontrolü.
+3. **Metin Doğrulama & İmza Tarama:** `startswith()` ile protokol denetimi, `endswith()` ile zararlı dosya uzantısı tespiti, `isdigit()` ile rakam denetimi ve `in` operatörü ile tek satırda saldırı imzası (payload) yakalama.
+4. **Metin Parçalama (`split`) & Birleştirme (`join`):** Ayraçlara göre yapılandırılmamış metinleri listeye ayırma (IP oktetleri, CSV alanları) ve listeyi ayracı ekleyerek biçimlendirilmiş string'e dönüştürme.
+5. **Hassas Veri Maskeleme & Sanitizasyon:** `replace()` metodu ile kredi kartı ve parola maskeleme (`****`), log dosyalarından hassas verileri sansürleme, Path Traversal (`../`) temizliği.
+6. **Log Analizi & HTTP Tehdit Tespiti:** Web sunucu (Access Log) ve kimlik doğrulama (Auth Log) mimarisi; 200, 401, 403, 404, 500 durum kodları ile anomali ve brute-force tespiti.
+7. **BGT Uygulama Örnekleri (Bağımsız Python Dosyaları):**
+   - `str_indexing_slicing.py`: Metin indeksleme, dilimleme, bölüm kodu ayıklama ve ters çevirme.
+   - `str_case_strip.py`: `strip()` ve `lower()` ile temiz ve güvenli kullanıcı rolü kontrolü.
+   - `str_inspection.py`: `startswith`, `endswith` ve `in` ile SQL enjeksiyon şüphesi yakalama.
+   - `str_split_join.py`: IP oktetlerine ayırma, CSV satırı ayrıştırma ve liste birleştirme.
+   - `str_replace_mask.py`: Kredi kartı maskeleme, log parola sansürleme ve yol temizleme.
+   - `log_single_line_parser.py`: Web log satırını parçalayıp IP, tarih, HTTP metodu, URL ve durum kodu ayıklama.
+   - `log_failed_login_filter.py`: SSH auth loglarından "Failed password" olaylarını ve saldırgan IP'leri süzme.
+   - `log_attack_detector.py`: Web loglarında XSS, SQLi ve Path Traversal saldırı imzalarını otomatik tarama.
+   - `log_ip_counter.py`: IP bazlı istek frekansı hesaplama ve olası DoS tepe anomalisini tespit etme.
+8. **Hafta Sonu Kendini Sına (10 Aşamalı Quiz):**
+   - Mini Quiz 1 (Kolay): Sağdan negatif indeksleme `s[-2]`.
+   - Mini Quiz 2 (Kolay): String dilimleme `log[0:4]` sınır kuralı.
+   - Mini Quiz 3 (Kolay-Orta): `strip()` metodunun boşluk ve `\n` temizliği etkisi.
+   - Mini Quiz 4 (Kolay-Orta): `lower()` ile vaka duyarsız karşılaştırma.
+   - Mini Quiz 5 (Orta): `endswith()` ile çift uzantılı (`.py.exe`) dosya aldatmacası denetimi.
+   - Mini Quiz 6 (Orta): `split(':')` ile port alanını çekme ve liste indeksi.
+   - Mini Quiz 7 (Orta): `replace()` ile karakter öbeği dönüştürme.
+   - Mini Quiz 8 (Orta-Zor): `in` operatörü ile istek içinde SQL payload imzası yakalama.
+   - Mini Quiz 9 (Zor / BGT): Apache web log satırından HTTP durum kodunu split ile ayıklama.
+   - Mini Quiz 10 (Zor / BGT): Çok satırlı log üzerinde döngüyle başarısız oturum sayacı analizi.
 
 
 
@@ -201,7 +265,18 @@ examples/week04/          countdown.py, pin_bruteforce.py, port_scanner_mock.py,
                           traffic_accumulator.py, port_filter_continue.py
 examples/week05/          device_inventory.py, ip_blacklist_check.py,
                           list_operations.py, failed_login_stats.py,
-                          password_length_filter.py, traffic_max_detector.py
+                          password_length_filter.py, traffic_max_detector.py,
+                          queue_event_processor.py, while_linear_search.py,
+                          firewall_matrix_2d.py, acl_matrix.py, datacenter_sensors_3d.py
+examples/week06/          def_greet.py, calc_return.py, default_params.py,
+                          scope_local_global.py, multi_return.py,
+                          port_validator.py, password_strength_func.py,
+                          incident_classifier.py
+examples/week07/          str_indexing_slicing.py, str_case_strip.py,
+                          str_inspection.py, str_split_join.py,
+                          str_replace_mask.py, log_single_line_parser.py,
+                          log_failed_login_filter.py, log_attack_detector.py,
+                          log_ip_counter.py
 examples/web/week01/      index.html, style.css, script.js, README.md
 examples/web/week02/      index.html, style.css, script.js, README.md
 scripts/                 İçerik/örnek kontrolleri ve eşitleme

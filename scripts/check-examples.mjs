@@ -75,6 +75,11 @@ const edgeCases = [
   ["while_linear_search", "11:22:33:44:55:66", "GÜVENLİ: MAC adresi şüpheli listesinde yok"],
   ["acl_matrix", "2\n2", "ONAY: Yönetici kullanıcısı için Silme izni VERİLDİ"],
   ["acl_matrix", "0\n1", "RED: Misafir kullanıcısının Yazma yetkisi YOK!"],
+  ["calc_return", "7", "Çift sayı mı?: False"],
+  ["str_case_strip", "", "Doğrulama başarılı: Tam yönetici erişimi verildi."],
+  ["str_split_join", "", "root | admin | guest"],
+  ["log_failed_login_filter", "", "Başarısız oturum sayısı: 3"],
+  ["log_attack_detector", "", "Yakalanan şüpheli olay adedi: 3"],
 ];
 for (const [key, input, expected] of edgeCases) {
   const r = run(pythonExamples[key], input);

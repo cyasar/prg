@@ -2,15 +2,15 @@ const row = (id, title, theory, lab, outcomes) => ({
   id,
   title,
   short: title,
-  theme: id <= 5 ? "Etkileşimli ders" : "Dönem planı",
-  ready: id <= 5,
+  theme: id <= 7 ? "Etkileşimli ders" : "Dönem planı",
+  ready: id <= 7,
   theory,
   lab,
   outcomes,
   deliverable: "Algoritma, çalışan örnek ve test sonucu.",
   assessment:
     "Çözümünü açıklar, yeni bir girdiyle sınar ve küçük bir değişikliği uygular.",
-  alignment: id <= 5 ? ["A", "B", "D", "E"] : ["A", "B", "C", "D", "E"],
+  alignment: id <= 7 ? ["A", "B", "D", "E"] : ["A", "B", "C", "D", "E"],
 });
 export const curriculum = [
   row(
@@ -176,4 +176,6 @@ curriculum[1].short = "Veri ve karar yapıları";
 curriculum[2].short = "Karar ve doğrulama";
 curriculum[3].short = "Döngüler ve tekrarlar";
 curriculum[4].short = "Diziler ve listeler";
+curriculum[5].short = "Fonksiyonlar ve parçalama";
+curriculum[6].short = "String ve log analizi";
 

@@ -25,6 +25,7 @@ import {
   Target,
   Terminal,
   X,
+  Search,
 } from "lucide-react";
 import { alignment, REPO, sources } from "./course.js";
 import { curriculum as weeks } from "./curriculum.js";
@@ -410,6 +411,236 @@ function Plan() {
   );
 }
 
+function SlideQuickNavigator({ weekId, index, deck, go }) {
+  const [open, setOpen] = useState(false);
+  const [pageInput, setPageInput] = useState(String(index));
+  const [searchTerm, setSearchTerm] = useState("");
+  const popoverRef = useRef(null);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    setPageInput(String(index));
+  }, [index]);
+
+  useEffect(() => {
+    if (open) {
+      setTimeout(() => inputRef.current?.focus(), 50);
+    }
+  }, [open]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (
+        e.target.closest(
+          'input, textarea, select, button, a, summary, [contenteditable="true"]',
+        )
+      )
+        return;
+      if (e.key.toLowerCase() === "g") {
+        e.preventDefault();
+        setOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  useEffect(() => {
+    const handleOutside = (e) => {
+      if (popoverRef.current && !popoverRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    if (open) {
+      document.addEventListener("mousedown", handleOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleOutside);
+  }, [open]);
+
+  const handleJump = (target) => {
+    const num = parseInt(target, 10);
+    if (!isNaN(num) && num >= 1 && num <= deck.length) {
+      go(num);
+      setOpen(false);
+      setSearchTerm("");
+    }
+  };
+
+  const handleTrackClick = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const ratio = Math.max(0, Math.min(1, clickX / rect.width));
+    const target = Math.max(
+      1,
+      Math.min(deck.length, Math.ceil(ratio * deck.length)),
+    );
+    go(target);
+  };
+
+  const filteredSlides = searchTerm.trim()
+    ? deck
+        .map((s, i) => ({ ...s, pageNum: i + 1 }))
+        .filter(
+          (s) =>
+            s.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            String(s.pageNum) === searchTerm.trim() ||
+            (s.type && s.type.toLowerCase().includes(searchTerm.toLowerCase())),
+        )
+    : deck.map((s, i) => ({ ...s, pageNum: i + 1 }));
+
+  const getTypeBadge = (type) => {
+    switch (type) {
+      case "outcomes":
+        return "Kazanım";
+      case "think":
+        return "Düşün";
+      case "cards":
+        return "Kavram";
+      case "table":
+        return "Tablo";
+      case "exercise":
+        return "Soru & Çözüm";
+      case "python":
+        return "Python Kod";
+      case "quiz":
+        return "Quiz";
+      case "array_simulation":
+        return "Simülatör";
+      default:
+        return "Slayt";
+    }
+  };
+
+  return (
+    <div className="quick-jump-wrapper" ref={popoverRef}>
+      <div className="slide-progress">
+        <button
+          type="button"
+          className="slide-progress-btn"
+          onClick={() => setOpen(!open)}
+          aria-expanded={open}
+          title="Hızlı slayt seçiciyi aç (G tuşu)"
+        >
+          <span className="current-num">{String(index).padStart(2, "0")}</span>
+          <span className="total-num">/ {deck.length}</span>
+          <Search size={12} className="jump-icon" />
+        </button>
+
+        <div
+          className="progress-track scrubbable"
+          onClick={handleTrackClick}
+          title="Doğrudan bu noktaya atlamak için tıklayın"
+        >
+          <div style={{ width: `${(index / deck.length) * 100}%` }} />
+        </div>
+      </div>
+
+      {open && (
+        <div
+          className="quick-jump-popover"
+          role="dialog"
+          aria-label="Hızlı Slayt Seçici"
+        >
+          <div className="jump-popover-header">
+            <h4>Hızlı Slayta Git</h4>
+            <button
+              type="button"
+              className="jump-close-btn"
+              onClick={() => setOpen(false)}
+            >
+              <X size={15} />
+            </button>
+          </div>
+
+          <div className="jump-inputs-row">
+            <div className="direct-page-box">
+              <label htmlFor="jump-slide-input">Slayt No:</label>
+              <input
+                id="jump-slide-input"
+                ref={inputRef}
+                type="number"
+                min="1"
+                max={deck.length}
+                value={pageInput}
+                onChange={(e) => setPageInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") handleJump(pageInput);
+                  if (e.key === "Escape") setOpen(false);
+                }}
+              />
+              <button
+                type="button"
+                className="btn-jump-action"
+                onClick={() => handleJump(pageInput)}
+              >
+                Git
+              </button>
+            </div>
+
+            <div className="jump-slider-box">
+              <input
+                type="range"
+                min="1"
+                max={deck.length}
+                value={index}
+                onChange={(e) => go(Number(e.target.value))}
+                title={`Slayt ${index} / ${deck.length}`}
+              />
+            </div>
+          </div>
+
+          <div className="jump-search-box">
+            <Search size={14} />
+            <input
+              type="text"
+              placeholder="Başlık veya konu ara (örn: simülatör, while, quiz)..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && filteredSlides.length > 0) {
+                  handleJump(filteredSlides[0].pageNum);
+                }
+                if (e.key === "Escape") setOpen(false);
+              }}
+            />
+            {searchTerm && (
+              <button
+                type="button"
+                className="clear-search-btn"
+                onClick={() => setSearchTerm("")}
+              >
+                <X size={12} />
+              </button>
+            )}
+          </div>
+
+          <div className="jump-slides-list">
+            {filteredSlides.map((s) => (
+              <button
+                type="button"
+                key={s.pageNum}
+                className={`jump-slide-item ${s.pageNum === index ? "active" : ""}`}
+                onClick={() => handleJump(s.pageNum)}
+              >
+                <span className="jump-slide-num">
+                  {String(s.pageNum).padStart(2, "0")}
+                </span>
+                <span className={`jump-type-tag ${s.type || "default"}`}>
+                  {getTypeBadge(s.type)}
+                </span>
+                <span className="jump-slide-title">{s.title}</span>
+              </button>
+            ))}
+            {filteredSlides.length === 0 && (
+              <div className="no-search-results">Eşleşen slayt bulunamadı.</div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function Presentation({ weekId, index, reading = false }) {
   const deck = decks[weekId];
   const current = deck[index - 1];
@@ -563,14 +794,12 @@ function Presentation({ weekId, index, reading = false }) {
           <ChevronLeft size={18} />
           <span>Önceki</span>
         </button>
-        <div className="slide-progress">
-          <span>
-            {String(index).padStart(2, "0")} <span>/ {deck.length}</span>
-          </span>
-          <div className="progress-track">
-            <div style={{ width: `${(index / deck.length) * 100}%` }} />
-          </div>
-        </div>
+        <SlideQuickNavigator
+          weekId={weekId}
+          index={index}
+          deck={deck}
+          go={go}
+        />
         <button
           className="button primary"
           disabled={index === deck.length}
@@ -582,7 +811,7 @@ function Presentation({ weekId, index, reading = false }) {
       </div>
       <div className="presentation-help">
         <span>
-          ← → Slayt değiştir{" "}
+          ← → Slayt değiştir · G Slayta git{" "}
           <span className="help-extra">
             {" "}
             · F Tam ekran · Home / End İlk / son slayt
