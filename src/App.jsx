@@ -298,7 +298,7 @@ function WeekCard({ week: w }) {
       <h3>{w.title}</h3>
       <p>{w.theory}</p>
       <div className="week-card-bottom">
-        {w.ready ? (
+        {w.ready && decks[w.id] ? (
           <>
             <span>
               <MonitorPlay size={16} />
