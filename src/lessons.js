@@ -16,37 +16,35 @@ const ai = (title, prompt, task, notes) =>
   s(title, "ai", { aiPrompt: prompt, task }, notes);
 const table = (title, headers, rows, prompt, notes) =>
   s(title, "table", { headers, rows, prompt }, notes);
+const deckTitles = {
+  1: "Programlamaya Giriş",
+  2: "Veri, Değişkenler ve Karar Veren Programlar",
+  3: "Karar Yapıları ve Veri Doğrulama",
+  4: "Döngüler ve Tekrarlayan Problemler",
+  5: "Diziler (Listeler) ve Veri İşleme",
+  6: "Fonksiyonlarla Problem Parçalama ve Nesneye Dayalı Programlamaya Giriş",
+  7: "String İşlemleri ve Basit Log Analizi",
+  8: "Dosyalar ve Hata Yönetimi",
+};
+const deckLeads = {
+  1: "Bilgisayara problemleri çözdürmeyi öğreneceğiz.",
+  2: "Programlar bilgiyi nerede tutar ve bu bilgiyle nasıl karar verir?",
+  3: "Karmaşık karar mekanizmalarını sadeleştirip veriyi hatalara ve kötüye kullanıma karşı nasıl doğrularız?",
+  4: "Tekrarlanan işlemleri, sayaçları ve toplayıcıları döngülerle nasıl otomatikleştiririz?",
+  5: "Birden çok veriyi dizilerde (listelerde) nasıl saklar, filtreler ve analiz ederiz?",
+  6: "Büyük ve karmaşık problemleri tek sorumlu, yeniden kullanılabilir ve test edilebilir fonksiyonlara nasıl ayırırız? Veri ile davranışı sınıflarda nasıl bir araya getiririz?",
+  7: "Metin verilerini nasıl dilimler, temizler, dönüştürür ve sistem/güvenlik loglarını nasıl analiz ederiz?",
+  8: "Program kapandığında veri nasıl kalıcı olur? Dosya ve veri hatalarına karşı programımızı nasıl çökmez hale getiririz?",
+};
+// Google Colab, GitHub'daki .ipynb defterlerini doğrudan açabilir.
+const COLAB = "https://colab.research.google.com/github/cyasar/prg/blob/main/";
+const REPO_BLOB = "https://github.com/cyasar/prg/blob/main/";
 const outcomes = (id) =>
   s(
-    id === 1
-      ? "Programlamaya Giriş"
-      : id === 2
-        ? "Veri, Değişkenler ve Karar Veren Programlar"
-        : id === 3
-          ? "Karar Yapıları ve Veri Doğrulama"
-          : id === 4
-            ? "Döngüler ve Tekrarlayan Problemler"
-            : id === 5
-              ? "Diziler (Listeler) ve Veri İşleme"
-              : id === 6
-                ? "Fonksiyonlarla Problem Parçalama"
-                : "String İşlemleri ve Basit Log Analizi",
+    deckTitles[id],
     "outcomes",
     {
-      lead:
-        id === 1
-          ? "Bilgisayara problemleri çözdürmeyi öğreneceğiz."
-          : id === 2
-            ? "Programlar bilgiyi nerede tutar ve bu bilgiyle nasıl karar verir?"
-            : id === 3
-              ? "Karmaşık karar mekanizmalarını sadeleştirip veriyi hatalara ve kötüye kullanıma karşı nasıl doğrularız?"
-              : id === 4
-                ? "Tekrarlanan işlemleri, sayaçları ve toplayıcıları döngülerle nasıl otomatikleştiririz?"
-                : id === 5
-                  ? "Birden çok veriyi dizilerde (listelerde) nasıl saklar, filtreler ve analiz ederiz?"
-                  : id === 6
-                    ? "Büyük ve karmaşık problemleri tek sorumlu, yeniden kullanılabilir ve test edilebilir fonksiyonlara nasıl ayırırız?"
-                    : "Metin verilerini nasıl dilimler, temizler, dönüştürür ve sistem/güvenlik loglarını nasıl analiz ederiz?",
+      lead: deckLeads[id],
       items: weeks[id - 1].outcomes,
     },
     "Bu haftanın kazanımlarını birlikte okuyun. Her kazanım için hafta sonunda bir uygulama kanıtı isteyin. Bilgi güvenliğiyle ilişki: açık kurallar, güvenilmeyen veri ve test sorumluluğu.",
@@ -3030,11 +3028,329 @@ export const decks = {
       },
       "Zor seviye sınır ve mantık analizi sorusu.",
     ),
+    cards(
+      "📘 Ek Modül · Okuma: Programlamada Sınıf Yapıları ve Nesneye Dayalı Düşünme",
+      [
+        [
+          "Neden bu modül?",
+          "Şimdiye kadar veriyi değişkenlerde ve listelerde, işlemleri ise fonksiyonlarda ayrı tuttuk. Program büyüdükçe 'bu veri hangi fonksiyonla, ne zaman değişiyor?' sorusunu takip etmek zorlaşır.",
+        ],
+        [
+          "Nesneye Dayalı Programlama (NDP / OOP)",
+          "Veriyi (nitelikler) ve o veri üzerinde çalışan işlemleri (metotlar) tek bir yapıda, sınıfta (class) toplayan programlama yaklaşımıdır.",
+        ],
+        [
+          "Fonksiyonlardan sınıflara köprü",
+          "Metot, sınıfın içine yazılmış bir fonksiyondur. Bu hafta öğrendiğin def, parametre, return ve yerel kapsam kuralları sınıflarda da aynen geçerlidir.",
+        ],
+        [
+          "Okuma planı",
+          "1) Temel kavramlar → 2) Sınıf tanımlama sözdizimi → 3) self → 4) Nesne durumu → 5) Kapsülleme → 6) Kalıtım → 7) Quiz.",
+        ],
+      ],
+      "Fonksiyon bilgisini bir üst seviyeye taşıyan okuma ve uygulama modülü.",
+      "Bu bölüm okuma metni olarak da GitHub'da (docs/okuma) ve Colab defteri olarak sunulur. Derste slaytlarla, evde okuma metniyle ilerlenebilir.",
+    ),
+    think(
+      "Bir Kullanıcıyı Programda Nasıl Temsil Ederiz?",
+      "Bir sistemde 500 kullanıcının adı, rolü, hatalı giriş sayısı ve kilit durumu var. Bunları ayrı listelerde (adlar[], roller[], denemeler[]) tutarsak hangi hatalar ortaya çıkabilir?",
+      "Listelerden biri sıralandığında veya bir eleman silindiğinde indeksler kayar ve bir kullanıcının rolü başka bir kullanıcıya geçebilir. Bu doğrudan bir yetki hatasıdır! Sınıf yaklaşımında her kullanıcı tek bir nesnedir: adı, rolü ve deneme sayısı birlikte taşınır ve yalnızca o nesnenin metotlarıyla değişir.",
+      "Paralel listelerin kırılganlığını tahtada 3 satırlık bir örnekle gösterin; sonra aynı veriyi tek bir nesneyle karşılaştırın.",
+    ),
+    cards(
+      "NDP'nin 4 Temel Kavramı: Sınıf, Nesne, Nitelik, Metot",
+      [
+        [
+          "Sınıf (class)",
+          "Nesnelerin nasıl olacağını tarif eden kalıp / şablon. Bina planı gibi düşün: plan bir tanedir, plandan çok sayıda bina yapılabilir.",
+        ],
+        [
+          "Nesne (object / instance)",
+          "Sınıftan üretilen somut örnek. Kullanici('Ayşe', 'admin') ifadesi yeni bir nesne oluşturur.",
+        ],
+        [
+          "Nitelik (attribute)",
+          "Nesnenin taşıdığı veri: self.ad, self.rol, self.aktif. Niteliklerin o anki değerleri nesnenin durumunu (state) oluşturur.",
+        ],
+        [
+          "Metot (method)",
+          "Nesnenin yapabildiği işlem: tanit(), pasif_yap(). Sınıfın içinde def ile yazılan fonksiyondur.",
+        ],
+      ],
+      "Nesneye dayalı düşünmenin sözlüğü.",
+      "Öğrencilerden sınıftaki bir nesneyi (projeksiyon cihazı, kapı kartı) bu 4 kavramla tarif etmelerini isteyin.",
+    ),
+    table(
+      "Gerçek Dünyadan Python'a: Kavram Eşlemesi",
+      ["Kavram", "Günlük hayattan", "Bilgi güvenliğinden", "Python'da"],
+      [
+        ["Sınıf", "Kimlik kartı şablonu", "Güvenlik duvarı kuralı tanımı", "class Kural:"],
+        ["Nesne", "Ayşe'nin kimlik kartı", "SSH portunu engelleyen kural", "ssh = Kural('SSH', 22, 'ENGEL')"],
+        ["Nitelik", "Ad, doğum tarihi", "Port, eylem, eşleşme sayısı", "ssh.port"],
+        ["Metot", "Kartı turnikeye okut", "Paket bu kurala uyuyor mu?", "ssh.eslesir_mi(22)"],
+      ],
+      "Kendi seçtiğin bir güvenlik nesnesi (USB bellek, dijital sertifika, parola politikası) için tabloya bir satır daha ekle.",
+      "Soyut kavramları somut güvenlik nesneleriyle bağlayın.",
+    ),
+    code(
+      "Basit Sınıf Tanımlama: Satır Satır Anatomi",
+      "Python",
+      String.raw`class Kullanici:                  # 1) class + BüyükHarfleBaşlayan ad + iki nokta
+    def __init__(self, ad, rol):  # 2) kurucu metot: nesne oluşurken otomatik çalışır
+        self.ad = ad              # 3) nitelik: nesneye bağlı değişken
+        self.rol = rol
+
+    def tanit(self):              # 4) metot: ilk parametre her zaman self
+        return f"{self.ad} ({self.rol})"
+
+
+k1 = Kullanici("Ayşe", "admin")   # 5) nesne oluşturma: self'i Python verir
+print(k1.tanit())                 # 6) nokta (.) ile metot çağırma
+print(k1.rol)                     #    nokta (.) ile niteliğe erişme`,
+      "Sınıfa self.e_posta niteliği ekle ve tanit() çıktısına dahil et.",
+      "Her numaralı yorumu öğrencilerle tek tek okuyun. class satırının tek başına hiçbir nesne üretmediğini vurgulayın.",
+    ),
+    cards(
+      "Yazım ve Adlandırma Kuralları",
+      [
+        [
+          "Sınıf adı: PascalCase",
+          "Kullanici, GuvenlikDuvariKurali: her kelime büyük harfle başlar. Fonksiyon, metot ve değişken adları snake_case kalır.",
+        ],
+        [
+          "__init__ (iki alt çizgi)",
+          "'dunder init' diye okunur. _init_ veya __init gibi yanlış yazılırsa kurucu çalışmaz ve nitelikler oluşmaz.",
+        ],
+        [
+          "Girinti (indentation)",
+          "Metotlar class bloğunun 4 boşluk içinde, metot gövdeleri 8 boşluk içinde yazılır.",
+        ],
+        [
+          "Nesne oluştururken self yazılmaz",
+          "Kullanici('Ayşe', 'admin') çağrısında Python self'i otomatik doldurur; yalnızca ad ve rol verilir.",
+        ],
+      ],
+      "Sık yapılan sözdizimi hatalarını önleyen kurallar.",
+      "Bilerek _init_ yazıp AttributeError hatasını sınıfta birlikte inceleyin.",
+    ),
+    exercise(
+      "Soru & Çözüm 6: İlk Sınıfını Yaz",
+      "Soru: Ad, IP ve açık port listesi tutan bir Sunucu sınıfı yazınız. port_ekle(port) metodu listeye port eklesin, port_sayisi() metodu açık port adedini döndürsün. İki farklı sunucu nesnesi oluşturup deneyiniz.",
+      String.raw`class Sunucu:
+    def __init__(self, ad, ip):
+        self.ad = ad
+        self.ip = ip
+        self.portlar = []        # her nesnenin KENDİ listesi
+
+    def port_ekle(self, port):
+        self.portlar.append(port)
+
+    def port_sayisi(self):
+        return len(self.portlar)
+
+
+web = Sunucu("web-01", "10.0.0.10")
+web.port_ekle(80)
+web.port_ekle(443)
+db = Sunucu("db-01", "10.0.0.20")
+db.port_ekle(5432)
+print(web.ad, "->", web.port_sayisi(), "açık port")
+print(db.ad, "->", db.port_sayisi(), "açık port")`,
+      "self.portlar = [] satırının __init__ içinde olduğuna dikkat çekin: böylece her sunucunun ayrı bir port listesi olur.",
+    ),
+    run(
+      "Uygulama 9: Sınıf ve Nesne Oluşturma",
+      "oop_class_basics",
+      "Kullanici sınıfı, kurucu metot, nitelikler ve iki bağımsız nesne demosu.",
+      "# Üçüncü bir kullanıcı nesnesi oluştur ve yalnızca onu pasif yap.",
+      "k1 ve k2'nin aynı sınıftan üretilmesine rağmen bağımsız durum taşıdığını gösterin.",
+    ),
+    cards(
+      "self Nedir? Nesnenin Kendisini Gösteren Parametre",
+      [
+        [
+          "self = 'bu nesne'",
+          "k1.tanit() yazıldığında Python bunu Kullanici.tanit(k1) olarak çalıştırır; self parametresine k1 gelir.",
+        ],
+        [
+          "Her metodun ilk parametresi",
+          "Sınıf içindeki her normal metot self ile başlar. Unutulursa çağrı sırasında TypeError alınır.",
+        ],
+        [
+          "self.ad ile ad farkı",
+          "self.ad nesnenin niteliğidir ve nesne yaşadıkça durur. Yalnızca ad ise metot bitince silinen yerel değişkendir (kapsam konusunu hatırla).",
+        ],
+        [
+          "Bağımsız durum",
+          "k1 ve k2 aynı sınıftan üretilse de self.aktif değerleri birbirinden bağımsızdır.",
+        ],
+      ],
+      "NDP'nin en çok karıştırılan parametresi.",
+      "self'in bir anahtar sözcük değil, gelenek olduğunu; ama her zaman self yazılması gerektiğini belirtin.",
+    ),
+    think(
+      "self.aktif Yerine aktif Yazsaydık?",
+      "def pasif_yap(self):\n    aktif = False\nşeklinde yazılırsa k2.pasif_yap() çağrısından sonra k2.aktif değeri ne olur?",
+      "k2.aktif True kalır! aktif = False satırı yalnızca metodun içinde yaşayan yeni bir yerel değişken oluşturur ve metot bitince silinir. Nesnenin durumunu değiştirmek için self.aktif = False yazılmalıdır. Bu, fonksiyonlardaki yerel kapsam kuralının sınıflardaki karşılığıdır.",
+      "Bu hata gerçek projelerde çok sık görülür; Pyodide üzerinde birlikte deneyin.",
+    ),
+    run(
+      "Uygulama 10: Nesnelerle Güvenlik Duvarı Kuralları",
+      "oop_firewall_rule",
+      "Kural nesneleri, eşleşme sayacı, varsayılan ret ilkesi ve __str__ demosu.",
+      "# 3389 (RDP) portunu engelleyen yeni bir Kural nesnesi ekle.",
+      "Her nesnenin kendi eslesme_sayisi değerini biriktirdiğini istatistik çıktısında gösterin.",
+    ),
+    cards(
+      "Kapsülleme (Encapsulation): Veriyi Kontrolsüz Değişikliğe Karşı Korumak",
+      [
+        [
+          "Tanım",
+          "Nesnenin verisini dışarıdan doğrudan değiştirmek yerine, kuralları uygulayan metotlar üzerinden değiştirmek.",
+        ],
+        [
+          "_ ile başlayan adlar",
+          "self._hatali_deneme gibi adlar 'bu sınıfın iç detayıdır, dışarıdan dokunma' anlaşmasıdır. Python bunu zorlamaz; geliştiriciler bu sözleşmeye uyar.",
+        ],
+        [
+          "Güvenlik kazanımı",
+          "Deneme sayacı yalnızca giris_yap() içinde değişir. Kural (3 hatalı deneme = kilit) tek bir yerde tanımlı ve korunur.",
+        ],
+        [
+          "Parolayı özetle sakla",
+          "Nesne parolanın kendisini değil SHA-256 özetini tutar. Gerçek sistemlerde ayrıca tuz (salt) ve bcrypt / Argon2 gibi yavaş algoritmalar kullanılır.",
+        ],
+      ],
+      "Veri + kural = güvenilir nesne.",
+      "Python'da _ zorunlu gizlilik değildir; bir güvenlik sınırı değil, tasarım sözleşmesidir. Bunu öğrencilere açıkça söyleyin.",
+    ),
+    run(
+      "Uygulama 11: Kapsüllenmiş Hesap Kilitleme",
+      "oop_account_lockout",
+      "Sınıf niteliği, özel (_) nitelikler, parola özeti ve kilit kuralı demosu.",
+      "# MAKS_DENEME değerini 5 yapıp deneme sonuçlarını yeniden tahmin et.",
+      "Doğru parolanın kilitli hesapta bile reddedildiğini gösterin.",
+    ),
+    cards(
+      "Kalıtım (Inheritance): Ortak Olanı Bir Kez Yaz",
+      [
+        [
+          "class Alt(Ust):",
+          "Alt sınıf, üst sınıfın tüm nitelik ve metotlarını devralır. class Sunucu(Cihaz): → 'Sunucu bir Cihaz'dır.'",
+        ],
+        [
+          "super().__init__()",
+          "Üst sınıfın kurucusunu çağırır; ortak nitelikleri (ad, ip) tekrar yazmayız (DRY prensibi).",
+        ],
+        [
+          "Override (yeniden tanımlama)",
+          "Alt sınıf aynı adlı metodu kendine göre yeniden yazabilir: Kamera.durum_raporu().",
+        ],
+        [
+          "Çok biçimlilik (polymorphism)",
+          "Aynı çağrı (cihaz.durum_raporu()) nesnenin türüne göre farklı davranır; döngünün cihaz türünü bilmesi gerekmez.",
+        ],
+      ],
+      "Varlık envanterini sınıf hiyerarşisiyle modellemek.",
+      "Kalıtımı 'bir ... dır' (is-a) testiyle anlatın: Kamera bir Cihaz'dır ✔, Port bir Sunucu'dur ✘.",
+    ),
+    run(
+      "Uygulama 12: Kalıtım ile Cihaz Envanteri",
+      "oop_inheritance_devices",
+      "Cihaz üst sınıfı, Sunucu ve Kamera alt sınıfları, super() ve override demosu.",
+      "# Cihaz'dan kalıtım alan bir Router sınıfı ekle ve envantere dahil et.",
+      "isinstance() çıktılarıyla kalıtım ilişkisini doğrulayın.",
+    ),
+    table(
+      "Fonksiyonlar mı, Sınıflar mı? Ne Zaman Hangisi?",
+      ["Ölçüt", "Fonksiyonlar + listeler", "Sınıf + nesneler"],
+      [
+        ["Veri ve işlem", "Ayrı yerlerde durur", "Aynı yapıda birlikte durur"],
+        ["Durum (state) takibi", "Parametre olarak taşınır", "Nesnenin niteliklerinde saklanır"],
+        ["Küçük, tek seferlik betik", "Daha kısa ve yeterli", "Gereksiz karmaşık olabilir"],
+        ["Büyüyen sistem", "Takibi zorlaşır", "Modüler ve genişletilebilir"],
+        ["Güvenlik örneği", "Tek seferlik log sayımı", "Kullanıcı, kural, cihaz, oturum modelleri"],
+      ],
+      "Hafta 7'deki log analizi örneğini düşün: hangi parçası bir sınıf olmaya aday?",
+      "NDP'nin her problem için zorunlu olmadığını, doğru aracı seçmenin önemli olduğunu vurgulayın.",
+    ),
+    s(
+      "Okuma ve Uygulama Kaynakları (Google Colab Dahil)",
+      "links",
+      {
+        lead: "Okuma metnini evde tamamla; örnekleri Colab'da tek tıkla çalıştır.",
+        items: [
+          ["📘 Okuma metni: Sınıflar ve Nesneler (GitHub)", `${REPO_BLOB}docs/okuma/hafta06-siniflar-ve-nesneler.md`],
+          ["▶ Google Colab'da aç: Sınıf ve nesne okuma defteri", `${COLAB}notebooks/okuma/hafta06_siniflar_ve_nesneler.ipynb`],
+          ["▶ Google Colab'da aç: Hafta 6 tüm örnekler", `${COLAB}notebooks/week06/hafta06_tum_ornekler.ipynb`],
+          ["Python resmi belgeleri: Sınıflar", "https://docs.python.org/tr/3/tutorial/classes.html"],
+        ],
+      },
+      "Colab bağlantıları öğrencinin Google hesabıyla açılır; kurulum gerektirmez. Defteri kendi Drive'ına kopyalayarak değişikliklerini saklayabilir.",
+    ),
+    ai(
+      "🤖 YZ ile Çalış: Fonksiyondan Sınıfa Dönüşüm",
+      "Hafta 6'da yazdığım port_gecerli_mi ve kategori fonksiyonlarını bir Port sınıfına dönüştürmek istiyorum. Kodu yazma; önce hangi niteliklerin ve metotların olması gerektiğini bana sorular sorarak bulmama yardım et.",
+      "Sınıf taslağını kendin yaz; ardından YZ'den yalnızca eksik test durumlarını önermesini iste.",
+      "YZ'yi kod üreticisi değil, Sokratik bir eğitmen olarak kullanmayı gösterin.",
+    ),
+    s(
+      "Mini Quiz 11: Nesnelerin Kendi Nitelikleri",
+      "quiz",
+      {
+        question:
+          "class Sensor:\n    def __init__(self, ad):\n        self.ad = ad\ns1 = Sensor('kapı')\ns2 = Sensor('pencere')\nprint(s2.ad) çıktısı nedir?",
+        options: ["pencere", "kapı", "Sensor", "Hata"],
+        answer: 0,
+        explanation:
+          "Her nesne kendi self.ad niteliğini taşır. s2 oluşturulurken ad='pencere' verildiği için s2.ad 'pencere' olur.",
+      },
+      "Nesne ve nitelik sorusu.",
+    ),
+    s(
+      "Mini Quiz 12: Bağımsız Nesne Durumu",
+      "quiz",
+      {
+        question:
+          "class Sayac:\n    def __init__(self):\n        self.deger = 0\n    def artir(self):\n        self.deger += 1\na = Sayac()\nb = Sayac()\na.artir()\na.artir()\nb.artir()\nprint(a.deger, b.deger) çıktısı nedir?",
+        options: ["2 1", "3 3", "1 2", "3 0"],
+        answer: 0,
+        explanation:
+          "a ve b ayrı nesnelerdir; her birinin kendi self.deger niteliği vardır. a iki kez, b bir kez artırıldı: 2 1.",
+      },
+      "self ve durum (state) sorusu.",
+    ),
+    s(
+      "Mini Quiz 13: Kurucu Metot",
+      "quiz",
+      {
+        question:
+          "Bir sınıftan nesne oluşturulurken otomatik olarak çalışan özel metodun adı nedir?",
+        options: ["__init__", "init()", "__start__", "create"],
+        answer: 0,
+        explanation:
+          "__init__ kurucu (constructor) metottur; Sinif(...) çağrısında otomatik çalışır ve nitelikleri hazırlar.",
+      },
+      "Sözdizimi sorusu.",
+    ),
+    s(
+      "Mini Quiz 14: Zor / BGT Kalıtım ve Override",
+      "quiz",
+      {
+        question:
+          "class Cihaz:\n    def tur(self):\n        return 'cihaz'\nclass Kamera(Cihaz):\n    def tur(self):\n        return 'kamera'\nclass Yazici(Cihaz):\n    pass\nprint(Kamera().tur(), Yazici().tur()) çıktısı nedir?",
+        options: ["kamera cihaz", "cihaz cihaz", "kamera kamera", "Hata"],
+        answer: 0,
+        explanation:
+          "Kamera, tur() metodunu yeniden tanımladığı (override) için 'kamera' döner. Yazici hiçbir şey eklemez (pass), metodu Cihaz'dan devralır ve 'cihaz' döner.",
+      },
+      "Kalıtım ve override sorusu.",
+    ),
     s(
       "Hafta 6: Kazanım kontrolü",
       "outcomes",
       {
-        lead: "Fonksiyonlarla problem parçalama konusunun ardından şu 3 kanıtı kendi kodunla göster:",
+        lead: "Fonksiyonlarla problem parçalama ve sınıflara giriş konusunun ardından şu 4 kanıtı kendi kodunla göster:",
         items: weeks[5].outcomes,
       },
       "Kazanım kontrolü: Öğrencilerin fonksiyonları savunmacı ve modüler tarzda kurgulamasını değerlendirin.",

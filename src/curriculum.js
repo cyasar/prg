@@ -2,15 +2,15 @@ const row = (id, title, theory, lab, outcomes) => ({
   id,
   title,
   short: title,
-  theme: id <= 7 ? "Etkileşimli ders" : "Dönem planı",
-  ready: id <= 7,
+  theme: id <= 8 ? "Etkileşimli ders" : "Dönem planı",
+  ready: id <= 8,
   theory,
   lab,
   outcomes,
   deliverable: "Algoritma, çalışan örnek ve test sonucu.",
   assessment:
     "Çözümünü açıklar, yeni bir girdiyle sınar ve küçük bir değişikliği uygular.",
-  alignment: id <= 7 ? ["A", "B", "D", "E"] : ["A", "B", "C", "D", "E"],
+  alignment: id <= 8 ? ["A", "B", "D", "E"] : ["A", "B", "C", "D", "E"],
 });
 export const curriculum = [
   row(
@@ -74,12 +74,13 @@ export const curriculum = [
   row(
     6,
     "Fonksiyonlarla problem parçalama",
-    "Parametre, return, scope ve kod tekrarını azaltma.",
-    "Veri doğrulama ve hesaplama adımlarını ayrı fonksiyonlara taşı.",
+    "Parametre, return, scope ve kod tekrarını azaltma; ek modül: sınıf, nesne, nitelik, metot ve nesneye dayalı programlamaya giriş.",
+    "Veri doğrulama ve hesaplama adımlarını ayrı fonksiyonlara taşı; ardından aynı kuralı bir sınıf ve nesnelerle modelle.",
     [
       "Problemi tek sorumlu fonksiyonlara ayırır.",
       "Parametre ile dönüş değerini ayırt eder.",
       "Yerel kapsamı ve bağımsız fonksiyon testini açıklar.",
+      "Basit bir sınıf tanımlar, nesne oluşturur ve nitelik ile metot ilişkisini açıklar.",
     ],
   ),
   row(
@@ -96,12 +97,13 @@ export const curriculum = [
   row(
     8,
     "Dosyalar ve hata yönetimi",
-    "Dosya okuma/yazma, CSV, log dosyaları, exception ve try/except.",
+    "Dosya okuma/yazma, pathlib, CSV, log dosyaları, exception ve try/except/else/finally; Google Colab, Jupyter, yerel bilgisayar ve tarayıcıda çalışan taşınabilir kod.",
     "Sentetik CSV günlük dosyasından ayrı bir özet dosyası üret.",
     [
       "UTF-8 dosya verisini okur ve yazar.",
       "CSV alanlarını uygun türlere dönüştürür.",
       "Beklenen dosya ve veri hatalarını kontrollü ele alır.",
+      "Göreli yol ve pathlib ile Colab, Jupyter ve yerel bilgisayarda aynı çalışan kod yazar.",
     ],
   ),
   row(
@@ -178,4 +180,5 @@ curriculum[3].short = "Döngüler ve tekrarlar";
 curriculum[4].short = "Diziler ve listeler";
 curriculum[5].short = "Fonksiyonlar ve parçalama";
 curriculum[6].short = "String ve log analizi";
+curriculum[7].short = "Dosyalar ve hata yönetimi";
 

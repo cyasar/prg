@@ -1,16 +1,6 @@
-const example = (path, code, input, expected, explanations) => ({
-  path,
-  filename: path.split("/").at(-1),
-  title: path.split("/").at(-1),
-  code: code + "\n",
-  input,
-  expected,
-  explanations,
-  time: "10 dk",
-  goal: "Önce sonucu tahmin et, çalıştır ve küçük bir değişiklik yap.",
-  task: "Yeni bir girdi dene ve beklenen sonucu açıkla.",
-  tests: [],
-});
+import { example } from "./example-factory.js";
+import { oopExamples } from "./examples-oop.js";
+import { week08Examples } from "./examples-week08.js";
 export const pythonExamples = {
   hello: example(
     "examples/week01/hello.py",
@@ -603,6 +593,8 @@ export const pythonExamples = {
       "Anormal istek yoğunluğuna sahip IP adresleri hız sınırı (rate-limiting) uygulamak üzere tespit edilir.",
     ],
   ),
+  ...oopExamples,
+  ...week08Examples,
 };
 
 export const webExamples = {
