@@ -50,6 +50,8 @@ const outcomes = (id) =>
     "Bu haftanın kazanımlarını birlikte okuyun. Her kazanım için hafta sonunda bir uygulama kanıtı isteyin. Bilgi güvenliğiyle ilişki: açık kurallar, güvenilmeyen veri ve test sorumluluğu.",
   );
 
+import { week08Deck } from "./deck-week08.js";
+
 export const decks = {
   1: [
     outcomes(1),
@@ -3767,4 +3769,5 @@ print(db.ad, "->", db.port_sayisi(), "açık port")`,
       "Kazanım kontrolü: Öğrencilerin metin metotlarını log filtreleme senaryolarında başarıyla kullanmasını değerlendirin.",
     ),
   ],
+  8: week08Deck,
 };
